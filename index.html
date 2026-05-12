@@ -1,950 +1,133 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>細流 2026｜志工行程管理系統</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style> *{box-sizing:border-box;margin:0;padding:0}html{font-size:15px;-webkit-text-size-adjust:100%}body{font-family:'Noto Sans TC',sans-serif;background:#FAF5EE;color:#1E1208;min-height:100vh;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none}input,select,textarea{font-family:inherit;font-size:inherit}:root{--emerald:#1a6e35;--emerald-deep:#0d4520;--emerald-light:#E2F0E8;--emerald-mid:#228B44;--rose:#C0456A;--rose-deep:#8C2A4A;--rose-light:#FAE8EE;--rose-mid:#D4648A;--gold:#A06C00;--gold-warm:#C8860A;--gold-light:#FDF3DC;--violet:#5D1A96;--violet-light:#EEE5F8;--violet-mid:#7A35BE;--bg:#FAF5EE;--bg2:#F4EDE2;--surface:#FFFFFF;--surface2:#FBF7F2;--border:#E8D8C8;--border2:#D4BEA8;--text:#1E1208;--text2:#5A3E28;--text3:#A08060;--radius:10px;--radius-sm:6px;--shadow:0 1px 3px rgba(100,60,20,0.08),0 4px 12px rgba(100,60,20,0.06);}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 10% 30%,rgba(26,110,53,0.10) 0%,transparent 45%),radial-gradient(ellipse at 88% 60%,rgba(192,69,106,0.09) 0%,transparent 47%),radial-gradient(ellipse at 82% 8%,rgba(192,69,106,0.10) 0%,transparent 45%),radial-gradient(ellipse at 50% 50%,rgba(200,150,80,0.05) 0%,transparent 40%),radial-gradient(ellipse at 50% 0%,rgba(200,134,10,0.06) 0%,transparent 40%);pointer-events:none;z-index:0}.app{display:flex;flex-direction:column;min-height:100vh;position:relative;z-index:1}header{background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border);padding:0 1.5rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);box-shadow:0 2px 12px rgba(60,30,100,0.06)}.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px}.logo{font-family:'Cinzel Decorative',serif;font-size:1.05rem;font-weight:700;letter-spacing:.08em;display:flex;align-items:center;gap:.6rem;flex-shrink:0;background:linear-gradient(135deg,var(--emerald),var(--gold-warm),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--emerald),var(--violet));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 0 12px rgba(0,168,107,0.3)}.logo-sub{font-size:.62rem;font-family:'Noto Sans TC',sans-serif;color:var(--text3);letter-spacing:.03em;font-weight:400;-webkit-text-fill-color:var(--text3);display:block;margin-top:1px}.nav{display:flex;gap:3px;margin-left:auto}.nav-btn{padding:.4rem .9rem;border-radius:var(--radius-sm);font-size:.8rem;color:var(--text3);transition:all .2s;letter-spacing:.02em}.nav-btn:hover{background:var(--surface2);color:var(--text)}.nav-btn.active{background:linear-gradient(135deg,var(--emerald-light),var(--rose-light));color:var(--emerald);border:1px solid rgba(26,110,53,0.25);box-shadow:0 1px 6px rgba(26,110,53,0.1)}.sync-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .75rem;border-radius:20px;font-size:.72rem;border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .2s;margin-left:.5rem}.sync-pill:hover{border-color:rgba(26,110,53,0.4);color:var(--emerald)}.sync-pill.syncing{color:var(--gold-warm);border-color:rgba(200,134,10,0.4);animation:pulse .8s infinite}.sync-pill.ok{color:var(--emerald);border-color:rgba(26,110,53,0.35);background:var(--emerald-light)}.sync-pill.err{color:var(--rose);border-color:rgba(192,69,106,0.35);background:var(--rose-light)}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}.main{flex:1;max-width:1280px;margin:0 auto;width:100%;padding:1.25rem 1.5rem}.top-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}.top-bar-title{font-family:'Cinzel Decorative',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald-mid),var(--gold-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.1em}.top-bar-sub{font-size:.75rem;color:var(--text3);margin-left:.25rem}.view-switcher{display:flex;gap:4px;background:var(--surface2);border-radius:20px;padding:3px;border:1px solid var(--border);margin-left:auto}.view-btn{padding:.28rem .8rem;border-radius:16px;font-size:.75rem;color:var(--text3);transition:all .18s}.view-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(60,30,100,0.1);font-weight:600}.day-strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:1rem}.day-strip::-webkit-scrollbar{display:none}.day-chip{flex-shrink:0;padding:.3rem .75rem;border-radius:16px;font-size:.75rem;border:1px solid var(--border);color:var(--text3);background:var(--surface);transition:all .16s;white-space:nowrap;cursor:pointer;font-family:'JetBrains Mono',monospace}.day-chip:hover{border-color:rgba(26,110,53,0.35);color:var(--text);background:var(--surface2)}.day-chip.active{background:var(--emerald);color:#fff;border-color:var(--emerald);box-shadow:0 2px 8px rgba(26,110,53,0.3);font-weight:600}.day-chip.weekend.active{background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3)}.search-row{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}.search-input{padding:.42rem .9rem;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;min-width:200px;flex:1;max-width:280px;transition:border-color .15s}.search-input:focus{outline:none;border-color:rgba(26,110,53,0.5);box-shadow:0 0 0 3px rgba(26,110,53,0.08)}.group-chips{display:flex;gap:4px;flex-wrap:wrap}.g-chip{padding:.26rem .7rem;border-radius:14px;font-size:.72rem;border:1px solid;cursor:pointer;transition:all .14s;font-weight:500}.layout{display:grid;grid-template-columns:1fr 300px;gap:1rem}@media(max-width:960px){.layout{grid-template-columns:1fr}}.sidebar-stack{display:flex;flex-direction:column;gap:.75rem}.tl-period{margin-bottom:1.25rem}.tl-period-head{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;color:var(--emerald-mid);letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);border-radius:20px;margin-bottom:.65rem;font-family:'Cinzel',serif;box-shadow:0 0 0 3px rgba(26,110,53,0.05)}.tl-list{display:flex;flex-direction:column;gap:4px}.tl-row{display:grid;grid-template-columns:78px 28px 1fr auto;gap:.6rem;align-items:flex-start;padding:.65rem .85rem;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--emerald-mid);cursor:pointer;transition:all .18s;box-shadow:0 1px 4px rgba(26,110,53,0.04)}.tl-row:hover{border-left-color:var(--gold-warm);box-shadow:0 3px 12px rgba(26,110,53,0.10);transform:translateX(2px)}.tl-row.transit{opacity:.55;border-left-color:#ccc;background:var(--surface2)}.tl-row.transit:hover{transform:none;box-shadow:none}.tl-time{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--emerald);padding-top:2px;line-height:1.4;font-weight:500}.tl-icon-cell{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);flex-shrink:0}.tl-content{min-width:0}.tl-ev-name{font-size:.82rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}.tl-task-txt{font-size:.74rem;color:var(--text2);margin-top:2px}.tl-loc-btn{font-size:.7rem;color:var(--emerald);margin-top:4px;display:inline-flex;align-items:center;gap:3px;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer;background:none;border:none;padding:0;font-family:inherit}.tl-badge{font-size:.58rem;font-weight:700;padding:1px 6px;border-radius:8px;flex-shrink:0;vertical-align:middle}.badge-must{background:rgba(26,110,53,0.14);color:var(--emerald);border:1px solid rgba(26,110,53,0.22)}.badge-transit{background:#f0f0f0;color:#999;border:1px solid #ddd}.my-view{display:flex;flex-direction:column;gap:1rem}.person-selector{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}.person-selector-title{font-family:'Cinzel',serif;font-size:.75rem;color:var(--text2);margin-bottom:.65rem;letter-spacing:.06em}.person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.4rem}.pc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.55rem .5rem;text-align:center;cursor:pointer;transition:all .16s;position:relative;overflow:hidden}.pc:hover{box-shadow:0 3px 10px rgba(26,110,53,0.1);transform:translateY(-1px)}.pc.sel{box-shadow:0 0 0 2px var(--emerald),0 3px 10px rgba(26,110,53,0.15)}.pc-name{font-size:.75rem;font-weight:600;color:var(--text)}.pc-no{font-size:.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace}.my-schedule-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow);position:relative;overflow:hidden}.my-schedule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.my-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}.my-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;font-family:'Cinzel',serif;flex-shrink:0}.my-name{font-size:.95rem;font-weight:700;font-family:'Cinzel',serif;color:var(--text)}.my-sub{font-size:.72rem;color:var(--text3);margin-top:2px}.my-rows{display:flex;flex-direction:column;gap:3px}.my-row{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem .6rem;border-radius:6px;border:1px solid var(--border);transition:background .12s}.my-row:hover{background:var(--surface2)}.my-row-time{font-family:'JetBrains Mono',monospace;color:var(--emerald);min-width:88px;flex-shrink:0;font-size:.65rem;padding-top:2px}.my-row-ev{font-size:.78rem;font-weight:500;color:var(--text)}.my-row-task{font-size:.68rem;color:var(--text3)}.my-row-loc{font-size:.68rem;color:var(--text3);flex-shrink:0;font-family:'JetBrains Mono',monospace}.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}.loc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:0 1px 4px rgba(60,30,100,0.04);transition:border-color .18s}.loc-card:hover{border-color:rgba(93,26,150,0.2)}.loc-name{font-size:.88rem;font-weight:700;color:var(--emerald);font-family:'Cinzel',serif;margin-bottom:.55rem;cursor:pointer;display:flex;align-items:center;gap:.4rem}.loc-item{display:flex;gap:.5rem;font-size:.74rem;padding:.3rem 0;border-bottom:1px solid var(--border);align-items:flex-start}.loc-item:last-child{border-bottom:none}.loc-t{font-family:'JetBrains Mono',monospace;color:var(--text3);font-size:.66rem;min-width:78px;flex-shrink:0}.loc-ev{color:var(--text);flex:1}.loc-task{font-size:.66rem;color:var(--text3)}.s-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}.s-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.s-title{font-size:.72rem;font-weight:600;color:var(--text);margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;letter-spacing:.04em}.s-title::before{content:'';display:block;width:3px;height:13px;border-radius:2px;background:linear-gradient(180deg,var(--emerald),var(--rose))}.sync-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;margin-bottom:1rem;box-shadow:var(--shadow)}.sync-panel-title{font-size:.8rem;font-weight:600;font-family:'Cinzel',serif;margin-bottom:.75rem;color:var(--text);display:flex;align-items:center;gap:.4rem}.form-group{display:flex;flex-direction:column;gap:3px;margin-bottom:.65rem}.form-label{font-size:.7rem;color:var(--text2);font-weight:500}.form-input{padding:.4rem .7rem;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;transition:border-color .14s;width:100%}.form-input:focus{outline:none;border-color:rgba(26,110,53,0.5);box-shadow:0 0 0 3px rgba(26,110,53,0.08)}.btn-row{display:flex;gap:.5rem;flex-wrap:wrap}.btn{padding:.42rem .9rem;border-radius:var(--radius-sm);font-size:.8rem;font-weight:500;transition:all .18s;cursor:pointer}.btn-primary{background:linear-gradient(135deg,var(--emerald),var(--gold-warm));color:#fff;border:none;box-shadow:0 2px 8px rgba(26,110,53,0.2)}.btn-primary:hover{opacity:.9;box-shadow:0 4px 14px rgba(26,110,53,0.3)}.btn-outline{background:var(--surface);color:var(--text2);border:1px solid var(--border)}.btn-outline:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}.btn-sm{padding:.28rem .65rem;font-size:.74rem}.tab-content{display:none}.tab-content.active{display:block}.tab-bar{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:1rem}.tab-bar-btn{padding:.5rem 1rem;font-size:.8rem;color:var(--text3);border-bottom:2px solid transparent;cursor:pointer;transition:all .16s;margin-bottom:-1px}.tab-bar-btn.active{color:var(--emerald);border-bottom-color:var(--emerald);font-weight:600}.log-box{background:#1a1d21;border-radius:var(--radius-sm);padding:.75rem 1rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#a0a8b0;line-height:1.8;white-space:pre-wrap;max-height:160px;overflow-y:auto;margin-top:.65rem;display:none}.log-box.show{display:block}.code-block{background:#1a1d21;border-radius:var(--radius);padding:1rem 1.25rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#d0d8e0;line-height:1.7;white-space:pre;overflow-x:auto;margin:.75rem 0;border:1px solid #2d3136;max-height:280px;overflow-y:auto}.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(10,20,15,0.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}.modal-overlay.open{display:flex}@keyframes modal-in{from{transform:scale(.88) translateY(18px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;max-width:min(500px,90vw);width:100%;box-shadow:0 12px 40px rgba(30,12,8,0.2);animation:modal-in .25s cubic-bezier(.34,1.56,.64,1);position:relative;max-height:85vh;overflow-y:auto;}.modal-close{position:absolute;top:.75rem;right:.9rem;font-size:1.1rem;color:var(--text3);cursor:pointer;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;transition:all .15s;}.modal-close:hover{color:var(--text);background:var(--bg2)}.modal-title{font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:var(--emerald);margin-bottom:.25rem}.modal-sub{font-size:.72rem;color:var(--text3);margin-bottom:1rem;font-family:'Cinzel',serif;letter-spacing:.06em}#mapModal .map-modal-inner{background:var(--surface);border-radius:16px;border:1px solid var(--border2);max-width:min(92vw,720px);width:100%;overflow:hidden;animation:modal-in .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 72px rgba(10,20,15,0.4),0 0 0 1px rgba(26,110,53,0.12);}.map-header{padding:.75rem 1.1rem;display:flex;align-items:center;gap:.65rem;background:linear-gradient(90deg,var(--emerald-light) 0%,rgba(253,243,220,0.6) 60%,var(--rose-light) 100%);border-bottom:1px solid var(--border);}.map-header-dot{width:9px;height:9px;border-radius:50%;background:var(--emerald-mid);box-shadow:0 0 8px rgba(34,139,68,0.5);flex-shrink:0;}.map-header-label{font-family:'Cinzel',serif;font-size:.68rem;color:var(--emerald);letter-spacing:.14em;font-variant:small-caps;}.map-header-loc{font-size:.8rem;font-weight:600;color:var(--text);margin-left:2px;font-family:'Noto Sans TC',sans-serif;}.map-close-btn{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--text3);transition:all .15s;flex-shrink:0;}.map-close-btn:hover{background:var(--rose-light);color:var(--rose);border-color:var(--rose-mid);transform:scale(1.08);}.map-img-wrap{position:relative;overflow:hidden;background:var(--emerald-light);min-height:240px;display:flex;align-items:center;justify-content:center;}.map-img-wrap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,110,53,0.09) 1px,transparent 1px),linear-gradient(90deg,rgba(26,110,53,0.09) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}.map-img-wrap img{width:100%;display:block;position:relative;z-index:1;max-height:55vh;object-fit:contain;}.map-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;position:relative;z-index:1;}.map-placeholder-icon{font-size:3rem;margin-bottom:.75rem;line-height:1}.map-placeholder-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;color:var(--emerald);letter-spacing:.06em;margin-bottom:.3rem;}.map-placeholder-sub{font-size:.72rem;color:var(--text3);line-height:1.6}.map-footer{padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--surface2);flex-wrap:wrap;gap:.5rem;}.map-footer-brand{font-size:.65rem;color:var(--text3);font-family:'Cinzel',serif;letter-spacing:.06em;}.map-footer-btns{display:flex;gap:.45rem}.map-footer-close{font-size:.74rem;padding:.3rem .9rem;border-radius:20px;border:1px solid var(--emerald);background:var(--emerald-light);color:var(--emerald);cursor:pointer;font-family:inherit;font-weight:600;transition:all .15s;}.map-footer-close:hover{background:var(--emerald);color:#fff}.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--text);color:#fff;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:.8rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;box-shadow:0 4px 16px rgba(30,12,8,0.2)}.toast.show{opacity:1}.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-top:1px solid var(--border);backdrop-filter:blur(16px);padding:0 0 env(safe-area-inset-bottom,0)}.mobile-nav-inner{display:flex;height:56px}.mb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.56rem;color:var(--text3);cursor:pointer;transition:color .15s}.mb-btn .ico{font-size:1.15rem}.mb-btn.active{color:var(--emerald)}.fab{position:fixed;right:1.1rem;bottom:72px;z-index:210;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:1.55rem;background:radial-gradient(ellipse at 35% 30%,rgba(255,245,235,0.55) 0%,rgba(192,69,106,0.12) 45%,rgba(26,110,53,0.15) 100%),linear-gradient(145deg,#f4ede2 0%,#e8d8c8 50%,#d4bea8 100%);box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2);transition:transform .2s,box-shadow .2s}.fab:hover{transform:scale(1.1) translateY(-2px)}.fab:active{transform:scale(.95)}@keyframes fab-glow{0%,100%{box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2)}50%{box-shadow:0 0 0 1px rgba(192,69,106,0.38),0 0 22px rgba(192,69,106,0.26),0 0 12px rgba(26,110,53,0.18),0 4px 14px rgba(100,60,20,0.2)}}.fab{animation:fab-glow 3s ease-in-out infinite}.fab-tip{position:fixed;right:72px;z-index:210;background:var(--text);color:#fff;font-size:.68rem;padding:.3rem .65rem;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;display:none}.fab-tip::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--text);border-right:0}.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:.85rem}.empty-state::before{content:'🎵';display:block;font-size:2rem;margin-bottom:.75rem;opacity:.4}@media(max-width:640px){header{padding:0 .85rem}.nav{display:none}.main{padding:.75rem .75rem 76px}.mobile-nav{display:block}.layout{grid-template-columns:1fr}.fab{display:flex}.fab-tip{display:block}}.group-view{display:grid;gap:.75rem;overflow-x:auto;padding-bottom:4px}.group-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-width:220px;box-shadow:var(--shadow)}.group-col-head{padding:.55rem .85rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--border)}.group-col-name{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;letter-spacing:.05em}.group-col-cnt{font-size:.63rem;opacity:.7;font-family:'JetBrains Mono',monospace}.group-col-body{padding:.5rem .55rem;display:flex;flex-direction:column;gap:3px;max-height:calc(100vh - 320px);overflow-y:auto}.gv-row{padding:.42rem .55rem;border-radius:6px;border:1px solid var(--border);border-left:3px solid;transition:background .14s;cursor:pointer}.gv-row:hover{background:var(--surface2)}.gv-time{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text3);margin-bottom:2px}.gv-ev{font-size:.75rem;font-weight:600;color:var(--text);line-height:1.3}.gv-task{font-size:.67rem;color:var(--text3);margin-top:2px}.gv-loc{font-size:.63rem;color:var(--emerald);margin-top:2px}</style>
-<script>
-/* --- 自動網址設定與同步邏輯 --- */
-window.addEventListener('DOMContentLoaded', () => {
-    const HARDCODED_URL = 'https://script.google.com/macros/s/AKfycbxfV8JWo7JU8uYlQ8wyV85Ms4pCZLuncTyQVf-D98U6RDLUpIrlK5Qs2iXk7JswHESR/exec';
-    
-    // 強制設定輸入框數值並設為唯讀
-    const gasInput = document.getElementById('gasUrl');
-    if (gasInput) {
-        gasInput.value = HARDCODED_URL;
-        gasInput.readOnly = true;
-        gasInput.parentElement.style.display = 'none'; // 直接隱藏網址輸入區塊，更美觀
-    }
-
-    // 修改 localStorage 中的網址，確保內部邏輯一致
-    let cfg = JSON.parse(localStorage.getItem('xiuCfg') || '{}');
-    cfg.url = HARDCODED_URL;
-    localStorage.setItem('xiuCfg', JSON.stringify(cfg));
-
-    // 延遲一秒自動執行同步
-    setTimeout(() => {
-        if (typeof syncData === 'function') {
-            console.log('偵測到內建網址，啟動自動同步...');
-            syncData();
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>細流 2026｜志工行程管理系統</title>
+    <style>
+        :root {
+            --primary: #1a6e35;
+            --bg: #FAF5EE;
+            --card: #ffffff;
         }
-    }, 800);
-});
-</script>
-
+        body { font-family: sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .status-bar { font-size: 12px; text-align: right; margin-bottom: 10px; color: #666; }
+        select, input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; }
+        .card { background: var(--card); border-radius: 12px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border-left: 5px solid var(--primary); }
+        .time { font-weight: bold; color: var(--primary); font-size: 14px; }
+        .event { font-size: 16px; margin: 5px 0; font-weight: 600; }
+        .details { display: flex; gap: 10px; margin-top: 8px; font-size: 14px; }
+        .task { background: #e2f0e8; padding: 4px 8px; border-radius: 4px; flex: 1; }
+        .loc { background: #fff3e0; padding: 4px 8px; border-radius: 4px; flex: 1; }
+        .loading { text-align: center; padding: 50px; display: none; }
+    </style>
 </head>
 <body>
-<div class="app">
-<header>
-  <div class="header-inner">
-    <div class="logo">
-      <div class="logo-icon" style="padding:0;overflow:hidden"><img src="data:image/jpeg;base64,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" style="width:32px;height:32px;object-fit:cover;border-radius:8px;display:block"></div>
-      <div>細流 2026<span class="logo-sub">花東青少年合唱音樂營</span></div>
-    </div>
-    <nav class="nav">
-      <button class="nav-btn active" onclick="switchTab('schedule')" id="btn-schedule">📅 行程總覽</button>
-      <button class="nav-btn" onclick="switchTab('my')" id="btn-my">👤 個人行程</button>
-      <button class="nav-btn" onclick="switchTab('location')" id="btn-location">📍 場地</button>
-      <button class="nav-btn" onclick="switchTab('config')" id="btn-config">⚙️ 設定</button>
-    </nav>
-    <button class="sync-pill" id="syncPill" onclick="syncNow()">
-      <span id="syncDot">○</span><span id="syncLabel">同步</span>
-    </button>
-  </div>
-</header>
-<nav class="mobile-nav">
-  <div class="mobile-nav-inner">
-    <button class="mb-btn active" onclick="switchTab('schedule')" id="mb-schedule"><span class="ico">📅</span>行程</button>
-    <button class="mb-btn" onclick="switchTab('my')" id="mb-my"><span class="ico">👤</span>個人</button>
-    <button class="mb-btn" onclick="switchTab('location')" id="mb-location"><span class="ico">📍</span>場地</button>
-    <button class="mb-btn" onclick="switchTab('config')" id="mb-config"><span class="ico">⚙️</span>設定</button>
-  </div>
-</nav>
-<div class="fab-tip" id="fabTip" style="bottom:88px">跳至現在</div>
-<button class="fab" id="fabBtn" onclick="jumpToNow()" onmouseenter="showFabTip()" onmouseleave="hideFabTip()" title="跳至當前時刻（台北時間）">🔮</button>
-<div class="modal-overlay" id="locModal" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-title" id="modalLocName"></div>
-    <div class="modal-sub">📍 使用場地</div>
-    <div id="modalLocBody"></div>
-    <div style="margin-top:1rem">
-      <button class="btn btn-primary btn-sm" onclick="openMapModal(document.getElementById('modalLocName').textContent)">🗺 查看地圖</button>
-    </div>
-  </div>
-</div>
-<div class="modal-overlay" id="mapModal" onclick="if(event.target===this)closeMapModal()">
-  <div class="map-modal-inner">
-    <div class="map-header">
-      <div class="map-header-dot"></div>
-      <span class="map-header-label">校園地圖 · Campus Map</span>
-      <span class="map-header-loc" id="mapModalLocLabel"></span>
-      <button class="map-close-btn" onclick="closeMapModal()" aria-label="關閉地圖">✕</button>
-    </div>
-    <div class="map-img-wrap">
-      <img
-        id="mapImg"
-        src=""
-        alt="校園地圖"
-        onerror="this.style.display='none';document.getElementById('mapImgFallback').style.display='flex'"
-        onload="document.getElementById('mapImgFallback').style.display='none'"
-      >
-      <div id="mapImgFallback" class="map-placeholder" style="display:flex">
-        <div class="map-placeholder-icon">🗺</div>
-        <div class="map-placeholder-title">尚未設定地圖圖片</div>
-        <div class="map-placeholder-sub">
-          請將 <code style="background:rgba(26,110,53,0.12);padding:1px 5px;border-radius:4px;font-size:.68rem;color:var(--emerald)">#mapImg</code> 的<br>
-          <code style="background:rgba(26,110,53,0.12);padding:1px 5px;border-radius:4px;font-size:.68rem;color:var(--emerald)">src</code> 屬性改為您的地圖圖片路徑
+    <div class="container">
+        <div class="header">
+            <h1>細流 2026 🎭</h1>
         </div>
-      </div>
-    </div>
-    <div class="map-footer">
-      <span class="map-footer-brand">✦ 花東青少年合唱音樂營 2026</span>
-      <div class="map-footer-btns">
-        <button class="map-footer-close" onclick="closeMapModal()">關閉</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="modal-overlay" id="personModal" onclick="if(event.target===this)closePersonModal()">
-  <div class="modal">
-    <button class="modal-close" onclick="closePersonModal()">✕</button>
-    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)">
-      <div id="pmAvatar" class="my-avatar"></div>
-      <div><div id="pmName" class="my-name"></div><div id="pmSub" class="my-sub"></div></div>
-    </div>
-    <div id="pmBody"></div>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
-<main class="main">
-  <div style="background:linear-gradient(105deg,rgba(26,80,26,0.10) 0%,rgba(255,250,240,0.88) 28%,rgba(255,250,240,0.88) 72%,rgba(192,69,106,0.08) 100%);border:1px solid rgba(200,134,10,0.22);border-top:3px solid var(--emerald-mid);border-radius:14px;padding:1.35rem 2rem 1.2rem;margin-bottom:1.1rem;text-align:center;position:relative;overflow:hidden;box-shadow:0 2px 18px rgba(26,110,53,0.09)">
-    <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(26,110,53,0.025) 0px,rgba(26,110,53,0.025) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(0deg,rgba(26,110,53,0.025) 0px,rgba(26,110,53,0.025) 1px,transparent 1px,transparent 40px);pointer-events:none"></div>
-    <div style="font-family:'Cinzel Decorative',serif;font-size:1.85rem;font-weight:900;letter-spacing:.28em;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald-mid),var(--gold-warm),var(--emerald-mid),var(--emerald-deep));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-transform:uppercase;line-height:1.1;margin-bottom:.2rem">WICKED</div>
-    <div style="font-family:'Noto Sans TC',sans-serif;font-size:.95rem;font-weight:500;color:var(--text2);letter-spacing:.22em;margin-bottom:.55rem">魔法壞女巫</div>
-    <div style="display:flex;align-items:center;gap:.6rem;max-width:300px;margin:0 auto .55rem">
-      <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-warm))"></div>
-      <div style="color:var(--gold-warm);font-size:.85rem">✦</div>
-      <div style="flex:1;height:1px;background:linear-gradient(90deg,var(--gold-warm),transparent)"></div>
-    </div>
-    <div style="font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;color:var(--rose);text-transform:uppercase">IALAC · I'm Lovable And Capable</div>
-  </div>
-  <div class="top-bar">
-    
-  </div>
-  <div class="day-strip" id="dayStrip"></div>
-  <div id="tab-schedule">
-    <div class="search-row">
-      <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()">
-    </div>
-    <div class="layout" id="allViewLayout">
-      <div id="timelineEl"></div>
-      <aside class="sidebar-stack" id="sidebarEl">
-        <div class="s-card">
-          <div class="s-title">今晚活動</div>
-          <div id="sb-evening" style="font-size:.82rem;color:var(--text2)">—</div>
-        </div>
-        <div class="s-card">
-          <div class="s-title">當日場地</div>
-          <div id="sb-locs" style="font-size:.76rem;line-height:2.2"></div>
-        </div>
-      </aside>
-    </div>
-  </div>
-  <div id="tab-my" style="display:none">
-    <div class="my-view">
-      <div class="person-selector">
-        <div class="person-selector-title">選擇志工 · SELECT VOLUNTEER</div>
-        <div class="search-row" style="margin-bottom:.6rem">
-          <input class="search-input" id="mySearch" placeholder="🔍 搜尋…" oninput="renderPersonGrid()">
-          <div class="group-chips" id="myGroupChips"></div>
-        </div>
-        <div class="person-grid" id="personGrid"></div>
-      </div>
-      <div id="myScheduleEl"></div>
-    </div>
-  </div>
-  <div id="tab-location" style="display:none">
-    <div class="loc-grid" id="locGrid"></div>
-  </div>
-  <div id="tab-config" style="display:none">
-    <div class="tab-bar">
-      <button class="tab-bar-btn active" onclick="switchConfigTab('sync')" id="ctab-sync">📊 Google Sheets 同步</button>
-      <button class="tab-bar-btn" onclick="switchConfigTab('slack')" id="ctab-slack">🔔 Slack 通知</button>
-      <button class="tab-bar-btn" onclick="switchConfigTab('guide')" id="ctab-guide">📖 使用說明</button>
-    </div>
-    <div class="tab-content active" id="cfg-sync">
-      <div class="sync-panel">
-        <div class="sync-panel-title">🔗 Google Sheets API 連結</div>
-        <div class="form-group">
-          <label class="form-label">Google Apps Script 部署網址</label>
-          <input class="form-input" id="gasUrl" placeholder="https://script.google.com/macros/s/…/exec" oninput="saveSyncCfg()">
-        </div>
-        <div style="display:flex;gap:.6rem;margin-bottom:.6rem;flex-wrap:wrap">
-          <div class="form-group" style="flex:1;min-width:120px">
-            <label class="form-label">自動同步</label>
-            <select class="form-input" id="autoSync" onchange="saveSyncCfg()">
-              <option value="off">關閉</option>
-              <option value="on">開啟時同步</option>
-            </select>
-          </div>
-          <div class="form-group" style="flex:1;min-width:120px">
-            <label class="form-label">快取時間</label>
-            <select class="form-input" id="cacheMins" onchange="saveSyncCfg()">
-              <option value="0">不快取</option>
-              <option value="10">10 分鐘</option>
-              <option value="30" selected>30 分鐘</option>
-              <option value="60">1 小時</option>
-            </select>
-          </div>
-        </div>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="syncNow()">🔄 立即同步</button>
-          <button class="btn btn-outline" onclick="resetData()">↩ 回復內建</button>
-        </div>
-        <div class="log-box" id="syncLog"></div>
-      </div>
-      <div class="sync-panel">
-        <div class="sync-panel-title">📋 Google Sheets 欄位格式</div>
-        <div style="font-size:.8rem;color:var(--text2);margin-bottom:.75rem">試算表需有以下工作表結構：</div>
-        <div style="overflow-x:auto">
-          <table style="width:100%;border-collapse:collapse;font-size:.75rem">
-            <tr style="background:var(--emerald-light)">
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">工作表名稱</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 A</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 B</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 C</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 D</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 E</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 F</th>
-            </tr>
-            <tr>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600;color:var(--text)">志工名單</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">編號</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">姓名</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">組別</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">Slack ID</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">—</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">—</td>
-            </tr>
-            <tr style="background:var(--surface2)">
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600;color:var(--text)">Day1～Day13（每天一頁）</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">時段<br><span style="font-size:.65rem;color:var(--text3)">如 08:00-08:30</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">活動名稱</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">人1 任務<br><span style="font-size:.65rem;color:var(--violet)">C欄（如 "02 阿寶"）</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">人1 備註<br><span style="font-size:.65rem;color:var(--text3)">D欄</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">人2 任務<br><span style="font-size:.65rem;color:var(--violet)">E欄（如 "03 小歪"）</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">…依此類推</td>
-            </tr>
-            <tr>
-              <td colspan="7" style="padding:.35rem .6rem;border:1px solid var(--border);font-size:.72rem;color:var(--text3)">
-                📌 第一列：A1=DayN、B1=空、C1="02 阿寶"（每人佔兩欄：任務＋備註）<br>
-                📌 支援合併儲存格：時段或活動名稱空白時自動沿用上一行
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div style="margin-top:.75rem"><button class="btn btn-outline btn-sm" onclick="copyGasCode()">📋 複製 Apps Script 代碼</button></div>
-        <div class="code-block" id="gasCode" style="display:none"></div>
-      </div>
-    </div>
-    <div class="tab-content" id="cfg-slack">
-      <div class="sync-panel">
-        <div class="sync-panel-title">🔔 Slack 個人行程通知設定</div>
-        <div style="font-size:.8rem;color:var(--text2);margin-bottom:.85rem">每日早上自動發送當日行程給每位志工的 Slack DM</div>
-        <div class="form-group">
-          <label class="form-label">Bot Token（xoxb-…）</label>
-          <input class="form-input" id="slackToken" placeholder="xoxb-xxxxxxxxxxxx-xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxx" oninput="saveSlackCfg()">
-        </div>
-        <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-          <div class="form-group" style="flex:1;min-width:120px">
-            <label class="form-label">每日通知時間</label>
-            <input class="form-input" type="time" id="slackTime" value="07:30" oninput="saveSlackCfg()">
-          </div>
-          <div class="form-group" style="flex:1;min-width:120px">
-            <label class="form-label">備用公告頻道</label>
-            <input class="form-input" id="slackChannel" value="#志工細流" oninput="saveSlackCfg()">
-          </div>
-        </div>
-        <div style="font-size:.78rem;font-weight:500;color:var(--text2);margin:.7rem 0 .4rem">訊息樣式預覽（DM 給個人）</div>
-        <div style="background:#1a1d21;border-radius:var(--radius);padding:1rem;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:#c8d8e0;line-height:1.8;white-space:pre-wrap" id="slackPreview"></div>
-        <div class="btn-row" style="margin-top:.75rem">
-          <button class="btn btn-primary" onclick="copySlackScript()">📋 複製 Slack Apps Script</button>
-          <button class="btn btn-outline btn-sm" onclick="testSlack()">🧪 測試發送</button>
-        </div>
-      </div>
-    </div>
-    <div class="tab-content" id="cfg-guide">
-      <div class="sync-panel">
-        <div class="sync-panel-title">📖 系統架構說明</div>
-        <div style="display:flex;flex-direction:column;gap:.85rem">
-          <div style="display:flex;gap:.75rem;align-items:flex-start">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">1</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>建立 Google Sheets</strong>：新增「志工名單」工作表（A=編號 B=姓名 C=組別 D=Slack ID），以及每天的「Day1」至「Day13」工作表（橫向格式：A=時段 B=活動名稱，之後每兩欄為一人的「任務」與「備註」，第一列填人名如 "02 阿寶"）。</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">2</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>部署 Apps Script API</strong>：在試算表按「擴充功能 → Apps Script」，貼上 API 代碼，部署為「網頁應用程式」，存取權設為「所有人」。</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">3</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>貼上網址</strong>：將部署後的 URL 貼到「Google Sheets 同步」設定，點擊「立即同步」即可載入最新行程。</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">4</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>設定地圖圖片</strong>：在 HTML 中找到 <code style="background:var(--emerald-light);padding:1px 5px;border-radius:3px;font-size:.76rem;color:var(--emerald)">#mapImg</code> 元素，將 src 屬性改為您的地圖圖片路徑。</div>
-          </div>
-          <div style="display:flex;gap:.75rem;align-items:flex-start">
-            <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">5</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>Slack 個人通知</strong>：在 Slack Workspace 建立 Bot，取得 Bot Token，填入設定，在 Google Apps Script 加上每日觸發器。</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-</div>
-<script>
-const DAYS = [
-  {id:'d1', label:'6/30', full:'2026/6/30 (二) Day1', type:'weekday'},
-  {id:'d2', label:'7/1',  full:'2026/7/1 (三) Day2',  type:'weekday'},
-  {id:'d3', label:'7/2',  full:'2026/7/2 (四) Day3',  type:'weekday'},
-  {id:'d4', label:'7/3',  full:'2026/7/3 (五) Day4',  type:'weekday'},
-  {id:'d5', label:'7/4',  full:'2026/7/4 (六) Day5',  type:'weekend'},
-  {id:'d6', label:'7/5',  full:'2026/7/5 (日) Day6',  type:'weekend'},
-  {id:'d7', label:'7/6',  full:'2026/7/6 (一) Day7',  type:'weekday'},
-  {id:'d8', label:'7/7',  full:'2026/7/7 (二) Day8',  type:'weekday'},
-  {id:'d9', label:'7/8',  full:'2026/7/8 (三) Day9',  type:'weekday'},
-  {id:'d10',label:'7/9',  full:'2026/7/9 (四) Day10', type:'weekday'},
-  {id:'d11',label:'7/10', full:'2026/7/10 (五) Day11',type:'weekday'},
-  {id:'d12',label:'7/11', full:'2026/7/11 (六) Day12',type:'weekend'},
-  {id:'d13',label:'7/12', full:'2026/7/12 (日) Day13',type:'weekend'},
-];
-const GROUPS={'活動組':{color:'#9C2B2B',bg:'#FAD7D7',mid:'#C0456A'},'生輔組':{color:'#8C4A1A',bg:'#FCE9D9',mid:'#C8720A'},'選課組':{color:'#7A5A00',bg:'#FFF2CC',mid:'#C8A000'},'戲劇組':{color:'#2E6B1A',bg:'#E2EFDA',mid:'#4A9A2A'},'影像組':{color:'#1a4a8C',bg:'#DDEBF7',mid:'#2D6CC0'},'SDL':{color:'#4A3A7A',bg:'#E4DFEC',mid:'#6A5AAA'},'CIT':{color:'#7A2A2A',bg:'#F2DCDB',mid:'#A84040'},'營長':{color:'#1E1208',bg:'#FFFFFF',mid:'#888888'}};
-let PEOPLE = [
-  {no:1,  name:'玉米',   group:'活動組', slack:''},
-  {no:2,  name:'阿寶',   group:'活動組', slack:''},
-  {no:3,  name:'小歪',   group:'活動組', slack:''},
-  {no:4,  name:'恩恩',   group:'活動組', slack:''},
-  {no:5,  name:'登登',   group:'活動組', slack:''},
-  {no:6,  name:'EN',     group:'活動組', slack:''},
-  {no:7,  name:'融融',   group:'活動組', slack:''},
-  {no:8,  name:'Timmie', group:'活動組', slack:''},
-  {no:9,  name:'星星',   group:'活動組', slack:''},
-  {no:11, name:'蛙靜',   group:'活動組', slack:''},
-  {no:12, name:'白白',   group:'活動組', slack:''},
-  {no:13, name:'Hank',   group:'活動組', slack:''},
-  {no:14, name:'里程',   group:'活動組', slack:''},
-  {no:15, name:'蒜泥',   group:'活動組', slack:''},
-  {no:16, name:'仔仔',   group:'活動組', slack:''},
-  {no:17, name:'哈利',   group:'活動組', slack:''},
-  {no:18, name:'ICU',    group:'活動組', slack:''},
-  {no:19, name:'Hatin',  group:'活動組', slack:''},
-  {no:20, name:'歐歐',   group:'活動組', slack:''},
-  {no:21, name:'歐哭',   group:'生輔組', slack:''},
-  {no:22, name:'青青',   group:'生輔組', slack:''},
-  {no:23, name:'小欣甘', group:'生輔組', slack:''},
-  {no:24, name:'嘻嘻',   group:'生輔組', slack:''},
-  {no:25, name:'小莓',   group:'生輔組', slack:''},
-  {no:26, name:'Riva',   group:'生輔組', slack:''},
-  {no:27, name:'咪嗚',   group:'生輔組', slack:''},
-  {no:28, name:'ㄘㄞ琪', group:'生輔組', slack:''},
-  {no:29, name:'米勒',   group:'生輔組', slack:''},
-  {no:30, name:'凱尼',   group:'生輔組', slack:''},
-  {no:31, name:'海豚',   group:'生輔組', slack:''},
-  {no:32, name:'地瓜球', group:'生輔組', slack:''},
-  {no:33, name:'西歪西', group:'生輔組', slack:''},
-  {no:34, name:'Joeman', group:'生輔組', slack:''},
-  {no:37, name:'巫葛格', group:'生輔組', slack:''},
-  {no:39, name:'91',     group:'生輔組', slack:''},
-  {no:40, name:'傑洛特', group:'生輔組', slack:''},
-  {no:41, name:'兩分',   group:'選課組', slack:''},
-  {no:42, name:'米心',   group:'選課組', slack:''},
-  {no:43, name:'木木',   group:'選課組', slack:''},
-  {no:44, name:'Mika',   group:'選課組', slack:''},
-  {no:45, name:'AA',     group:'選課組', slack:''},
-  {no:46, name:'貝貝',   group:'選課組', slack:''},
-  {no:47, name:'抓餅',   group:'戲劇組', slack:''},
-  {no:48, name:'烏龜',   group:'戲劇組', slack:''},
-  {no:49, name:'AN',     group:'戲劇組', slack:''},
-  {no:50, name:'汪汪',   group:'戲劇組', slack:''},
-  {no:52, name:'鳥安',   group:'戲劇組', slack:''},
-  {no:53, name:'嚕批',   group:'戲劇組', slack:''},
-  {no:54, name:'滑倒',   group:'戲劇組', slack:''},
-  {no:56, name:'阿瘦',   group:'戲劇組', slack:''},
-  {no:57, name:'Joying', group:'影像組', slack:''},
-  {no:58, name:'敏特',   group:'影像組', slack:''},
-  {no:59, name:'Enni',   group:'影像組', slack:''},
-  {no:61, name:'阿嘎',   group:'影像組', slack:''},
-  {no:62, name:'靜香',   group:'影像組', slack:''},
-  {no:63, name:'恆恆',   group:'影像組', slack:''},
-  {no:64, name:'阿鵝',   group:'SDL',    slack:''},
-  {no:65, name:'Winnie', group:'SDL',    slack:''},
-  {no:66, name:'玉仔',   group:'CIT',    slack:''},
-  {no:67, name:'西瓜',   group:'CIT',    slack:''},
-  {no:68, name:'秋秋',   group:'營長',   slack:''},
-  {no:69, name:'里歐',   group:'營長',   slack:''},
-];
-let SCHEDULE = {
-  d1: [
-    {time:'08:00-08:20', event:'營前訓 Assigned by 營長', task:'', loc:'', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-17:50', event:'學員報到 分聲部&選角', task:'引導學員報到、分聲部', loc:'女宿1F', groups:['活動組','生輔組'], nos:[]},
-    {time:'19:00-20:30', event:'始業式', task:'擔任隊輔帶隊', loc:'PAC', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy陪伴學員', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-    {time:'22:00-', event:'全員會議', task:'幹部開會', loc:'女宿1F', groups:['活動組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  ],
-  d2: [
-    {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'08:20-08:30', event:'換場', task:'移動換場', loc:'風雨球場', groups:['活動組','生輔組'], nos:[], transit:true},
-    {time:'08:30-08:55', event:'早操', task:'帶動早操', loc:'風雨球場', groups:['活動組'], nos:[]},
-    {time:'09:00-09:50', event:'合唱課程 S1', task:'擔任聲部導師', loc:'7A', groups:['活動組'], nos:[]},
-    {time:'10:00-10:50', event:'合唱課程 S2', task:'擔任聲部導師', loc:'7B', groups:['活動組'], nos:[]},
-    {time:'11:00-11:50', event:'合唱課程 S3', task:'擔任聲部導師', loc:'9B', groups:['活動組'], nos:[]},
-    {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'13:00-13:45', event:'午休', task:'午休', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-14:50', event:'合唱課程 S4', task:'擔任聲部導師', loc:'11B', groups:['活動組'], nos:[]},
-    {time:'15:00-15:50', event:'合唱排練', task:'擔任聲部導師', loc:'PAC', groups:['活動組'], nos:[]},
-    {time:'16:00-16:50', event:'選修課程', task:'擔任課堂助教', loc:'12B', groups:['選課組'], nos:[]},
-    {time:'17:00-17:50', event:'環境清潔', task:'帶學員打掃', loc:'教學區', groups:['生輔組'], nos:[]},
-    {time:'18:00-18:40', event:'晚餐', task:'吃晚餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'19:00-20:30', event:'Welcome Party 🎊', task:'擔任隊輔帶隊', loc:'風雨球場', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-    {time:'22:00-', event:'Free Time', task:'自由活動', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  ],
-  d3: [
-    {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'08:30-08:55', event:'早操', task:'帶動早操', loc:'風雨球場', groups:['活動組'], nos:[]},
-    {time:'09:00-09:50', event:'合唱課程 S1', task:'擔任聲部導師', loc:'7A', groups:['活動組'], nos:[]},
-    {time:'10:00-10:50', event:'合唱課程 S2', task:'擔任聲部導師', loc:'7B', groups:['活動組'], nos:[]},
-    {time:'11:00-11:50', event:'合唱課程（師培）', task:'課程開場', loc:'師培1樓', groups:['活動組'], nos:[]},
-    {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'13:00-13:45', event:'午休', task:'午休', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-14:50', event:'合唱課程 S4', task:'擔任聲部導師', loc:'11B', groups:['活動組'], nos:[]},
-    {time:'15:00-15:50', event:'合唱排練', task:'擔任聲部導師', loc:'9B', groups:['活動組'], nos:[]},
-    {time:'16:00-16:50', event:'選修課程', task:'課程開場', loc:'10B', groups:['選課組'], nos:[]},
-    {time:'17:00-17:50', event:'環境清潔', task:'帶學員打掃', loc:'教學區', groups:['生輔組'], nos:[]},
-    {time:'18:00-18:40', event:'晚餐', task:'吃晚餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'19:00-20:30', event:'電影之夜 🎬', task:'場佈、播映', loc:'風雨球場', groups:['活動組','影像組'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-  ],
-};
-['d4','d5','d6','d7','d8','d9','d10','d11'].forEach((d)=>{
-  const eveningEvents = {d4:'極限體能王 💪',d5:'謀殺之謎 🕵️',d6:'百萬大歌星 🎤',d7:'賭場之夜 🃏',d8:'變裝之夜 👗',d9:'戲劇組之夜 🎭',d10:'Talent Show ✨',d11:'Farewell Party 🎊'};
-  SCHEDULE[d] = [
-    {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'08:30-08:55', event:'早操', task:'帶動早操', loc:'風雨球場', groups:['活動組'], nos:[]},
-    {time:'09:00-11:50', event:'合唱課程', task:'擔任聲部導師', loc:'各教室', groups:['活動組'], nos:[]},
-    {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'13:00-13:45', event:'午休', task:'午休', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-16:50', event:'合唱排練 + 選修', task:'各組任務', loc:'PAC、各教室', groups:['活動組','選課組'], nos:[]},
-    {time:'17:00-17:50', event:'環境清潔', task:'帶學員打掃', loc:'教學區', groups:['生輔組'], nos:[]},
-    {time:'18:00-18:40', event:'晚餐', task:'吃晚餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'19:00-20:30', event:eveningEvents[d], task:'場佈、帶隊', loc:'風雨球場', groups:['活動組','生輔組','戲劇組'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-    {time:'21:55-22:00', event:'準備就寢', task:'確認學員就寢', loc:'各寢室', groups:['生輔組'], nos:[]},
-  ];
-});
-SCHEDULE.d12 = [{time:'全天', event:'Assigned by 營長', task:'依營長安排', loc:'TBD', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]}];
-SCHEDULE.d13 = [
-  {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  {time:'08:30-10:50', event:'結業式 🎓', task:'帶隊、場地布置', loc:'PAC', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  {time:'10:00-12:00', event:'學員賦歸', task:'協助學員辦理離營', loc:'女宿1F', groups:['生輔組'], nos:[]},
-  {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  {time:'13:00-', event:'Assigned by 營長', task:'依營長安排', loc:'TBD', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-];
-const _BUILTIN = JSON.parse(JSON.stringify(SCHEDULE));
-let PERSON_SCHEDULE = {}; // 個人任務（從橫向格式解析）
-const _BUILTIN_PEOPLE = JSON.parse(JSON.stringify(PEOPLE));
-let currentDay = 'd1';
-let currentTab = 'schedule';
-let filterGroup = null;
-let myFilterGroup = null;
-let selectedPerson = null;
-let searchQ = '';
-let currentView = 'all';
-const ICONS = {'早餐':'🍳','午餐':'🥢','晚餐':'🍽️','午休':'😴','早操':'🏃','換場':'🚶',
-  '合唱':'🎵','排練':'🎶','選修':'✏️','始業':'🌟','結業':'🎓','Party':'🎊','farewell':'🎊',
-  '電影':'🎬','大歌星':'🎤','謀殺':'🕵️','賭場':'🃏','變裝':'👗','戲劇':'🎭','Talent':'✨',
-  'talent':'✨','buddy':'🤝','Buddy':'🤝','清潔':'🧹','報到':'📋','會議':'📢',
-  '賦歸':'🎒','Free':'☕','就寢':'🌙','Assigned':'📋'};
-function getIcon(ev){for(const[k,v]of Object.entries(ICONS))if(ev.includes(k))return v;return'✦'}
-const MUST = ['早餐','午餐','晚餐','始業式','結業式','Party','party','全員會議','早操','buddy','Buddy'];
-function isMust(ev){return MUST.some(k=>ev.toLowerCase().includes(k.toLowerCase()))}
-function showToast(msg,t=2400){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),t)}
-function $(id){return document.getElementById(id)}
-function personById(no){return PEOPLE.find(p=>p.no===no)}
-function getPeopleForItem(item){
-  if(item.nos&&item.nos.length>0) return item.nos.map(n=>personById(n)).filter(Boolean);
-  if(item.groups&&item.groups.length>0) return PEOPLE.filter(p=>item.groups.includes(p.group));
-  return [];
-}
-function getSortedItems(dayId){
-  return (SCHEDULE[dayId]||[]).slice().sort((a,b)=>{
-    const ta=a.time?a.time.split('-')[0]:'99:99';
-    const tb=b.time?b.time.split('-')[0]:'99:99';
-    return ta.localeCompare(tb);
-  });
-}
-function showFabTip(){const t=$('fabTip');if(t){t.style.opacity='1';}}
-function hideFabTip(){const t=$('fabTip');if(t)t.style.opacity='0';}
-function jumpToNow(){
-  const now = new Date();
-  const tpe = new Date(now.toLocaleString('en-US', {timeZone:'Asia/Taipei'}));
-  const hhmm = String(tpe.getHours()).padStart(2,'0') + ':' + String(tpe.getMinutes()).padStart(2,'0');
-  const hhmm_mins = parseInt(hhmm.split(':')[0])*60 + parseInt(hhmm.split(':')[1]);
+        
+        <div id="status" class="status-bar">正在載入資料...</div>
 
-  function highlightRow(el){
-    el.scrollIntoView({behavior:'smooth', block:'center'});
-    el.style.transition='box-shadow .2s,border-left-color .2s';
-    el.style.boxShadow='0 0 0 3px rgba(192,69,106,0.35),0 4px 20px rgba(192,69,106,0.2)';
-    el.style.borderLeftColor='var(--rose)';
-    setTimeout(()=>{el.style.boxShadow='';el.style.borderLeftColor='';},1800);
-  }
+        <select id="userSelect" onchange="renderSchedule()">
+            <option value="">請選擇您的姓名</option>
+        </select>
 
-  // 個人行程頁：在 my-row 裡找最近時刻
-  if(currentTab === 'my'){
-    if(!selectedPerson){showToast('🔮 請先選擇一位志工');return;}
-    const rows = document.querySelectorAll('.my-row');
-    let bestEl = null, bestDiff = Infinity;
-    rows.forEach(el => {
-      const timeEl = el.querySelector('.my-row-time');
-      if(!timeEl) return;
-      const t = timeEl.textContent.trim().split('-')[0].trim();
-      if(!/^\d{2}:\d{2}/.test(t)) return;
-      const diff = Math.abs(hhmm_mins - (parseInt(t.split(':')[0])*60 + parseInt(t.split(':')[1])));
-      if(diff < bestDiff){ bestDiff = diff; bestEl = el; }
-    });
-    if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm); }
-    else { window.scrollTo({top:0,behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，無行程'); }
-    return;
-  }
-
-  // 行程總覽頁
-  if(currentTab !== 'schedule') switchTab('schedule');
-  const rows = document.querySelectorAll('.tl-row');
-  let bestEl = null, bestDiff = Infinity;
-  rows.forEach(el => {
-    const timeEl = el.querySelector('.tl-time');
-    if(!timeEl) return;
-    const t = timeEl.textContent.trim().split('-')[0].trim();
-    if(!/^\d{2}:\d{2}/.test(t)) return;
-    const diff = Math.abs(hhmm_mins - (parseInt(t.split(':')[0])*60 + parseInt(t.split(':')[1])));
-    if(diff < bestDiff){ bestDiff = diff; bestEl = el; }
-  });
-  if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm); }
-  else { window.scrollTo({top:0, behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，非行程時段'); }
-}
-function switchTab(tab){
-  currentTab=tab;
-  ['schedule','my','location','config'].forEach(t=>{
-    $('tab-'+t).style.display=t===tab?'':'none';
-    $('btn-'+t).classList.toggle('active',t===tab);
-    const mb=$('mb-'+t);if(mb)mb.classList.toggle('active',t===tab);
-  });
-  if(tab==='config')renderSlackPreview();
-}
-function switchConfigTab(t){
-  ['sync','slack','guide'].forEach(k=>{
-    $('cfg-'+k).classList.toggle('active',k===t);
-    $('ctab-'+k).classList.toggle('active',k===t);
-  });
-}
-function buildDayStrip(){
-  $('dayStrip').innerHTML=DAYS.map(d=>
-    `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
-  ).join('');
-}
-function selectDay(id){currentDay=id;buildDayStrip();renderSchedule();renderLocGrid();}
-function buildGroupChips(elId, selected, onChange){
-  $(elId).innerHTML=Object.entries(GROUPS).map(([g,cfg])=>{
-    const on=selected===g;
-    const cnt=PEOPLE.filter(p=>p.group===g).length;
-    const sty=on?`color:${cfg.color};background:${cfg.bg};border-color:${cfg.mid}48`:`color:var(--text3);background:transparent;border-color:var(--border)`;
-    return `<button class="g-chip" style="${sty}" onclick="${onChange}('${g}')">${g} <span style="font-size:.62rem;opacity:.75">${cnt}</span></button>`;
-  }).join('');
-}
-function clearFilters(){filterGroup=null;$('searchInput').value='';searchQ='';renderSchedule();}
-function renderSchedule(){
-  searchQ=($('searchInput')||{value:''}).value.trim().toLowerCase();
-  let items=getSortedItems(currentDay);
-  if(filterGroup) items=items.filter(i=>i.groups&&i.groups.includes(filterGroup));
-  if(searchQ) items=items.filter(i=>(i.event+i.task+i.loc).toLowerCase().includes(searchQ));
-  const periods=[
-    {label:'🌅 早上 MORNING',   test:t=>{ const h=parseInt(t);return h>=6&&h<12;}},
-    {label:'☀️ 中午 NOON',      test:t=>{ const h=parseInt(t);return h>=12&&h<14;}},
-    {label:'🌤 下午 AFTERNOON',  test:t=>{ const h=parseInt(t);return h>=14&&h<18;}},
-    {label:'🌙 晚間 EVENING',    test:t=>{ const h=parseInt(t);return h>=18||t==='全天'||h<=2;}},
-  ];
-  let html='',hasAny=false;
-  periods.forEach(period=>{
-    const pi2=items.filter(s=>s.time&&period.test(s.time.split('-')[0]));
-    const pi=items.filter(s=>s.time&&period.test(s.time.split('-')[0])||s.time==='全天'&&period.label.includes('晚'));
-    const pf=period.label.includes('晚')?pi:pi2;
-    if(!pf.length) return;
-    hasAny=true;
-    html+=`<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
-    html+=pf.map(s=>{
-      const isTransit=s.transit||s.event.includes('換場');
-      const icon=getIcon(s.event);
-      const must=isMust(s.event);
-      const badge=isTransit?'<span class="tl-badge badge-transit">移動</span>':(must?'<span class="tl-badge badge-must">★ 重要</span>':'');
-      return `<div class="tl-row${isTransit?' transit':''}">
-        <div class="tl-time">${s.time||'—'}</div>
-        <div class="tl-icon-cell" style="${isTransit?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${icon}</div>
-        <div class="tl-content">
-          <div class="tl-ev-name">${s.event} ${badge}</div>
-          ${s.loc?`<button class="tl-loc-btn" onclick="openLocModal('${s.loc.replace(/'/g,"\\'")}')">📍 ${s.loc}</button>`:''}
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <button onclick="changeDay('Day1')" style="flex:1; padding: 10px;">Day 1</button>
+            <button onclick="changeDay('Day2')" style="flex:1; padding: 10px;">Day 2</button>
+            <button onclick="changeDay('Day3')" style="flex:1; padding: 10px;">Day 3</button>
         </div>
-      </div>`;
-    }).join('');
-    html+='</div></div>';
-  });
-  $('timelineEl').innerHTML=hasAny?html:'<div class="empty-state">此日無符合行程</div>';
-  const evening=getSortedItems(currentDay).find(s=>s.time&&parseInt(s.time.split('-')[0])===19&&!s.transit);
-  $('sb-evening').innerHTML=evening?`<strong style="color:var(--emerald)">${evening.event}</strong>${evening.loc?`<br><span style="font-size:.74rem;color:var(--text3)">📍 ${evening.loc}</span>`:''}`:'<span style="color:var(--text3)">（未設定）</span>';
-  const locs=[...new Set(getSortedItems(currentDay).map(s=>s.loc).filter(Boolean))];
-  $('sb-locs').innerHTML=locs.map(l=>`<button onclick="openLocModal('${l.replace(/'/g,"\\'")}'')" style="display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:10px;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);margin:2px;font-size:.7rem;color:var(--emerald);cursor:pointer;font-family:inherit">📍 ${l}</button>`).join('')||'<span style="color:var(--text3)">—</span>';
-}
-function toggleMyGroup(g){myFilterGroup=myFilterGroup===g?null:g;buildGroupChips('myGroupChips',myFilterGroup,'toggleMyGroup');renderPersonGrid();}
-function renderPersonGrid(){
-  const q=($('mySearch')||{value:''}).value.trim().toLowerCase();
-  let pp=PEOPLE.filter(p=>{
-    const matchG=!myFilterGroup||p.group===myFilterGroup;
-    const matchQ=!q||p.name.toLowerCase().includes(q)||String(p.no).includes(q);
-    return matchG&&matchQ;
-  });
-  const byGroup={};
-  pp.forEach(p=>{if(!byGroup[p.group])byGroup[p.group]=[];byGroup[p.group].push(p);});
-  $('personGrid').innerHTML=Object.entries(byGroup).map(([g,members])=>{
-    const cfg=GROUPS[g]||{color:'#888',bg:'#eee',mid:'#ccc'};
-    return members.map(p=>{
-      const sel=selectedPerson?.no===p.no;
-      return `<div class="pc${sel?' sel':''}" onclick="selectPerson(${p.no})">
-        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${cfg.mid}"></div>
-        <div class="pc-name">${p.name}</div>
-        <div class="pc-no">#${p.no} · ${g}</div>
-      </div>`;
-    }).join('');
-  }).join('');
-  renderMySchedule();
-}
-function selectPerson(no){
-  selectedPerson=selectedPerson?.no===no?null:PEOPLE.find(p=>p.no===no);
-  renderPersonGrid();
-}
-function renderMySchedule(){
-  const el=$('myScheduleEl');
-  if(!selectedPerson){el.innerHTML='';return;}
-  const p=selectedPerson;
-  const cfg=GROUPS[p.group]||{color:'#888',bg:'#eee',mid:'#ccc'};
-  const day=DAYS.find(d=>d.id===currentDay);
-  const myItems = (PERSON_SCHEDULE[currentDay]||{})[String(p.no)]||[];
-  el.innerHTML=`<div class="my-schedule-card">
-    <div class="my-header">
-      <div class="my-avatar" style="background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.name[0]}</div>
-      <div>
-        <div class="my-name">${p.name}</div>
-        <div class="my-sub">${p.group} · #${p.no} · ${day.full}</div>
-      </div>
-      <span style="margin-left:auto;font-size:.72rem;padding:.25rem .65rem;border-radius:12px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.group}</span>
+
+        <div id="loading" class="loading">同步試算表資料中...</div>
+        <div id="scheduleBody"></div>
     </div>
-    ${myItems.length?`<div class="my-rows">${myItems.map(s=>`<div class="my-row">
-      <div class="my-row-time">${s.time||'—'}</div>
-      <div style="flex:1"><div class="my-row-ev">${getIcon(s.event)} ${s.event}</div>${s.task?`<div class="my-row-task">${s.task}</div>`:''} ${s.note?`<div class="my-row-task" style="color:var(--violet);opacity:.8">📝 ${s.note}</div>`:''}</div>
-      ${s.loc?`<button class="tl-loc-btn" style="font-size:.68rem" onclick="openLocModal('${s.loc.replace(/'/g,"\\'")}')">📍 ${s.loc}</button>`:''}
-    </div>`).join('')}</div>`:'<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem">尚未填寫行程</div>'}
-  </div>`;
-}
-function renderLocGrid(){
-  const items=getSortedItems(currentDay).filter(s=>s.loc&&!s.transit);
-  const byLoc={};
-  items.forEach(s=>{if(!byLoc[s.loc])byLoc[s.loc]=[];byLoc[s.loc].push(s);});
-  $('locGrid').innerHTML=Object.entries(byLoc).map(([loc,si])=>
-    `<div class="loc-card">
-      <div class="loc-name" onclick="openLocModal('${loc.replace(/'/g,"\\'")}')">📍 ${loc}</div>
-      ${si.map(s=>`<div class="loc-item"><div class="loc-t">${s.time}</div><div style="flex:1"><div class="loc-ev">${s.event}</div>${s.task?`<div class="loc-task">${s.task}</div>`:''}</div></div>`).join('')}
-    </div>`
-  ).join('')||'<div class="empty-state">當日無場地資料</div>';
-}
-function openLocModal(loc){
-  $('modalLocName').textContent=loc;
-  const items=getSortedItems(currentDay).filter(s=>s.loc===loc);
-  $('modalLocBody').innerHTML=items.map(s=>
-    `<div style="padding:.45rem .6rem;border-radius:6px;border:1px solid var(--border);margin-bottom:4px;display:flex;gap:.6rem;align-items:flex-start;font-size:.8rem">
-      <span style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:.68rem;min-width:88px;flex-shrink:0">${s.time}</span>
-      <span>${s.event}${s.task?'<br><span style="font-size:.7rem;color:var(--text3)">'+s.task+'</span>':''}</span>
-    </div>`
-  ).join('')||'<div style="color:var(--text3);font-size:.8rem">無資料</div>';
-  $('locModal').classList.add('open');
-}
-function closeModal(){$('locModal').classList.remove('open')}
-function openMapModal(locName){
-  const label = $('mapModalLocLabel');
-  if(label) label.textContent = locName ? '· ' + locName : '';
-  const img = $('mapImg');
-  const fallback = $('mapImgFallback');
-  if(img && img.src && img.src !== window.location.href){
-    img.style.display = '';
-    if(fallback) fallback.style.display = 'none';
-  } else {
-    if(img) img.style.display = 'none';
-    if(fallback) fallback.style.display = 'flex';
-  }
-  $('mapModal').classList.add('open');
-  $('locModal').classList.remove('open');
-}
-function closeMapModal(){
-  $('mapModal').classList.remove('open');
-}
-function openPersonModal(no){
-  const p=PEOPLE.find(x=>x.no===no);if(!p)return;
-  const cfg=GROUPS[p.group]||{color:'#888',bg:'#eee'};
-  $('pmAvatar').style.cssText=`background:${cfg.bg};color:${cfg.color}`;
-  $('pmAvatar').textContent=p.name[0];
-  $('pmName').textContent=p.name;
-  $('pmSub').textContent=`${p.group} · #${p.no}`;
-  const myItems = (PERSON_SCHEDULE[currentDay]||{})[String(p.no)]||[];
-  $('pmBody').innerHTML=myItems.map(s=>
-    `<div style="padding:.42rem .55rem;border-radius:6px;border:1px solid var(--border);margin-bottom:3px;display:flex;gap:.55rem;align-items:flex-start;font-size:.78rem">
-      <span style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:.66rem;min-width:84px;flex-shrink:0">${s.time}</span>
-      <span style="flex:1">${getIcon(s.event)} ${s.event}${s.task?'<br><span style="color:var(--text3);font-size:.7rem">'+s.task+'</span>':''}${s.note?'<br><span style="color:var(--violet-mid);font-size:.68rem">📝 '+s.note+'</span>':''}</span>
-      <span style="color:var(--text3);font-size:.66rem;flex-shrink:0">${s.loc||''}</span>
-    </div>`
-  ).join('')||'<div style="color:var(--text3);font-size:.8rem;padding:.75rem 0">尚未填寫行程</div>';
-  $('personModal').classList.add('open');
-}
-function closePersonModal(){$('personModal').classList.remove('open')}
-function renderSlackPreview(){
-  const p=selectedPerson||PEOPLE[0];
-  const day=DAYS.find(d=>d.id===currentDay)||DAYS[0];
-  const myItems = ((PERSON_SCHEDULE[currentDay]||{})[String(p.no)]||[]).filter(s=>!s.transit);
-  const time=($('slackTime')||{value:'07:30'}).value||'07:30';
-  let msg=`Hi ${p.name}！✦ 細流 2026 每日行程提醒\n━━━━━━━━━━━━━━━━━━━━\n📅 ${day.full}\n━━━━━━━━━━━━━━━━━━━━\n`;
-  myItems.slice(0,10).forEach(s=>{
-    msg+=`${getIcon(s.event)}  \`${s.time}\`  *${s.event}*\n`;
-    if(s.task) msg+=`    └ ${s.task}\n`;
-    if(s.loc) msg+=`    📍 ${s.loc}\n`;
-  });
-  msg+=`\n加油！有問題請 @秋秋 或 @里歐 🎭\n_細流行程系統自動發送 · ${time}_`;
-  const el=$('slackPreview');if(el)el.textContent=msg;
-}
-const GAS_SYNC_CODE = `
-// ╔════════════════════════════════════════════════════════════╗
-// ║  細流 2026 · Google Apps Script API (橫向格式)             ║
-// ║  試算表格式：A=時段 B=活動 C,D=人1任務備註 E,F=人2...      ║
-// ╚════════════════════════════════════════════════════════════╝
-function doGet(e) {
-  const ss = SpreadsheetApp.openById('10yr87uGsVd8Fu6B4hH_RB8RhnBW2Z8uX8o_T144SvwQ');
-  const result = { people:[], schedule:{}, personSchedule:{}, updated:new Date().toISOString() };
 
-  // ── 志工名單工作表 ──
-  try {
-    const pSheet = ['志工名單','名單','People'].reduce((f,n)=>f||ss.getSheetByName(n),null);
-    if (pSheet) {
-      pSheet.getDataRange().getValues().slice(1).forEach(r => {
-        const no = parseInt(r[0]); if (!no) return;
-        result.people.push({ no, name:String(r[1]||'').trim(), group:String(r[2]||'').trim(), slack:String(r[3]||'').trim() });
-      });
-    }
-  } catch(err) { result.error_people = err.message; }
+    <script>
+        // 這裡填入您的 GAS 部署網址
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzyrXeW7eNmZnvnRgc1kigQa5xpG5_OvSSFJ-l5QftnyjpcGAgO63CIzsVzA3P1OY9t/exec';
+        
+        let ALL_DATA = null;
+        let currentDay = 'Day1';
 
-  // ── 每天行程（橫向格式） ──
-  for (let d = 1; d <= 13; d++) {
-    const dk = 'd' + d;
-    result.personSchedule[dk] = {};
-    const sheet = ['Day'+d,'D'+d,'行程_D'+d].reduce((f,n)=>f||ss.getSheetByName(n),null);
-    if (!sheet) continue;
-    try {
-      const vals = sheet.getDataRange().getValues();
-      if (vals.length < 2) continue;
-      const hdr = vals[0];
-      // 解析人名欄：從 C 欄(idx=2)起每兩欄一人 "02 阿寶"
-      const pCols = {};
-      for (let c = 2; c < hdr.length; c += 2) {
-        const h = String(hdr[c]||'').trim(); if (!h) continue;
-        const m = h.match(/^(\d+)\s+(.+)$/);
-        if (m) pCols[c] = { no:parseInt(m[1]), name:m[2].trim(), nc:c+1 };
-      }
-      // 解析時段（處理合併儲存格：空值沿用上行）
-      const slots = {};
-      let lt='', le='';
-      vals.slice(1).forEach(r => {
-        const t = String(r[0]||'').trim() || lt;
-        const ev = String(r[1]||'').trim() || le;
-        if (t) lt = t; if (ev) le = ev;
-        if (!ev) return;
-        const k = t + '||' + ev;
-        if (!slots[k]) slots[k] = { time:t, event:ev, pTasks:{} };
-        Object.entries(pCols).forEach(([c,pi]) => {
-          const task = String(r[parseInt(c)]||'').trim();
-          const note = String(r[pi.nc]||'').trim();
-          if (!task && !note) return;
-          const nk = String(pi.no);
-          if (!slots[k].pTasks[nk]) slots[k].pTasks[nk] = { task, note, name:pi.name };
-          else if (task) slots[k].pTasks[nk].task += '；' + task;
-        });
-      });
-      // 轉成行程陣列
-      const items = Object.values(slots).map(s => {
-        const nos = Object.keys(s.pTasks).map(n=>parseInt(n)).filter(Boolean);
-        const groups = [...new Set(nos.map(no => { const p=result.people.find(p=>p.no===no); return p?p.group:null; }).filter(Boolean))];
-        // 個人行程存入
-        Object.entries(s.pTasks).forEach(([nk,ti]) => {
-          if (!result.personSchedule[dk][nk]) result.personSchedule[dk][nk] = [];
-          result.personSchedule[dk][nk].push({ time:s.time, event:s.event, task:ti.task, note:ti.note });
-        });
-        return { time:s.time, event:s.event, task:'', loc:'', groups, nos, transit:s.event.includes('換場'), personTasks:s.pTasks };
-      });
-      result.schedule[dk] = items.sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));
-    } catch(err) { result.schedule[dk]=[]; }
-  }
-  const json = JSON.stringify(result);
-  const cb = e && e.parameter && e.parameter.callback;
-  if (cb) { return ContentService.createTextOutput(cb+'('+json+')').setMimeType(ContentService.MimeType.JAVASCRIPT); }
-  return ContentService.createTextOutput(json).setMimeType(ContentService.MimeType.JSON);
-}`;
-function copyGasCode(){
-  $('gasCode').style.display='block';
-  $('gasCode').textContent=GAS_SYNC_CODE;
-  navigator.clipboard.writeText(GAS_SYNC_CODE).then(()=>showToast('✓ Apps Script 代碼已複製！貼入 Google Apps Script 並部署。'));
-}
-function copySlackScript(){showToast('✓ 請參考使用說明取得完整 Script')}
-function testSlack(){showToast('⚠️ 請先貼上 Bot Token 並於 Apps Script 執行測試',3000)}
-function setSyncState(state, msg){
-  const pill=$('syncPill'), dot=$('syncDot'), lbl=$('syncLabel');
-  pill.className='sync-pill'+({syncing:' syncing',ok:' ok',err:' err'}[state]||'');
-  dot.textContent={syncing:'◎',ok:'●',err:'✕',idle:'○'}[state]||'○';
-  lbl.textContent=msg||'同步';
-}
-function saveSyncCfg(){
-  localStorage.setItem('xiuCfg',JSON.stringify({
-    url:($('gasUrl')||{value:''}).value,
-    autoSync:($('autoSync')||{value:'off'}).value,
-    cacheMins:($('cacheMins')||{value:'30'}).value,
-  }));
-}
-function saveSlackCfg(){
-  localStorage.setItem('xiuSlack',JSON.stringify({
-    token:($('slackToken')||{value:''}).value,
-    time:($('slackTime')||{value:'07:30'}).value,
-    channel:($('slackChannel')||{value:'#志工細流'}).value,
-  }));
-  renderSlackPreview();
-}
-function applyData(data, logLine){
-  if(data.error) throw new Error(data.error);
-  if(data.people&&data.people.length){PEOPLE=data.people;logLine(`👥 志工名單：${PEOPLE.length} 人`);}
-  if(data.personSchedule){PERSON_SCHEDULE=data.personSchedule;logLine('🗓 個人行程：已載入');}
-  if(data.schedule&&Object.keys(data.schedule).length){
-    Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]);
-    Object.assign(SCHEDULE,data.schedule);
-    logLine(`📅 行程天數：${Object.keys(data.schedule).length} 天`);
-  }
-  localStorage.setItem('xiuData',JSON.stringify({people:PEOPLE,schedule:SCHEDULE,personSchedule:PERSON_SCHEDULE}));
-  localStorage.setItem('xiuAt',String(Date.now()));
-  setSyncState('ok','已同步 '+new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}));
-  logLine('🎉 同步完成！');
-  buildGroupChips('myGroupChips',myFilterGroup,'toggleMyGroup');
-  renderSchedule();renderPersonGrid();renderLocGrid();
-  showToast('✅ 行程同步成功！');
-}
-function syncNow(){
-  const url=($('gasUrl')||{value:''}).value.trim();
-  if(!url){showToast('⚠️ 請先填入 Apps Script 網址');return;}
-  setSyncState('syncing','同步中…');
-  const log=$('syncLog');if(log){log.className='log-box show';log.textContent='';}
-  const logLine=m=>{if(log)log.textContent+=m+'\n';};
-  logLine('▶ 連線至 Google Apps Script…');
+        async function syncData() {
+            document.getElementById('loading').style.display = 'block';
+            try {
+                const response = await fetch(API_URL);
+                ALL_DATA = await response.json();
+                localStorage.setItem('xiuData', JSON.stringify(ALL_DATA));
+                updateUserList();
+                renderSchedule();
+                document.getElementById('status').innerText = '同步成功: ' + new Date().toLocaleTimeString();
+            } catch (e) {
+                document.getElementById('status').innerText = '同步失敗，使用快取資料';
+                const cached = localStorage.getItem('xiuData');
+                if(cached) {
+                    ALL_DATA = JSON.parse(cached);
+                    updateUserList();
+                    renderSchedule();
+                }
+            }
+            document.getElementById('loading').style.display = 'none';
+        }
 
-  // 先嘗試 fetch（部分環境支援）
-  const tryFetch = () => fetch(url, {redirect:'follow'})
-    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
-    .then(data=>{logLine('✅ fetch 成功');applyData(data,logLine);})
-    .catch(e=>{
-      logLine('⚠️ fetch 失敗（'+e.message+'），改用 JSONP…');
-      tryJsonp();
-    });
+        function updateUserList() {
+            const select = document.getElementById('userSelect');
+            const currentVal = select.value;
+            select.innerHTML = '<option value="">請選擇您的姓名</option>';
+            if(ALL_DATA && ALL_DATA.people) {
+                ALL_DATA.people.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.name;
+                    opt.text = p.name;
+                    select.appendChild(opt);
+                });
+            }
+            select.value = currentVal;
+        }
 
-  // JSONP fallback（繞過 CORS）
-  const tryJsonp = () => {
-    const cb = '_xiu_cb_'+Date.now();
-    const script = document.createElement('script');
-    const timer = setTimeout(()=>{
-      cleanup();
-      setSyncState('err','同步逾時');
-      logLine('❌ JSONP 逾時（15秒），請確認 Apps Script 已部署且存取權為「所有人」');
-      showToast('❌ 同步逾時，請確認部署設定',4000);
-    }, 15000);
-    function cleanup(){
-      window[cb]=null;
-      if(script.parentNode) script.parentNode.removeChild(script);
-      clearTimeout(timer);
-    }
-    window[cb] = data => {
-      cleanup();
-      try{ logLine('✅ JSONP 成功');applyData(data,logLine); }
-      catch(e){ setSyncState('err','同步失敗');logLine('❌ 資料解析錯誤：'+e.message); }
-    };
-    // GAS 端需支援 callback 參數，若不支援則資料直接作為 JSON 傳回
-    // 先試 JSONP，若回傳非 callback 格式改為動態 iframe
-    script.onerror = ()=>{
-      cleanup();
-      setSyncState('err','同步失敗');
-      logLine('❌ 無法載入 Script，請確認網址是否正確');
-      showToast('❌ 網址錯誤或未部署',3500);
-    };
-    script.src = url+'?callback='+cb+'&t='+Date.now();
-    document.head.appendChild(script);
-  };
+        function changeDay(day) {
+            currentDay = day;
+            renderSchedule();
+        }
 
-  tryFetch();
-}
-function resetData(){
-  if(!confirm('確定回復內建資料？'))return;
-  PEOPLE=JSON.parse(JSON.stringify(_BUILTIN_PEOPLE));
-  Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]);
-  Object.assign(SCHEDULE,JSON.parse(JSON.stringify(_BUILTIN)));
-  localStorage.removeItem('xiuData');localStorage.removeItem('xiuAt');
-  setSyncState('idle','同步');
-  renderSchedule();renderPersonGrid();renderLocGrid();
-  showToast('↩ 已回復內建資料');
-}
-function loadCached(){
-  try{
-    const cfg=JSON.parse(localStorage.getItem('xiuCfg')||'{}');
-    if($('gasUrl')&&cfg.url)$('gasUrl').value=cfg.url;
-    if($('autoSync')&&cfg.autoSync)$('autoSync').value=cfg.autoSync;
-    if($('cacheMins')&&cfg.cacheMins)$('cacheMins').value=cfg.cacheMins;
-    const slk=JSON.parse(localStorage.getItem('xiuSlack')||'{}');
-    if($('slackToken')&&slk.token)$('slackToken').value=slk.token;
-    if($('slackTime')&&slk.time)$('slackTime').value=slk.time;
-    if($('slackChannel')&&slk.channel)$('slackChannel').value=slk.channel;
-    const saved=localStorage.getItem('xiuData');
-    if(saved){
-      const d=JSON.parse(saved);
-      if(d.people)PEOPLE=d.people;
-      if(d.personSchedule)PERSON_SCHEDULE=d.personSchedule;if(d.schedule){Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]);Object.assign(SCHEDULE,d.schedule);}
-      const at=localStorage.getItem('xiuAt');
-      setSyncState('ok','快取 '+new Date(parseInt(at)).toLocaleDateString('zh-TW'));
-    }
-    if(cfg.autoSync==='on'&&cfg.url){
-      const cacheMins=parseInt(cfg.cacheMins||'30');
-      const at=localStorage.getItem('xiuAt');
-      const age=at?(Date.now()-parseInt(at))/60000:9999;
-      if(age>cacheMins)syncNow();
-    }
-  }catch(e){}
-}
-buildDayStrip();
-buildGroupChips('myGroupChips',null,'toggleMyGroup');
-renderSchedule();
-renderPersonGrid();
-renderLocGrid();
-renderSlackPreview();
-loadCached();
-</script>
+        function renderSchedule() {
+            const name = document.getElementById('userSelect').value;
+            const container = document.getElementById('scheduleBody');
+            container.innerHTML = '';
+
+            if(!name || !ALL_DATA) {
+                container.innerHTML = '<p style="text-align:center; color:#999;">請先選擇姓名以查看行程</p>';
+                return;
+            }
+
+            const personal = (ALL_DATA.personSchedule[name] || {})[currentDay] || [];
+            
+            if(personal.length === 0) {
+                container.innerHTML = '<p style="text-align:center;">此日期無個人行程</p>';
+                return;
+            }
+
+            personal.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="time">${item.time}</div>
+                    <div class="event">${item.event}</div>
+                    <div class="details">
+                        <div class="task">📌 任務：${item.task || '無'}</div>
+                        <div class="loc">📍 地點：${item.location || '無'}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 自動啟動
+        window.onload = syncData;
+    </script>
 </body>
 </html>
