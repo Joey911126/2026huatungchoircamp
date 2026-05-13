@@ -149,7 +149,29 @@
     </div>
     <div class="tab-content active" id="cfg-sync">
       <div class="sync-panel">
-        <div class="sync-panel-title">🔗 Google Sheets API 連結</div>
+        <div class="sync-panel-title">🚀 快速設定步驟</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.55rem;margin-bottom:.5rem">
+          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.2);font-size:.78rem;line-height:1.65">
+            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--emerald);letter-spacing:.1em;margin-bottom:.3rem">STEP 1 · 取得試算表 ID</div>
+            開啟你的 Google Sheets，從網址列複製中間那段 ID：<br>
+            <code style="font-size:.65rem;background:rgba(26,110,53,0.12);padding:1px 4px;border-radius:3px;color:var(--emerald);word-break:break-all">…/spreadsheets/d/<strong>【ID在這】</strong>/edit</code>
+          </div>
+          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--gold-light);border:1px solid rgba(200,134,10,0.2);font-size:.78rem;line-height:1.65">
+            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold);letter-spacing:.1em;margin-bottom:.3rem">STEP 2 · 建立 Apps Script</div>
+            在試算表點「擴充功能 → Apps Script」，貼上下方代碼，將 <code style="font-size:.65rem;color:var(--gold)">YOUR_SPREADSHEET_ID</code> 換成剛才複製的 ID。
+          </div>
+          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--violet-light);border:1px solid rgba(93,26,150,0.18);font-size:.78rem;line-height:1.65">
+            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--violet);letter-spacing:.1em;margin-bottom:.3rem">STEP 3 · 部署為網頁應用程式</div>
+            點「部署 → 新增部署」，類型選「<strong>網頁應用程式</strong>」，執行身分選「<strong>我</strong>」，存取權選「<strong>所有人（含匿名）</strong>」，複製部署 URL。
+          </div>
+          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--rose-light);border:1px solid rgba(192,69,106,0.18);font-size:.78rem;line-height:1.65">
+            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--rose);letter-spacing:.1em;margin-bottom:.3rem">STEP 4 · 填入網址並啟動同步</div>
+            將部署 URL 貼到下方輸入框，選擇自動同步間隔，點「<strong>立即同步</strong>」測試。之後每次更新試算表，網站會自動拉取最新資料。
+          </div>
+        </div>
+      </div>
+      <div class="sync-panel">
+        <div class="sync-panel-title">🔗 Google Apps Script 連結</div>
         <div class="form-group">
           <label class="form-label">Google Apps Script 部署網址</label>
           <input class="form-input" id="gasUrl" placeholder="https://script.google.com/macros/s/…/exec" oninput="saveSyncCfg()">
@@ -157,19 +179,21 @@
         <div style="display:flex;gap:.6rem;margin-bottom:.6rem;flex-wrap:wrap">
           <div class="form-group" style="flex:1;min-width:120px">
             <label class="form-label">自動同步</label>
-            <select class="form-input" id="autoSync" onchange="saveSyncCfg()">
+            <select class="form-input" id="autoSync" onchange="saveSyncCfg();applyAutoSync()">
               <option value="off">關閉</option>
-              <option value="on">開啟時同步</option>
+              <option value="5">每 5 分鐘</option>
+              <option value="10">每 10 分鐘</option>
+              <option value="15" selected>每 15 分鐘</option>
+              <option value="30">每 30 分鐘</option>
+              <option value="60">每 1 小時</option>
             </select>
           </div>
-          <div class="form-group" style="flex:1;min-width:120px">
-            <label class="form-label">快取時間</label>
-            <select class="form-input" id="cacheMins" onchange="saveSyncCfg()">
-              <option value="0">不快取</option>
-              <option value="10">10 分鐘</option>
-              <option value="30" selected>30 分鐘</option>
-              <option value="60">1 小時</option>
-            </select>
+          <div class="form-group" style="flex:1;min-width:140px">
+            <label class="form-label">同步狀態</label>
+            <div id="autoSyncStatus" style="padding:.4rem .7rem;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface2);font-size:.75rem;color:var(--text3);min-height:32px;display:flex;align-items:center;gap:.4rem">
+              <span id="autoSyncDot" style="width:7px;height:7px;border-radius:50%;background:#ccc;flex-shrink:0;display:inline-block"></span>
+              <span id="autoSyncText">未設定</span>
+            </div>
           </div>
         </div>
         <div class="btn-row">
@@ -179,41 +203,59 @@
         <div class="log-box" id="syncLog"></div>
       </div>
       <div class="sync-panel">
-        <div class="sync-panel-title">📋 Google Sheets 欄位格式</div>
-        <div style="font-size:.8rem;color:var(--text2);margin-bottom:.75rem">試算表需有以下工作表結構：</div>
+        <div class="sync-panel-title">📋 試算表工作表格式說明</div>
+        <div style="font-size:.8rem;color:var(--text2);margin-bottom:.75rem">
+          ✅ <strong>不需要獨立「志工名單」工作表</strong>——系統直接從每日工作表的第一列 header 讀取人名與編號。
+        </div>
         <div style="overflow-x:auto">
           <table style="width:100%;border-collapse:collapse;font-size:.75rem">
             <tr style="background:var(--emerald-light)">
               <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">工作表名稱</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 A</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 B</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 C</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 D</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 E</th>
-              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">欄位 F</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">對應天數</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);text-align:left;font-family:'Cinzel',serif">說明</th>
+            </tr>
+            <tr><td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600">630</td><td style="padding:.35rem .6rem;border:1px solid var(--border)">Day 1（6/30）</td><td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">A1=Day1</td></tr>
+            <tr style="background:var(--surface2)"><td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600">71</td><td style="padding:.35rem .6rem;border:1px solid var(--border)">Day 2（7/1）</td><td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">A1=Day2</td></tr>
+            <tr><td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600">72 ～ 79</td><td style="padding:.35rem .6rem;border:1px solid var(--border)">Day 3 ～ Day 10</td><td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">依此類推</td></tr>
+            <tr style="background:var(--surface2)"><td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600">710</td><td style="padding:.35rem .6rem;border:1px solid var(--border)">Day 11（7/10）</td><td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">A1=Day11</td></tr>
+            <tr><td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600">712</td><td style="padding:.35rem .6rem;border:1px solid var(--border)">Day 13（7/12）</td><td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">A1=Day13</td></tr>
+          </table>
+        </div>
+        <div style="margin:.75rem 0 .4rem;font-size:.8rem;font-weight:600;color:var(--text2)">每個工作表的欄位結構</div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:.75rem">
+            <tr style="background:var(--emerald-light)">
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);font-family:'Cinzel',serif">列</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);font-family:'Cinzel',serif">欄 A</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);font-family:'Cinzel',serif">欄 B</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);font-family:'Cinzel',serif">欄 C</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);font-family:'Cinzel',serif">欄 D</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);font-family:'Cinzel',serif">欄 E</th>
+              <th style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--emerald);font-family:'Cinzel',serif">…</th>
+            </tr>
+            <tr style="background:rgba(93,26,150,0.06)">
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600;color:var(--violet)">第 1 列（Header）</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">DayN</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">（空）</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--violet)">"02 阿寶"<br><span style="font-size:.63rem">人1姓名欄</span></td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">（備註欄）</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--violet)">"03 小歪"<br><span style="font-size:.63rem">人2姓名欄</span></td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">…</td>
             </tr>
             <tr>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600;color:var(--text)">志工名單</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">編號</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">姓名</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">組別</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">Slack ID</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">—</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">—</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600">資料列</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">時段<br><span style="font-size:.63rem;color:var(--text3)">08:00-08:20</span></td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">活動名稱</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--text2);border:1px solid var(--border)">人1 任務內容</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">人1 備註</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">人2 任務內容</td>
+              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text3)">…</td>
             </tr>
             <tr style="background:var(--surface2)">
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);font-weight:600;color:var(--text)">Day1～Day13（每天一頁）</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">時段<br><span style="font-size:.65rem;color:var(--text3)">如 08:00-08:30</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">活動名稱</td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">人1 任務<br><span style="font-size:.65rem;color:var(--violet)">C欄（如 "02 阿寶"）</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">人1 備註<br><span style="font-size:.65rem;color:var(--text3)">D欄</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">人2 任務<br><span style="font-size:.65rem;color:var(--violet)">E欄（如 "03 小歪"）</span></td>
-              <td style="padding:.35rem .6rem;border:1px solid var(--border);color:var(--text2)">…依此類推</td>
-            </tr>
-            <tr>
-              <td colspan="7" style="padding:.35rem .6rem;border:1px solid var(--border);font-size:.72rem;color:var(--text3)">
-                📌 第一列：A1=DayN、B1=空、C1="02 阿寶"（每人佔兩欄：任務＋備註）<br>
-                📌 支援合併儲存格：時段或活動名稱空白時自動沿用上一行
+              <td colspan="7" style="padding:.35rem .6rem;border:1px solid var(--border);font-size:.7rem;color:var(--text3)">
+                📌 <strong>欄 B 有活動名稱的列</strong>為主行，系統從該行讀取人員任務<br>
+                📌 <strong>欄 B 空白的列</strong>（如換場時段）會被略過，不影響任務讀取<br>
+                📌 系統依每人欄位中填入的任務文字自動判斷參與者，空白 = 不參與
               </td>
             </tr>
           </table>
@@ -254,24 +296,31 @@
         <div style="display:flex;flex-direction:column;gap:.85rem">
           <div style="display:flex;gap:.75rem;align-items:flex-start">
             <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">1</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>建立 Google Sheets</strong>：新增「志工名單」工作表（A=編號 B=姓名 C=組別 D=Slack ID），以及每天的「Day1」至「Day13」工作表（橫向格式：A=時段 B=活動名稱，之後每兩欄為一人的「任務」與「備註」，第一列填人名如 "02 阿寶"）。</div>
+            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>確認試算表格式</strong>：工作表命名為 <code style="background:var(--emerald-light);padding:1px 4px;border-radius:3px;font-size:.75rem;color:var(--emerald)">630</code>（Day1）、<code style="background:var(--emerald-light);padding:1px 4px;border-radius:3px;font-size:.75rem;color:var(--emerald)">71</code>（Day2）…<code style="background:var(--emerald-light);padding:1px 4px;border-radius:3px;font-size:.75rem;color:var(--emerald)">710</code>（Day11）、<code style="background:var(--emerald-light);padding:1px 4px;border-radius:3px;font-size:.75rem;color:var(--emerald)">712</code>（Day13）。<strong>不需要另建「志工名單」工作表</strong>——志工名稱直接從第一列 header 讀取。</div>
           </div>
           <div style="display:flex;gap:.75rem;align-items:flex-start">
             <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">2</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>部署 Apps Script API</strong>：在試算表按「擴充功能 → Apps Script」，貼上 API 代碼，部署為「網頁應用程式」，存取權設為「所有人」。</div>
+            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>確認欄位格式</strong>：每個工作表第一列：A1=DayN（如 Day1）、C1="02 阿寶"、E1="03 小歪"……（每人佔兩欄：任務＋備註）。資料列：A=時段、B=活動名稱、C=人1任務、D=人1備註，以此類推。<strong>B 欄有活動名稱的列才是有效資料行。</strong></div>
           </div>
           <div style="display:flex;gap:.75rem;align-items:flex-start">
             <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">3</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>貼上網址</strong>：將部署後的 URL 貼到「Google Sheets 同步」設定，點擊「立即同步」即可載入最新行程。</div>
+            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>取得試算表 ID</strong>：從瀏覽器網址列複製：<code style="background:var(--emerald-light);padding:1px 4px;border-radius:3px;font-size:.75rem;color:var(--emerald)">https://docs.google.com/spreadsheets/d/<strong>【這裡是ID】</strong>/edit</code>，將 ID 填入 Apps Script 代碼的 <code style="font-size:.75rem;color:var(--violet)">SPREADSHEET_ID</code> 變數。</div>
           </div>
           <div style="display:flex;gap:.75rem;align-items:flex-start">
             <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">4</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>設定地圖圖片</strong>：在 HTML 中找到 <code style="background:var(--emerald-light);padding:1px 5px;border-radius:3px;font-size:.76rem;color:var(--emerald)">#mapImg</code> 元素，將 src 屬性改為您的地圖圖片路徑。</div>
+            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>部署 Apps Script</strong>：在試算表點「擴充功能 → Apps Script」，貼上複製的代碼，點「部署 → 新增部署」，類型選「網頁應用程式」，存取權設為「所有人（包含匿名）」，複製部署 URL。</div>
           </div>
           <div style="display:flex;gap:.75rem;align-items:flex-start">
             <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">5</div>
-            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>Slack 個人通知</strong>：在 Slack Workspace 建立 Bot，取得 Bot Token，填入設定，在 Google Apps Script 加上每日觸發器。</div>
+            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>填入網址並同步</strong>：將部署 URL 貼到「Google Sheets 同步」設定頁的輸入框，點「立即同步」即可載入最新行程。每次更新試算表後，重新點「立即同步」即可。</div>
           </div>
+          <div style="display:flex;gap:.75rem;align-items:flex-start">
+            <div style="width:24px;height:24px;border-radius:50%;background:var(--emerald);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0">6</div>
+            <div style="font-size:.82rem;color:var(--text2);line-height:1.7"><strong>設定地圖圖片</strong>：在 HTML 中找到 <code style="background:var(--emerald-light);padding:1px 5px;border-radius:3px;font-size:.76rem;color:var(--emerald)">#mapImg</code> 元素，將 src 屬性改為您的校園地圖圖片路徑。</div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;padding:.75rem;background:var(--gold-light);border:1px solid rgba(200,134,10,0.3);border-radius:8px;font-size:.78rem;color:var(--gold);line-height:1.7">
+          ⚠️ <strong>注意</strong>：試算表中沒有的天數（如 Day12 = 7/11 無工作表「711」）會顯示內建預設行程。目前系統支援 Day1（630）、Day2～Day10（71～79）、Day11（710）、Day13（712）。
         </div>
       </div>
     </div>
@@ -342,7 +391,7 @@ let PEOPLE = [
   {no:48, name:'烏龜',   group:'戲劇組', slack:''},
   {no:49, name:'AN',     group:'戲劇組', slack:''},
   {no:50, name:'汪汪',   group:'戲劇組', slack:''},
-  {no:52, name:'鳥安',   group:'戲劇組', slack:''},
+  {no:52, name:'烏安',   group:'戲劇組', slack:''},
   {no:53, name:'嚕批',   group:'戲劇組', slack:''},
   {no:54, name:'滑倒',   group:'戲劇組', slack:''},
   {no:56, name:'阿瘦',   group:'戲劇組', slack:''},
@@ -355,7 +404,7 @@ let PEOPLE = [
   {no:64, name:'阿鵝',   group:'SDL',    slack:''},
   {no:65, name:'Winnie', group:'SDL',    slack:''},
   {no:66, name:'玉仔',   group:'CIT',    slack:''},
-  {no:67, name:'西瓜',   group:'CIT',    slack:''},
+  {no:67, name:'西呱',   group:'CIT',    slack:''},
   {no:68, name:'秋秋',   group:'營長',   slack:''},
   {no:69, name:'里歐',   group:'營長',   slack:''},
 ];
@@ -418,7 +467,7 @@ let SCHEDULE = {
     {time:'21:55-22:00', event:'準備就寢', task:'確認學員就寢', loc:'各寢室', groups:['生輔組'], nos:[]},
   ];
 });
-SCHEDULE.d12 = [{time:'全天', event:'Assigned by 營長', task:'依營長安排', loc:'TBD', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]}];
+SCHEDULE.d12 = [{time:'全天', event:'Day12（7/11）行程', task:'試算表尚未設定此天工作表，請同步後查看', loc:'TBD', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]}];
 SCHEDULE.d13 = [
   {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
   {time:'08:30-10:50', event:'結業式 🎓', task:'帶隊、場地布置', loc:'PAC', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
@@ -703,78 +752,208 @@ function renderSlackPreview(){
   const el=$('slackPreview');if(el)el.textContent=msg;
 }
 const GAS_SYNC_CODE = `
-// ╔════════════════════════════════════════════════════════════╗
-// ║  細流 2026 · Google Apps Script API (橫向格式)             ║
-// ║  試算表格式：A=時段 B=活動 C,D=人1任務備註 E,F=人2...      ║
-// ╚════════════════════════════════════════════════════════════╝
-function doGet(e) {
-  const ss = SpreadsheetApp.openById('10yr87uGsVd8Fu6B4hH_RB8RhnBW2Z8uX8o_T144SvwQ');
-  const result = { people:[], schedule:{}, personSchedule:{}, updated:new Date().toISOString() };
+// ╔══════════════════════════════════════════════════════════════════════════╗
+// ║  細流 2026 · Google Apps Script API  v3                                  ║
+// ║  工作表命名：630=Day1、71=Day2、72=Day3…710=Day11、712=Day13             ║
+// ║  第一列 header：A1=DayN，從 C1 起每兩欄一人（"02 阿寶"、"03 小歪"…）   ║
+// ║  資料列：A=時段、B=活動名稱（可空，未來填入即自動同步）、C=任務、D=備註  ║
+// ║  ★ 不需要獨立「志工名單」工作表                                         ║
+// ║  ★ 合併儲存格自動展開，col B 空白時繼承同一時段區塊的活動名稱            ║
+// ╚══════════════════════════════════════════════════════════════════════════╝
 
-  // ── 志工名單工作表 ──
-  try {
-    const pSheet = ['志工名單','名單','People'].reduce((f,n)=>f||ss.getSheetByName(n),null);
-    if (pSheet) {
-      pSheet.getDataRange().getValues().slice(1).forEach(r => {
-        const no = parseInt(r[0]); if (!no) return;
-        result.people.push({ no, name:String(r[1]||'').trim(), group:String(r[2]||'').trim(), slack:String(r[3]||'').trim() });
-      });
-    }
-  } catch(err) { result.error_people = err.message; }
+// ★ 請將 YOUR_SPREADSHEET_ID 換成你的試算表 ID ★
+var SPREADSHEET_ID = '10yr87uGsVd8Fu6B4hH_RB8RhnBW2Z8uX8o_T144SvwQ';
 
-  // ── 每天行程（橫向格式） ──
-  for (let d = 1; d <= 13; d++) {
-    const dk = 'd' + d;
-    result.personSchedule[dk] = {};
-    const sheet = ['Day'+d,'D'+d,'行程_D'+d].reduce((f,n)=>f||ss.getSheetByName(n),null);
-    if (!sheet) continue;
-    try {
-      const vals = sheet.getDataRange().getValues();
-      if (vals.length < 2) continue;
-      const hdr = vals[0];
-      // 解析人名欄：從 C 欄(idx=2)起每兩欄一人 "02 阿寶"
-      const pCols = {};
-      for (let c = 2; c < hdr.length; c += 2) {
-        const h = String(hdr[c]||'').trim(); if (!h) continue;
-        const m = h.match(/^(\d+)\s+(.+)$/);
-        if (m) pCols[c] = { no:parseInt(m[1]), name:m[2].trim(), nc:c+1 };
-      }
-      // 解析時段（處理合併儲存格：空值沿用上行）
-      const slots = {};
-      let lt='', le='';
-      vals.slice(1).forEach(r => {
-        const t = String(r[0]||'').trim() || lt;
-        const ev = String(r[1]||'').trim() || le;
-        if (t) lt = t; if (ev) le = ev;
-        if (!ev) return;
-        const k = t + '||' + ev;
-        if (!slots[k]) slots[k] = { time:t, event:ev, pTasks:{} };
-        Object.entries(pCols).forEach(([c,pi]) => {
-          const task = String(r[parseInt(c)]||'').trim();
-          const note = String(r[pi.nc]||'').trim();
-          if (!task && !note) return;
-          const nk = String(pi.no);
-          if (!slots[k].pTasks[nk]) slots[k].pTasks[nk] = { task, note, name:pi.name };
-          else if (task) slots[k].pTasks[nk].task += '；' + task;
-        });
-      });
-      // 轉成行程陣列
-      const items = Object.values(slots).map(s => {
-        const nos = Object.keys(s.pTasks).map(n=>parseInt(n)).filter(Boolean);
-        const groups = [...new Set(nos.map(no => { const p=result.people.find(p=>p.no===no); return p?p.group:null; }).filter(Boolean))];
-        // 個人行程存入
-        Object.entries(s.pTasks).forEach(([nk,ti]) => {
-          if (!result.personSchedule[dk][nk]) result.personSchedule[dk][nk] = [];
-          result.personSchedule[dk][nk].push({ time:s.time, event:s.event, task:ti.task, note:ti.note });
-        });
-        return { time:s.time, event:s.event, task:'', loc:'', groups, nos, transit:s.event.includes('換場'), personTasks:s.pTasks };
-      });
-      result.schedule[dk] = items.sort((a,b)=>(a.time||'99:99').localeCompare(b.time||'99:99'));
-    } catch(err) { result.schedule[dk]=[]; }
+var SHEET_DAY_MAP = {
+  '630':'d1','71':'d2','72':'d3','73':'d4','74':'d5','75':'d6',
+  '76':'d7','77':'d8','78':'d9','79':'d10','710':'d11','712':'d13'
+};
+
+var GROUP_MAP = [
+  { nos:[1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20], group:'活動組' },
+  { nos:[21,22,23,24,25,26,27,28,29,30,31,32,33,34,37,39,40], group:'生輔組' },
+  { nos:[41,42,43,44,45,46], group:'選課組' },
+  { nos:[47,48,49,50,52,53,54,56], group:'戲劇組' },
+  { nos:[57,58,59,61,62,63], group:'影像組' },
+  { nos:[64,65], group:'SDL' },
+  { nos:[66,67], group:'CIT' },
+  { nos:[68,69], group:'營長' }
+];
+
+function getGroup(no) {
+  for (var i = 0; i < GROUP_MAP.length; i++) {
+    if (GROUP_MAP[i].nos.indexOf(no) !== -1) return GROUP_MAP[i].group;
   }
-  const json = JSON.stringify(result);
-  const cb = e && e.parameter && e.parameter.callback;
-  if (cb) { return ContentService.createTextOutput(cb+'('+json+')').setMimeType(ContentService.MimeType.JAVASCRIPT); }
+  return '其他';
+}
+
+// ── 展開合併儲存格：回傳 rows×cols 的二維陣列，子格填入主格的值 ──
+function expandMerges(sheet, vals) {
+  var merged = sheet.getRange(1, 1, vals.length, vals[0].length).getMergedRanges();
+  var grid = vals.map(function(r) { return r.slice(); }); // 深拷貝
+  for (var mi = 0; mi < merged.length; mi++) {
+    var rng   = merged[mi];
+    var rMin  = rng.getRow() - 1;        // 轉 0-index
+    var cMin  = rng.getColumn() - 1;
+    var rMax  = rMin + rng.getNumRows() - 1;
+    var cMax  = cMin + rng.getNumColumns() - 1;
+    var topVal = (rMin < grid.length && cMin < grid[rMin].length) ? grid[rMin][cMin] : '';
+    for (var r = rMin; r <= rMax && r < grid.length; r++) {
+      for (var c = cMin; c <= cMax && c < grid[r].length; c++) {
+        if (r === rMin && c === cMin) continue; // 主格保持原值
+        grid[r][c] = topVal;
+      }
+    }
+  }
+  return grid;
+}
+
+function doGet(e) {
+  var ss     = SpreadsheetApp.openById(SPREADSHEET_ID);
+  var result = { people:[], schedule:{}, personSchedule:{}, updated:new Date().toISOString() };
+
+  // ── 從 630（Day1）的 header 列讀取全體志工名單 ──
+  var baseSheet = ss.getSheetByName('630') || ss.getSheets()[0];
+  var peopleMap = {};
+  if (baseSheet) {
+    var hdrRow = baseSheet.getRange(1, 1, 1, baseSheet.getLastColumn()).getValues()[0];
+    for (var ci = 2; ci < hdrRow.length; ci += 2) {
+      var hv = String(hdrRow[ci] || '').trim();
+      if (!hv) continue;
+      var hm = hv.match(/^(\\d+)\\s+(.+)$/);
+      if (hm) {
+        var no = parseInt(hm[1]);
+        if (!peopleMap[no]) peopleMap[no] = { no:no, name:hm[2].trim(), group:getGroup(no), slack:'' };
+      }
+    }
+    result.people = Object.values(peopleMap).sort(function(a,b){ return a.no - b.no; });
+  }
+
+  // ── 每天行程 ──
+  for (var sName in SHEET_DAY_MAP) {
+    var dk    = SHEET_DAY_MAP[sName];
+    var sheet = ss.getSheetByName(sName);
+    result.schedule[dk]      = [];
+    result.personSchedule[dk] = {};
+    if (!sheet) continue;
+
+    try {
+      var lastRow = sheet.getLastRow();
+      var lastCol = sheet.getLastColumn();
+      if (lastRow < 2) continue;
+
+      // 讀取原始值，再展開合併儲存格
+      var rawVals = sheet.getRange(1, 1, lastRow, lastCol).getValues();
+      var grid    = expandMerges(sheet, rawVals);
+      var hdr     = grid[0];
+
+      // 解析人名欄（從 index 2 起，每兩欄一人）
+      var pCols = {};
+      for (var c = 2; c < hdr.length; c += 2) {
+        var hval = String(hdr[c] || '').trim();
+        if (!hval) continue;
+        var pm = hval.match(/^(\\d+)\\s+(.+)$/);
+        if (pm) pCols[c] = { no:parseInt(pm[1]), name:pm[2].trim() };
+      }
+
+      // ── 解析行程 ──
+      // 合併展開後：
+      //   col A = 時段（每個時段區塊的多行都有同一時段值）
+      //   col B = 活動名稱（若區塊空白 = 尚未填入，沿用上一個非換場名稱；未來填入後自動同步）
+      // 每個唯一「時段 + 活動名稱」= 一筆事件，所有子行的任務全部合入同一筆
+      var eventsMap   = {};
+      var eventsOrder = [];
+      var lastNonTransitEv = '';   // 記憶最近的非換場活動名稱，供空白格繼承
+
+      for (var ri = 1; ri < grid.length; ri++) {
+        var row     = grid[ri];
+        var timeVal = String(row[0] || '').trim();
+        var rawEv   = String(row[1] || '').trim().replace(/\\n/g,' / ').replace(/\\r/g,'');
+        var isTransit = (rawEv === '換場');
+
+        // 決定活動名稱：
+        //   有值 → 直接用（含換場）
+        //   空白 + 有時段 → 繼承上一個非換場名稱（此時段區塊尚未命名，但已有任務）
+        //   空白 + 無時段 → 略過（純空行）
+        var evVal = rawEv;
+        if (!evVal) {
+          if (!timeVal) continue;          // 完全空行，跳過
+          evVal = lastNonTransitEv;        // 繼承上一個非換場名稱
+          if (!evVal) continue;            // 連繼承都沒有，跳過
+        }
+
+        // 更新記憶（只在非換場、非空時更新）
+        if (rawEv && !isTransit) lastNonTransitEv = rawEv;
+
+        var key = timeVal + '||' + evVal;
+        if (!eventsMap[key]) {
+          eventsMap[key] = {
+            time:timeVal, event:evVal,
+            nos:[], personTasks:{},
+            transit: isTransit || evVal.indexOf('換場') !== -1
+          };
+          eventsOrder.push(key);
+        }
+        var ev = eventsMap[key];
+
+        // 讀取每人任務與備註
+        for (var pcIdx in pCols) {
+          var pci   = parseInt(pcIdx);
+          var pInfo = pCols[pcIdx];
+          var task  = String(row[pci] || '').trim();
+          var note  = (pci + 1 < row.length) ? String(row[pci + 1] || '').trim() : '';
+          if (!task && !note) continue;
+          var nk = String(pInfo.no);
+          if (!ev.personTasks[nk]) {
+            ev.personTasks[nk] = { name:pInfo.name, task:task, note:note };
+            ev.nos.push(pInfo.no);
+          } else {
+            // 同一事件多行有不同任務時合併（避免重複）
+            if (task && ev.personTasks[nk].task.indexOf(task) === -1) {
+              ev.personTasks[nk].task += (ev.personTasks[nk].task ? '；' : '') + task;
+            }
+            if (note && ev.personTasks[nk].note.indexOf(note) === -1) {
+              ev.personTasks[nk].note += (ev.personTasks[nk].note ? '；' : '') + note;
+            }
+          }
+        }
+      }
+
+      // ── 整理成陣列，同步填入個人行程 ──
+      var items = [];
+      for (var ki = 0; ki < eventsOrder.length; ki++) {
+        var ev2      = eventsMap[eventsOrder[ki]];
+        var groupSet = {};
+        for (var gi = 0; gi < ev2.nos.length; gi++) groupSet[getGroup(ev2.nos[gi])] = true;
+
+        for (var nk2 in ev2.personTasks) {
+          var pt = ev2.personTasks[nk2];
+          if (!result.personSchedule[dk][nk2]) result.personSchedule[dk][nk2] = [];
+          result.personSchedule[dk][nk2].push({
+            time:ev2.time, event:ev2.event, task:pt.task, note:pt.note
+          });
+        }
+        items.push({
+          time:ev2.time, event:ev2.event, task:'', loc:'',
+          groups:Object.keys(groupSet), nos:ev2.nos,
+          transit:ev2.transit, personTasks:ev2.personTasks
+        });
+      }
+
+      result.schedule[dk] = items.sort(function(a,b){
+        return (a.time || '99:99') < (b.time || '99:99') ? -1 : 1;
+      });
+
+    } catch(err) {
+      result.schedule[dk] = [];
+      if (!result.errors) result.errors = {};
+      result.errors[dk] = err.message;
+    }
+  }
+
+  var json = JSON.stringify(result);
+  var cb   = e && e.parameter && e.parameter.callback;
+  if (cb) return ContentService.createTextOutput(cb + '(' + json + ')').setMimeType(ContentService.MimeType.JAVASCRIPT);
   return ContentService.createTextOutput(json).setMimeType(ContentService.MimeType.JSON);
 }`;
 function copyGasCode(){
@@ -794,7 +973,6 @@ function saveSyncCfg(){
   localStorage.setItem('xiuCfg',JSON.stringify({
     url:($('gasUrl')||{value:''}).value,
     autoSync:($('autoSync')||{value:'off'}).value,
-    cacheMins:($('cacheMins')||{value:'30'}).value,
   }));
 }
 function saveSlackCfg(){
@@ -805,14 +983,113 @@ function saveSlackCfg(){
   }));
   renderSlackPreview();
 }
+
+// ── 定時自動同步 ──
+let _autoTimer   = null;   // setInterval handle
+let _nextSyncAt  = null;   // Date — 下次同步時間
+let _countdownId = null;   // setInterval handle for countdown display
+
+function applyAutoSync(){
+  // 清除舊定時器
+  if(_autoTimer)   { clearInterval(_autoTimer);   _autoTimer   = null; }
+  if(_countdownId) { clearInterval(_countdownId); _countdownId = null; }
+
+  const url      = ($('gasUrl')||{value:''}).value.trim();
+  const intervalStr = ($('autoSync')||{value:'off'}).value;
+  const dot  = $('autoSyncDot');
+  const text = $('autoSyncText');
+
+  if(intervalStr === 'off' || !url){
+    if(dot)  dot.style.background  = '#ccc';
+    if(text) text.textContent = intervalStr === 'off' ? '已關閉' : '請先填入 GAS 網址';
+    return;
+  }
+
+  const mins = parseInt(intervalStr);
+  const ms   = mins * 60 * 1000;
+
+  // 立刻跑一次（若距上次同步已超過間隔）
+  const at  = localStorage.getItem('xiuAt');
+  const age = at ? (Date.now() - parseInt(at)) / 60000 : 9999;
+  if(age >= mins) syncNow();
+
+  // 設定下次同步時間
+  _nextSyncAt = new Date(Date.now() + ms);
+
+  // 定時同步
+  _autoTimer = setInterval(()=>{
+    syncNow();
+    _nextSyncAt = new Date(Date.now() + ms);
+  }, ms);
+
+  // 倒數顯示（每秒更新）
+  function updateCountdown(){
+    if(!_nextSyncAt) return;
+    const sec = Math.max(0, Math.round((_nextSyncAt - Date.now()) / 1000));
+    const m   = String(Math.floor(sec / 60)).padStart(2,'0');
+    const s   = String(sec % 60).padStart(2,'0');
+    if(dot)  { dot.style.background = '#22c55e'; dot.style.boxShadow = '0 0 5px #22c55e88'; }
+    if(text) text.textContent = `每 ${mins} 分鐘同步 · 下次 ${m}:${s}`;
+  }
+  updateCountdown();
+  _countdownId = setInterval(updateCountdown, 1000);
+}
+
+function loadCached(){
+  try{
+    const cfg = JSON.parse(localStorage.getItem('xiuCfg')||'{}');
+    if($('gasUrl')   && cfg.url)       $('gasUrl').value       = cfg.url;
+    if($('autoSync') && cfg.autoSync)  $('autoSync').value     = cfg.autoSync;
+    const slk = JSON.parse(localStorage.getItem('xiuSlack')||'{}');
+    if($('slackToken')   && slk.token)   $('slackToken').value   = slk.token;
+    if($('slackTime')    && slk.time)    $('slackTime').value    = slk.time;
+    if($('slackChannel') && slk.channel) $('slackChannel').value = slk.channel;
+
+    // 載入快取資料
+    const saved = localStorage.getItem('xiuData');
+    if(saved){
+      const d = JSON.parse(saved);
+      if(d.people) PEOPLE = d.people;
+      if(d.personSchedule) PERSON_SCHEDULE = d.personSchedule;
+      if(d.schedule){
+        Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]);
+        Object.assign(SCHEDULE, d.schedule);
+      }
+      const at = localStorage.getItem('xiuAt');
+      if(at){
+        const ago = Math.round((Date.now()-parseInt(at))/60000);
+        const agoStr = ago < 60 ? `${ago} 分鐘前` : `${Math.round(ago/60)} 小時前`;
+        setSyncState('ok','上次同步：'+agoStr);
+      }
+    }
+
+    // 啟動自動同步（依儲存的設定）
+    applyAutoSync();
+
+  }catch(e){ console.warn('loadCached error', e); }
+}
+buildDayStrip();
+buildGroupChips('myGroupChips',null,'toggleMyGroup');
+renderSchedule();
+renderPersonGrid();
+renderLocGrid();
+renderSlackPreview();
+loadCached();
 function applyData(data, logLine){
-  if(data.error) throw new Error(data.error);
-  if(data.people&&data.people.length){PEOPLE=data.people;logLine(`👥 志工名單：${PEOPLE.length} 人`);}
+  if(data.people&&data.people.length){
+    PEOPLE=data.people;
+    logLine(`👥 志工名單：${PEOPLE.length} 人（從試算表 header 讀取）`);
+  }
   if(data.personSchedule){PERSON_SCHEDULE=data.personSchedule;logLine('🗓 個人行程：已載入');}
   if(data.schedule&&Object.keys(data.schedule).length){
     Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]);
     Object.assign(SCHEDULE,data.schedule);
-    logLine(`📅 行程天數：${Object.keys(data.schedule).length} 天`);
+    const dayCount=Object.keys(data.schedule).length;
+    const totalEvents=Object.values(data.schedule).reduce((s,a)=>s+(a?a.length:0),0);
+    logLine(`📅 行程天數：${dayCount} 天 · 共 ${totalEvents} 筆活動`);
+  }
+  if(data.errors){
+    Object.entries(data.errors).forEach(([k,msg])=>logLine(`⚠️ ${k} 解析錯誤：${msg}`));
   }
   localStorage.setItem('xiuData',JSON.stringify({people:PEOPLE,schedule:SCHEDULE,personSchedule:PERSON_SCHEDULE}));
   localStorage.setItem('xiuAt',String(Date.now()));
@@ -883,39 +1160,6 @@ function resetData(){
   renderSchedule();renderPersonGrid();renderLocGrid();
   showToast('↩ 已回復內建資料');
 }
-function loadCached(){
-  try{
-    const cfg=JSON.parse(localStorage.getItem('xiuCfg')||'{}');
-    if($('gasUrl')&&cfg.url)$('gasUrl').value=cfg.url;
-    if($('autoSync')&&cfg.autoSync)$('autoSync').value=cfg.autoSync;
-    if($('cacheMins')&&cfg.cacheMins)$('cacheMins').value=cfg.cacheMins;
-    const slk=JSON.parse(localStorage.getItem('xiuSlack')||'{}');
-    if($('slackToken')&&slk.token)$('slackToken').value=slk.token;
-    if($('slackTime')&&slk.time)$('slackTime').value=slk.time;
-    if($('slackChannel')&&slk.channel)$('slackChannel').value=slk.channel;
-    const saved=localStorage.getItem('xiuData');
-    if(saved){
-      const d=JSON.parse(saved);
-      if(d.people)PEOPLE=d.people;
-      if(d.personSchedule)PERSON_SCHEDULE=d.personSchedule;if(d.schedule){Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]);Object.assign(SCHEDULE,d.schedule);}
-      const at=localStorage.getItem('xiuAt');
-      setSyncState('ok','快取 '+new Date(parseInt(at)).toLocaleDateString('zh-TW'));
-    }
-    if(cfg.autoSync==='on'&&cfg.url){
-      const cacheMins=parseInt(cfg.cacheMins||'30');
-      const at=localStorage.getItem('xiuAt');
-      const age=at?(Date.now()-parseInt(at))/60000:9999;
-      if(age>cacheMins)syncNow();
-    }
-  }catch(e){}
-}
-buildDayStrip();
-buildGroupChips('myGroupChips',null,'toggleMyGroup');
-renderSchedule();
-renderPersonGrid();
-renderLocGrid();
-renderSlackPreview();
-loadCached();
 </script>
 </body>
 </html>
