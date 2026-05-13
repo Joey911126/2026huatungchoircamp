@@ -148,39 +148,23 @@
       <button class="tab-bar-btn" onclick="switchConfigTab('guide')" id="ctab-guide">📖 使用說明</button>
     </div>
     <div class="tab-content active" id="cfg-sync">
-      <div class="sync-panel">
-        <div class="sync-panel-title">🚀 快速設定步驟</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.55rem;margin-bottom:.5rem">
-          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.2);font-size:.78rem;line-height:1.65">
-            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--emerald);letter-spacing:.1em;margin-bottom:.3rem">STEP 1 · 取得試算表 ID</div>
-            開啟你的 Google Sheets，從網址列複製中間那段 ID：<br>
-            <code style="font-size:.65rem;background:rgba(26,110,53,0.12);padding:1px 4px;border-radius:3px;color:var(--emerald);word-break:break-all">…/spreadsheets/d/<strong>【ID在這】</strong>/edit</code>
-          </div>
-          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--gold-light);border:1px solid rgba(200,134,10,0.2);font-size:.78rem;line-height:1.65">
-            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold);letter-spacing:.1em;margin-bottom:.3rem">STEP 2 · 建立 Apps Script</div>
-            在試算表點「擴充功能 → Apps Script」，貼上下方代碼，將 <code style="font-size:.65rem;color:var(--gold)">YOUR_SPREADSHEET_ID</code> 換成剛才複製的 ID。
-          </div>
-          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--violet-light);border:1px solid rgba(93,26,150,0.18);font-size:.78rem;line-height:1.65">
-            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--violet);letter-spacing:.1em;margin-bottom:.3rem">STEP 3 · 部署為網頁應用程式</div>
-            點「部署 → 新增部署」，類型選「<strong>網頁應用程式</strong>」，執行身分選「<strong>我</strong>」，存取權選「<strong>所有人（含匿名）</strong>」，複製部署 URL。
-          </div>
-          <div style="padding:.65rem .8rem;border-radius:8px;background:var(--rose-light);border:1px solid rgba(192,69,106,0.18);font-size:.78rem;line-height:1.65">
-            <div style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--rose);letter-spacing:.1em;margin-bottom:.3rem">STEP 4 · 填入網址並啟動同步</div>
-            將部署 URL 貼到下方輸入框，選擇自動同步間隔，點「<strong>立即同步</strong>」測試。之後每次更新試算表，網站會自動拉取最新資料。
-          </div>
+      <div class="sync-panel" style="background:linear-gradient(105deg,var(--emerald-light),var(--surface));border-left:3px solid var(--emerald-mid)">
+        <div class="sync-panel-title" style="color:var(--emerald)">✅ 已連結 Google Sheets</div>
+        <div style="font-size:.8rem;color:var(--text2);line-height:1.8;margin-bottom:.75rem">
+          行程資料自動從試算表同步，<strong>無需任何額外設定</strong>。<br>
+          每次有人開啟此頁面，或按下「立即同步」，會自動拉取最新資料。
+        </div>
+        <div style="font-size:.72rem;color:var(--text3);font-family:'JetBrains Mono',monospace;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.4rem .7rem;word-break:break-all;margin-bottom:.75rem">
+          🔗 AKfycbwktsF6R6jBFEQs…（已設定）
         </div>
       </div>
       <div class="sync-panel">
-        <div class="sync-panel-title">🔗 Google Apps Script 連結</div>
-        <div class="form-group">
-          <label class="form-label">Google Apps Script 部署網址</label>
-          <input class="form-input" id="gasUrl" placeholder="https://script.google.com/macros/s/…/exec" oninput="saveSyncCfg()">
-        </div>
+        <div class="sync-panel-title">🔄 同步設定</div>
+        <input type="hidden" id="gasUrl" value="https://script.google.com/macros/s/AKfycbwktsF6R6jBFEQs-va-B_Fvrbs9zAKNizivDiTNz_pOLgYnFk8MVPw82hUE1CmvoVw/exec">
         <div style="display:flex;gap:.6rem;margin-bottom:.6rem;flex-wrap:wrap">
           <div class="form-group" style="flex:1;min-width:120px">
-            <label class="form-label">自動同步</label>
+            <label class="form-label">自動同步間隔</label>
             <select class="form-input" id="autoSync" onchange="saveSyncCfg();applyAutoSync()">
-              <option value="off">關閉</option>
               <option value="5">每 5 分鐘</option>
               <option value="10">每 10 分鐘</option>
               <option value="15" selected>每 15 分鐘</option>
@@ -990,18 +974,17 @@ let _nextSyncAt  = null;   // Date — 下次同步時間
 let _countdownId = null;   // setInterval handle for countdown display
 
 function applyAutoSync(){
-  // 清除舊定時器
   if(_autoTimer)   { clearInterval(_autoTimer);   _autoTimer   = null; }
   if(_countdownId) { clearInterval(_countdownId); _countdownId = null; }
 
-  const url      = ($('gasUrl')||{value:''}).value.trim();
-  const intervalStr = ($('autoSync')||{value:'off'}).value;
+  const url         = GAS_URL;
+  const intervalStr = ($('autoSync')||{value:'15'}).value;
   const dot  = $('autoSyncDot');
   const text = $('autoSyncText');
 
-  if(intervalStr === 'off' || !url){
-    if(dot)  dot.style.background  = '#ccc';
-    if(text) text.textContent = intervalStr === 'off' ? '已關閉' : '請先填入 GAS 網址';
+  if(!url){
+    if(dot)  dot.style.background = '#ccc';
+    if(text) text.textContent = '未設定 GAS 網址';
     return;
   }
 
@@ -1035,17 +1018,26 @@ function applyAutoSync(){
   _countdownId = setInterval(updateCountdown, 1000);
 }
 
+// ── 固定寫死的連線設定（其他人開啟不需要任何操作）──
+const GAS_URL      = 'https://script.google.com/macros/s/AKfycbwktsF6R6jBFEQs-va-B_Fvrbs9zAKNizivDiTNz_pOLgYnFk8MVPw82hUE1CmvoVw/exec';
+const AUTO_MINS    = 15;  // 預設自動同步間隔（分鐘）
+
 function loadCached(){
   try{
+    // 確保 hidden input 有正確值
+    if($('gasUrl')) $('gasUrl').value = GAS_URL;
+
+    // 讀取 autoSync 選單設定（允許使用者調整間隔）
     const cfg = JSON.parse(localStorage.getItem('xiuCfg')||'{}');
-    if($('gasUrl')   && cfg.url)       $('gasUrl').value       = cfg.url;
-    if($('autoSync') && cfg.autoSync)  $('autoSync').value     = cfg.autoSync;
+    if($('autoSync') && cfg.autoSync) $('autoSync').value = cfg.autoSync;
+
+    // Slack 設定
     const slk = JSON.parse(localStorage.getItem('xiuSlack')||'{}');
     if($('slackToken')   && slk.token)   $('slackToken').value   = slk.token;
     if($('slackTime')    && slk.time)    $('slackTime').value    = slk.time;
     if($('slackChannel') && slk.channel) $('slackChannel').value = slk.channel;
 
-    // 載入快取資料
+    // 載入 localStorage 快取（讓畫面先顯示舊資料，同步後覆蓋）
     const saved = localStorage.getItem('xiuData');
     if(saved){
       const d = JSON.parse(saved);
@@ -1060,10 +1052,11 @@ function loadCached(){
         const ago = Math.round((Date.now()-parseInt(at))/60000);
         const agoStr = ago < 60 ? `${ago} 分鐘前` : `${Math.round(ago/60)} 小時前`;
         setSyncState('ok','上次同步：'+agoStr);
+        renderSchedule(); renderPersonGrid(); renderLocGrid();
       }
     }
 
-    // 啟動自動同步（依儲存的設定）
+    // 啟動自動同步（固定使用 GAS_URL，間隔依選單）
     applyAutoSync();
 
   }catch(e){ console.warn('loadCached error', e); }
@@ -1100,8 +1093,8 @@ function applyData(data, logLine){
   showToast('✅ 行程同步成功！');
 }
 function syncNow(){
-  const url=($('gasUrl')||{value:''}).value.trim();
-  if(!url){showToast('⚠️ 請先填入 Apps Script 網址');return;}
+  const url=GAS_URL;
+  if(!url){showToast('⚠️ GAS 網址未設定');return;}
   setSyncState('syncing','同步中…');
   const log=$('syncLog');if(log){log.className='log-box show';log.textContent='';}
   const logLine=m=>{if(log)log.textContent+=m+'\n';};
