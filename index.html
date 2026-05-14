@@ -492,10 +492,11 @@ function getPersonItems(dayId, personNo) {
   );
 
   // 把 SCHEDULE 活動與 psItems 合併：
-  // psItems 有的保留（有任務內容），沒有的補入（只顯示時間+活動名稱+場地）
-  const psKeys = new Set(psItems.map(s => s.time + '||' + s.event));
+  // psItems 有的保留（有任務內容），沒有的補入（顯示時間+活動名稱+場地）
+  // 比對 key 時，event 為空也算有效（有時間即顯示）
+  const psKeys = new Set(psItems.map(s => s.time + '||' + (s.event || '')));
   const extra = allItems
-    .filter(s => !psKeys.has(s.time + '||' + s.event))
+    .filter(s => !psKeys.has(s.time + '||' + (s.event || '')))
     .map(s => ({ time: s.time, event: s.event, task: '', note: '', loc: s.loc || '' }));
 
   // 合併後依時間排序
@@ -536,19 +537,24 @@ function jumpToNow(){
   const tpe = new Date(now.toLocaleString('en-US', {timeZone:'Asia/Taipei'}));
   const hhmm = String(tpe.getHours()).padStart(2,'0') + ':' + String(tpe.getMinutes()).padStart(2,'0');
   const hhmm_mins = parseInt(hhmm.split(':')[0])*60 + parseInt(hhmm.split(':')[1]);
-  // 自動跳至今天對應的日期 chip
+
+  // ── 台北時間比對是否在營期（6/30～7/12）內，是的話自動切換日期 ──
   const tpeDateStr = `${tpe.getFullYear()}/${tpe.getMonth()+1}/${tpe.getDate()}`;
   const todayDay = DAYS.find(d => {
     const m = d.full.match(/^(\d{4}\/\d+\/\d+)/);
     return m && m[1] === tpeDateStr;
   });
+  let dayChanged = false;
   if(todayDay && todayDay.id !== currentDay){
     currentDay = todayDay.id;
+    dayChanged = true;
     buildDayStrip();
     renderSchedule();
     renderLocGrid();
-    if(selectedPerson && currentTab==='my') renderMySchedule();
+    if(currentTab === 'my') renderMySchedule();
   }
+  // 若不在營期內，日期不切換，在目前選取日期中尋找最近時段
+
   function highlightRow(el){
     el.scrollIntoView({behavior:'smooth', block:'center'});
     el.style.transition='box-shadow .2s,border-left-color .2s';
@@ -556,35 +562,43 @@ function jumpToNow(){
     el.style.borderLeftColor='var(--rose)';
     setTimeout(()=>{el.style.boxShadow='';el.style.borderLeftColor='';},1800);
   }
-  if(currentTab === 'my'){
-    if(!selectedPerson){showToast('🔮 請先選擇一位志工');return;}
-    const rows = document.querySelectorAll('.my-row');
+
+  function findBestRow(selector, timeSelector){
+    const rows = document.querySelectorAll(selector);
     let bestEl = null, bestDiff = Infinity;
     rows.forEach(el => {
-      const timeEl = el.querySelector('.my-row-time');
+      const timeEl = el.querySelector(timeSelector);
       if(!timeEl) return;
       const t = timeEl.textContent.trim().split('-')[0].trim();
       if(!/^\d{2}:\d{2}/.test(t)) return;
       const diff = Math.abs(hhmm_mins - (parseInt(t.split(':')[0])*60 + parseInt(t.split(':')[1])));
       if(diff < bestDiff){ bestDiff = diff; bestEl = el; }
     });
-    if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm); }
-    else { window.scrollTo({top:0,behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，無行程'); }
+    return bestEl;
+  }
+
+  // 個人頁：renderMySchedule 也用 .tl-row + .tl-time，需等 DOM 更新後再搜尋
+  if(currentTab === 'my'){
+    if(!selectedPerson){ showToast('🔮 請先選擇一位志工'); return; }
+    const doScroll = () => {
+      // 個人行程卡片在 #myScheduleEl 內，同樣用 tl-row / tl-time
+      const bestEl = findBestRow('#myScheduleEl .tl-row', '.tl-time');
+      if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm+(todayDay?'':' · 非營期，顯示選取日')); }
+      else { window.scrollTo({top:0,behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，無行程'); }
+    };
+    // 若剛切換日期，等一個 microtask 讓 DOM 渲染完畢
+    if(dayChanged) requestAnimationFrame(doScroll); else doScroll();
     return;
   }
+
+  // 行程總覽頁
   if(currentTab !== 'schedule') switchTab('schedule');
-  const rows = document.querySelectorAll('.tl-row');
-  let bestEl = null, bestDiff = Infinity;
-  rows.forEach(el => {
-    const timeEl = el.querySelector('.tl-time');
-    if(!timeEl) return;
-    const t = timeEl.textContent.trim().split('-')[0].trim();
-    if(!/^\d{2}:\d{2}/.test(t)) return;
-    const diff = Math.abs(hhmm_mins - (parseInt(t.split(':')[0])*60 + parseInt(t.split(':')[1])));
-    if(diff < bestDiff){ bestDiff = diff; bestEl = el; }
-  });
-  if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm); }
-  else { window.scrollTo({top:0, behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，非行程時段'); }
+  const doScrollSchedule = () => {
+    const bestEl = findBestRow('#timelineEl .tl-row', '.tl-time');
+    if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm+(todayDay?'':' · 非營期，顯示選取日')); }
+    else { window.scrollTo({top:0, behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，非行程時段'); }
+  };
+  if(dayChanged) requestAnimationFrame(doScrollSchedule); else doScrollSchedule();
 }
 function switchTab(tab){
   currentTab=tab;
@@ -712,9 +726,9 @@ function renderMySchedule(){
       const isTransit2 = s.transit || (s.event && s.event.includes('換場'));
       return `<div class="tl-row${isTransit2?' transit':''}" style="margin-bottom:0">
         <div class="tl-time">${s.time||'—'}</div>
-        <div class="tl-icon-cell" style="${isTransit2?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${getIcon(s.event)}</div>
+        <div class="tl-icon-cell" style="${isTransit2?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${getIcon(s.event||'')}</div>
         <div class="tl-content">
-          <div class="tl-ev-name">${s.event}</div>
+          <div class="tl-ev-name">${s.event||'<span style="color:var(--text3);font-style:italic">（未填寫活動名稱）</span>'}</div>
           ${s.task?`<div class="tl-task-txt">${s.task}</div>`:''}
           ${s.note?`<div class="tl-task-txt" style="color:var(--violet-mid)">📝 ${s.note}</div>`:''}
           ${s.loc?`<button class="tl-loc-btn" onclick="openLocModal('${locEsc}')">📍 ${s.loc}</button>`:''}
@@ -925,7 +939,8 @@ function doGet(e) {
           var pci = parseInt(pcIdx), pInfo = pCols[pcIdx];
           var task = String(row[pci] || '').trim();
           var note = (pci+1<row.length) ? String(row[pci+1]||'').trim() : '';
-          if (!task && !note) continue;
+          // ── 只要欄位列存在（header 有人名），不論 task/note 是否填寫，都記錄 ──
+          // （空白 task = 尚未填寫，仍需顯示時間讓志工知道有這個時段）
           var nk = String(pInfo.no);
           if (!ev.personTasks[nk]) { ev.personTasks[nk] = {name:pInfo.name,task:task,note:note}; ev.nos.push(pInfo.no); }
           else {
