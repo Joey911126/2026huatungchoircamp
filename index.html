@@ -12,14 +12,13 @@
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-icon" style="padding:0;overflow:hidden"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCABAAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDEjgduwFaVtp7EDjPGePSraWoBK7cGuosNJvbe1kkiypMZSRYTuLRMuWyw+XGARj1FfomNzCFBJydrn5dGFSrfkV7HLDTYhExEo83fgR7eq465/pU9jp..." style="width:32px;height:32px;object-fit:cover;border-radius:8px;display:block"></div>
+      <div class="logo-icon" style="padding:0;overflow:hidden"><img src="2026花東音樂營.jpg" style="width:32px;height:32px;object-fit:cover;border-radius:8px;display:block"></div>
       <div>細流 2026<span class="logo-sub">花東青少年合唱音樂營</span></div>
     </div>
     <nav class="nav">
       <button class="nav-btn active" onclick="switchTab('schedule')" id="btn-schedule">📅 行程總覽</button>
       <button class="nav-btn" onclick="switchTab('my')" id="btn-my">👤 個人行程</button>
       <button class="nav-btn" onclick="switchTab('location')" id="btn-location">📍 場地</button>
-      <button class="nav-btn" onclick="switchTab('config')" id="btn-config">⚙️ 設定</button>
     </nav>
     <button class="sync-pill" id="syncPill" onclick="syncNow()">
       <span id="syncDot">○</span><span id="syncLabel">同步</span>
@@ -31,11 +30,10 @@
     <button class="mb-btn active" onclick="switchTab('schedule')" id="mb-schedule"><span class="ico">📅</span>行程</button>
     <button class="mb-btn" onclick="switchTab('my')" id="mb-my"><span class="ico">👤</span>個人</button>
     <button class="mb-btn" onclick="switchTab('location')" id="mb-location"><span class="ico">📍</span>場地</button>
-    <button class="mb-btn" onclick="switchTab('config')" id="mb-config"><span class="ico">⚙️</span>設定</button>
   </div>
 </nav>
 <div class="fab-tip" id="fabTip" style="bottom:88px">跳至現在</div>
-<button class="fab" id="fabBtn" onclick="jumpToNow()" onmouseenter="showFabTip()" onmouseleave="hideFabTip()" title="跳至當前時刻（台北時間）">🔮</button>
+<button class="fab" id="fabBtn" onclick="jumpToNow()" onmouseenter="showFabTip()" onmouseleave="hideFabTip()" title="跳至現在（台北時間）">🔮</button>
 <div class="modal-overlay" id="locModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -469,8 +467,11 @@ const ICONS = {'早餐':'🍳','午餐':'🥢','晚餐':'🍽️','午休':'😴
   'talent':'✨','buddy':'🤝','Buddy':'🤝','清潔':'🧹','報到':'📋','會議':'📢',
   '賦歸':'🎒','Free':'☕','就寢':'🌙','Assigned':'📋'};
 function getIcon(ev){for(const[k,v]of Object.entries(ICONS))if(ev.includes(k))return v;return'✦'}
-const MUST = ['早餐','午餐','晚餐','始業式','結業式','Party','party','全員會議','早操','buddy','Buddy'];
-function isMust(ev){return MUST.some(k=>ev.toLowerCase().includes(k.toLowerCase()))}
+const ALL_GROUPS_LIST = Object.keys({'活動組':1,'生輔組':1,'選課組':1,'戲劇組':1,'影像組':1,'SDL':1,'CIT':1,'營長':1});
+function isMust(ev,groups){
+  if(!groups||!groups.length) return false;
+  return ALL_GROUPS_LIST.every(g=>groups.includes(g));
+}
 function showToast(msg,t=2400){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),t)}
 function $(id){return document.getElementById(id)}
 function personById(no){return PEOPLE.find(p=>p.no===no)}
@@ -498,12 +499,41 @@ function getSortedItems(dayId){
   });
 }
 function showFabTip(){const t=$('fabTip');if(t){t.style.opacity='1';}}
+function showFabMenu(){
+  const m=$('fabMenu');
+  if(!m)return;
+  if(m.style.display==='flex'){hideFabMenu();return;}
+  m.style.display='flex';
+  setTimeout(()=>document.addEventListener('click',_fabOutside,{once:true}),10);
+}
+function hideFabMenu(){const m=$('fabMenu');if(m)m.style.display='none';}
+function _fabOutside(e){if(!$('fabBtn').contains(e.target)&&!($('fabMenu')&&$('fabMenu').contains(e.target)))hideFabMenu();}
+function jumpToSelectedDay(){
+  const day=DAYS.find(d=>d.id===currentDay);
+  if(!day){showToast('無選取日期');return;}
+  showToast('📅 已切換至 '+day.label);
+  if(currentTab!=='schedule')switchTab('schedule');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 function hideFabTip(){const t=$('fabTip');if(t)t.style.opacity='0';}
 function jumpToNow(){
   const now = new Date();
   const tpe = new Date(now.toLocaleString('en-US', {timeZone:'Asia/Taipei'}));
   const hhmm = String(tpe.getHours()).padStart(2,'0') + ':' + String(tpe.getMinutes()).padStart(2,'0');
   const hhmm_mins = parseInt(hhmm.split(':')[0])*60 + parseInt(hhmm.split(':')[1]);
+  // 自動跳至今天對應的日期 chip
+  const tpeDateStr = `${tpe.getFullYear()}/${tpe.getMonth()+1}/${tpe.getDate()}`;
+  const todayDay = DAYS.find(d => {
+    const m = d.full.match(/^(\d{4}\/\d+\/\d+)/);
+    return m && m[1] === tpeDateStr;
+  });
+  if(todayDay && todayDay.id !== currentDay){
+    currentDay = todayDay.id;
+    buildDayStrip();
+    renderSchedule();
+    renderLocGrid();
+    if(selectedPerson && currentTab==='my') renderMySchedule();
+  }
   function highlightRow(el){
     el.scrollIntoView({behavior:'smooth', block:'center'});
     el.style.transition='box-shadow .2s,border-left-color .2s';
@@ -545,7 +575,7 @@ function switchTab(tab){
   currentTab=tab;
   ['schedule','my','location','config'].forEach(t=>{
     $('tab-'+t).style.display=t===tab?'':'none';
-    $('btn-'+t).classList.toggle('active',t===tab);
+    const btnEl=$('btn-'+t);if(btnEl)btnEl.classList.toggle('active',t===tab);
     const mb=$('mb-'+t);if(mb)mb.classList.toggle('active',t===tab);
   });
   if(tab==='config')renderSlackPreview();
@@ -561,7 +591,7 @@ function buildDayStrip(){
     `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
   ).join('');
 }
-function selectDay(id){currentDay=id;buildDayStrip();renderSchedule();renderLocGrid();}
+function selectDay(id){currentDay=id;buildDayStrip();renderSchedule();renderLocGrid();if(selectedPerson&&currentTab==='my')renderMySchedule();}
 function buildGroupChips(elId, selected, onChange){
   $(elId).innerHTML=Object.entries(GROUPS).map(([g,cfg])=>{
     const on=selected===g;
@@ -592,8 +622,8 @@ function renderSchedule(){
     html+=pf.map(s=>{
       const isTransit=s.transit||s.event.includes('換場');
       const icon=getIcon(s.event);
-      const must=isMust(s.event);
-      const badge=isTransit?'<span class="tl-badge badge-transit">移動</span>':(must?'<span class="tl-badge badge-must">★ 重要</span>':'');
+      const must=isMust(s.event,s.groups);
+      const badge=isTransit?'<span class="tl-badge badge-transit">移動</span>':'';
       // ── FIX 2：escape 場地名稱，避免單引號問題 ──
       const locEsc = s.loc ? s.loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'") : '';
       return `<div class="tl-row${isTransit?' transit':''}">
@@ -664,14 +694,16 @@ function renderMySchedule(){
     ${myItems.length?`<div class="my-rows">${myItems.map(s=>{
       // ── FIX 3：loc 欄位存在於 personSchedule（v6 GAS 已補入），正確顯示 ──
       const locEsc = s.loc ? s.loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'") : '';
-      return `<div class="my-row">
-        <div class="my-row-time">${s.time||'—'}</div>
-        <div style="flex:1">
-          <div class="my-row-ev">${getIcon(s.event)} ${s.event}</div>
-          ${s.task?`<div class="my-row-task">${s.task}</div>`:''}
-          ${s.note?`<div class="my-row-task" style="color:var(--violet);opacity:.8">📝 ${s.note}</div>`:''}
+      const isTransit2 = s.transit || (s.event && s.event.includes('換場'));
+      return `<div class="tl-row${isTransit2?' transit':''}" style="margin-bottom:0">
+        <div class="tl-time">${s.time||'—'}</div>
+        <div class="tl-icon-cell" style="${isTransit2?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${getIcon(s.event)}</div>
+        <div class="tl-content">
+          <div class="tl-ev-name">${s.event}</div>
+          ${s.task?`<div class="tl-task-txt">${s.task}</div>`:''}
+          ${s.note?`<div class="tl-task-txt" style="color:var(--violet-mid)">📝 ${s.note}</div>`:''}
+          ${s.loc?`<button class="tl-loc-btn" onclick="openLocModal('${locEsc}')">📍 ${s.loc}</button>`:''}
         </div>
-        ${s.loc?`<button class="tl-loc-btn" style="font-size:.68rem" onclick="openLocModal('${locEsc}')">📍 ${s.loc}</button>`:''}
       </div>`;
     }).join('')}</div>`:'<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem">尚未填寫行程</div>'}
   </div>`;
@@ -703,14 +735,24 @@ function closeModal(){$('locModal').classList.remove('open')}
 function openMapModal(locName){
   const label = $('mapModalLocLabel');
   if(label) label.textContent = locName ? '· ' + locName : '';
+
+  // 根據場地名稱自動決定顯示哪張地圖
+  const MAP_1F = ['7A','7B','學務處','多功能教室1'];
+  const MAP_2F = ['9A','9B','10A','10B','12A','12B'];
+  const MAP_3F = ['11A','11B'];
+  let mapSrc = '平面圖.png'; // 預設：校園平面圖
+  if (locName) {
+    if (MAP_1F.some(k => locName.includes(k)))      mapSrc = '1F.jpg';
+    else if (MAP_2F.some(k => locName.includes(k))) mapSrc = '2F.jpg';
+    else if (MAP_3F.some(k => locName.includes(k))) mapSrc = '3F.jpg';
+  }
+
   const img = $('mapImg');
   const fallback = $('mapImgFallback');
-  if(img && img.src && img.src !== window.location.href){
+  if(img){
+    img.src = mapSrc;
     img.style.display = '';
     if(fallback) fallback.style.display = 'none';
-  } else {
-    if(img) img.style.display = 'none';
-    if(fallback) fallback.style.display = 'flex';
   }
   $('mapModal').classList.add('open');
   $('locModal').classList.remove('open');
