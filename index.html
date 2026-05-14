@@ -481,14 +481,29 @@ function personById(no){return PEOPLE.find(p=>p.no===no)}
 // 若無資料則 fallback 到 SCHEDULE 的 groups 篩選（內建資料）
 function getPersonItems(dayId, personNo) {
   const psDay = PERSON_SCHEDULE[dayId] || {};
-  const psItems = psDay[String(personNo)];
-  if (psItems && psItems.length > 0) return psItems;
-  // fallback：從 SCHEDULE groups 篩選，補齊 task/note/loc 欄位
+  const psItems = psDay[String(personNo)] || [];
   const p = personById(personNo);
-  if (!p) return [];
-  return getSortedItems(dayId)
-    .filter(s => !s.transit && s.groups && s.groups.includes(p.group))
-    .map(s => ({ time: s.time, event: s.event, task: s.task || '', note: '', loc: s.loc || '' }));
+  if (!p) return psItems;
+
+  // 從 SCHEDULE 找出這個人「應該參與」的所有活動（依 groups 或 nos）
+  const allItems = getSortedItems(dayId).filter(s =>
+    !s.transit &&
+    ((s.groups && s.groups.includes(p.group)) || (s.nos && s.nos.includes(personNo)))
+  );
+
+  // 把 SCHEDULE 活動與 psItems 合併：
+  // psItems 有的保留（有任務內容），沒有的補入（只顯示時間+活動名稱+場地）
+  const psKeys = new Set(psItems.map(s => s.time + '||' + s.event));
+  const extra = allItems
+    .filter(s => !psKeys.has(s.time + '||' + s.event))
+    .map(s => ({ time: s.time, event: s.event, task: '', note: '', loc: s.loc || '' }));
+
+  // 合併後依時間排序
+  return [...psItems, ...extra].sort((a, b) => {
+    const ta = (a.time || '99:99').split('-')[0];
+    const tb = (b.time || '99:99').split('-')[0];
+    return ta.localeCompare(tb);
+  });
 }
 
 function getSortedItems(dayId){
