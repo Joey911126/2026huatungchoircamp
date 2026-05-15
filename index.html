@@ -117,9 +117,9 @@
   <div id="tab-schedule">
     <div class="search-row" style="align-items:center;flex-wrap:nowrap;gap:.5rem">
       <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 1 140px;max-width:180px">
-      <div id="eveningCard" style="display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .7rem;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);flex:1;min-width:0;overflow:hidden;white-space:nowrap">
-        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--emerald);letter-spacing:.04em;flex-shrink:0">今晚活動</span>
-        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">—</div>
+      <div id="eveningCard" style="display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;white-space:nowrap">
+        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2)">✦ 今晚活動</span>
+        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0">—</div>
       </div>
     </div>
     <div class="layout" id="allViewLayout">
@@ -524,6 +524,11 @@ function renderPersonGrid(){
     const matchQ=!q||p.name.toLowerCase().includes(q)||String(p.no).includes(q);
     return matchG&&matchQ;
   });
+  // 若有搜尋文字，只顯示符合的；否則確保營長永遠出現
+  if(!q&&!myFilterGroup){
+    const hasLeader=pp.some(p=>p.group==='營長');
+    if(!hasLeader) pp=[...pp,...PEOPLE.filter(p=>p.group==='營長')];
+  }
   const byGroup={};
   pp.forEach(p=>{if(!byGroup[p.group])byGroup[p.group]=[];byGroup[p.group].push(p);});
   $('personGrid').innerHTML=Object.entries(byGroup).map(([g,members])=>{
