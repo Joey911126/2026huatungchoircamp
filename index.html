@@ -650,142 +650,15 @@ function openPersonModal(no){
 function closePersonModal(){$('personModal').classList.remove('open')}
 
 
-var GROUP_MAP = [
-  { nos:[1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20], group:'活動組' },
-  { nos:[21,22,23,24,25,26,27,28,29,30,31,32,33,34,37,39,40], group:'生輔組' },
-  { nos:[41,42,43,44,45,46], group:'選課組' },
-  { nos:[47,48,49,50,52,53,54,56], group:'戲劇組' },
-  { nos:[57,58,59,61,62,63], group:'影像組' },
-  { nos:[64,65], group:'SDL' },
-  { nos:[66,67], group:'CIT' },
-  { nos:[68,69], group:'營長' }
-];
 
-function getGroup(no) {
-  for (var i = 0; i < GROUP_MAP.length; i++) {
-    if (GROUP_MAP[i].nos.indexOf(no) !== -1) return GROUP_MAP[i].group;
-  }
-  return '其他';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycby3uztOmRwAwc7dBUZt5p8nL2uiGq2Pra5vG_uJ7Kok08q7ktcq9715oHWyZc47CdFR/exec';
+
+function setSyncState(state, msg){
+  const pill=$('syncPill'), dot=$('syncDot'), lbl=$('syncLabel');
+  pill.className='sync-pill'+({syncing:' syncing',ok:' ok',err:' err'}[state]||'');
+  dot.textContent={syncing:'◎',ok:'●',err:'✕',idle:'○'}[state]||'○';
+  lbl.textContent=msg||'同步';
 }
-
-var PERSON_START_COL = 3; // 0-indexed，第 4 欄（D）起放人名
-
-function expandMerges(sheet, vals) {
-  var lastRow = vals.length;
-  var lastCol = vals[0] ? vals[0].length : 0;
-  if (lastRow === 0 || lastCol === 0) return vals;
-  var grid = vals.map(function(r) { return r.slice(); });
-  try {
-    var merged = sheet.getRange(1, 1, lastRow, lastCol).getMergedRanges();
-    for (var mi = 0; mi < merged.length; mi++) {
-      var rng = merged[mi];
-      var rMin = rng.getRow() - 1, cMin = rng.getColumn() - 1;
-      var rMax = rMin + rng.getNumRows() - 1, cMax = cMin + rng.getNumColumns() - 1;
-      var topVal = (rMin < grid.length && cMin < grid[rMin].length) ? grid[rMin][cMin] : '';
-      for (var r = rMin; r <= rMax && r < grid.length; r++)
-        for (var c = cMin; c <= cMax && c < grid[r].length; c++)
-          if (!(r === rMin && c === cMin)) grid[r][c] = topVal;
-    }
-  } catch(e) {}
-  return grid;
-}
-
-function doGet(e) {
-  var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  var result = { people:[], schedule:{}, personSchedule:{}, updated:new Date().toISOString() };
-
-  var baseSheet = ss.getSheetByName('630') || ss.getSheets()[0];
-  var peopleMap = {};
-  if (baseSheet) {
-    var hdrRow = baseSheet.getRange(1, 1, 1, baseSheet.getLastColumn()).getValues()[0];
-    for (var ci = PERSON_START_COL; ci < hdrRow.length; ci += 2) {
-      var hv = String(hdrRow[ci] || '').trim();
-      if (!hv) continue;
-      var hm = hv.match(/^(\\d+)\\s+(.+)$/);
-      if (hm) {
-        var no = parseInt(hm[1]);
-        if (!peopleMap[no]) peopleMap[no] = { no:no, name:hm[2].trim(), group:getGroup(no), slack:'' };
-      }
-    }
-    result.people = Object.values(peopleMap).sort(function(a,b){ return a.no - b.no; });
-  }
-
-  for (var sName in SHEET_DAY_MAP) {
-    var dk = SHEET_DAY_MAP[sName];
-    var sheet = ss.getSheetByName(sName);
-    result.schedule[dk] = []; result.personSchedule[dk] = {};
-    if (!sheet) continue;
-    try {
-      var lastRow = sheet.getLastRow(), lastCol = sheet.getLastColumn();
-      if (lastRow < 2) continue;
-      var rawVals = sheet.getRange(1, 1, lastRow, lastCol).getValues();
-      var grid = expandMerges(sheet, rawVals);
-      var hdr = grid[0];
-      var pCols = {};
-      for (var c = PERSON_START_COL; c < hdr.length; c += 2) {
-        var hval = String(hdr[c] || '').trim(); if (!hval) continue;
-        var pm = hval.match(/^(\\d+)\\s+(.+)$/);
-        if (pm) pCols[c] = { no:parseInt(pm[1]), name:pm[2].trim() };
-      }
-      var eventsMap = {}, eventsOrder = [];
-      var lastNonTransitEv = '', lastNonTransitLoc = '';
-      for (var ri = 1; ri < grid.length; ri++) {
-        var row = grid[ri];
-        var timeVal = String(row[0] || '').trim();
-        var locVal  = String(row[1] || '').trim();
-        var rawEv   = String(row[2] || '').trim().replace(/\\n/g,' / ').replace(/\\r/g,'');
-        var isTransit = (rawEv === '換場');
-        var evVal = rawEv;
-        // ── 只要有時間欄位就保留此列，evVal 為空時繼承上一個活動名稱（可為空字串）──
-        if (!timeVal && !evVal) continue;  // A、C 欄都空白才真正跳過
-        if (!evVal) evVal = lastNonTransitEv;  // 活動名稱繼承，可能仍為 ''
-        var evLoc = locVal || (isTransit ? '' : lastNonTransitLoc);
-        if (rawEv && !isTransit) { lastNonTransitEv = rawEv; if (locVal) lastNonTransitLoc = locVal; }
-        // ── key 加入 ri 讓每一列獨立，防止相同 time+event 被合併（不同列不同任務）──
-        var key = timeVal + '||' + evVal + '||' + ri;
-        if (!eventsMap[key]) {
-          eventsMap[key] = { time:timeVal, event:evVal, loc:evLoc, nos:[], personTasks:{}, transit:isTransit||(evVal.indexOf('換場')!==-1) };
-          eventsOrder.push(key);
-        }
-        var ev = eventsMap[key];
-        for (var pcIdx in pCols) {
-          var pci = parseInt(pcIdx), pInfo = pCols[pcIdx];
-          var task = String(row[pci] || '').trim();
-          var note = (pci+1<row.length) ? String(row[pci+1]||'').trim() : '';
-          // ── 只要欄位列存在（header 有人名），不論 task/note 是否填寫，都記錄 ──
-          // （空白 task = 尚未填寫，仍需顯示時間讓志工知道有這個時段）
-          var nk = String(pInfo.no);
-          if (!ev.personTasks[nk]) { ev.personTasks[nk] = {name:pInfo.name,task:task,note:note}; ev.nos.push(pInfo.no); }
-          else {
-            if (task && ev.personTasks[nk].task.indexOf(task)===-1) ev.personTasks[nk].task += (ev.personTasks[nk].task?'；':'')+task;
-            if (note && ev.personTasks[nk].note.indexOf(note)===-1) ev.personTasks[nk].note += (ev.personTasks[nk].note?'；':'')+note;
-          }
-        }
-      }
-      var items = [];
-      for (var ki = 0; ki < eventsOrder.length; ki++) {
-        var ev2 = eventsMap[eventsOrder[ki]], groupSet = {};
-        for (var gi = 0; gi < ev2.nos.length; gi++) groupSet[getGroup(ev2.nos[gi])] = true;
-        for (var nk2 in ev2.personTasks) {
-          var pt = ev2.personTasks[nk2];
-          if (!result.personSchedule[dk][nk2]) result.personSchedule[dk][nk2] = [];
-          result.personSchedule[dk][nk2].push({time:ev2.time, event:ev2.event, loc:ev2.loc, task:pt.task, note:pt.note});
-        }
-        items.push({time:ev2.time, event:ev2.event, task:'', loc:ev2.loc, groups:Object.keys(groupSet), nos:ev2.nos, transit:ev2.transit, personTasks:ev2.personTasks});
-      }
-      result.schedule[dk] = items.sort(function(a,b){ return (a.time||'99:99')<(b.time||'99:99')?-1:1; });
-    } catch(err) {
-      result.schedule[dk] = [];
-      if (!result.errors) result.errors = {};
-      result.errors[dk] = err.message;
-    }
-  }
-  var json = JSON.stringify(result);
-  var cb = e && e.parameter && e.parameter.callback;
-  if (cb) return ContentService.createTextOutput(cb+'('+json+')').setMimeType(ContentService.MimeType.JAVASCRIPT);
-  return ContentService.createTextOutput(json).setMimeType(ContentService.MimeType.JSON);
-}`;
-
 
 function loadCached(){
   try{
