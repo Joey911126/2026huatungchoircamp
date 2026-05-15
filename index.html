@@ -115,16 +115,16 @@
   <div class="top-bar"></div>
   <div class="day-strip" id="dayStrip"></div>
   <div id="tab-schedule">
-    <div class="search-row">
-      <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()">
+    <div class="search-row" style="align-items:center;flex-wrap:nowrap;gap:.5rem">
+      <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 1 140px;max-width:180px">
+      <div id="eveningCard" style="display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .7rem;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);flex:1;min-width:0;overflow:hidden;white-space:nowrap">
+        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--emerald);letter-spacing:.04em;flex-shrink:0">今晚活動</span>
+        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">—</div>
+      </div>
     </div>
     <div class="layout" id="allViewLayout">
       <div id="timelineEl"></div>
       <aside class="sidebar-stack" id="sidebarEl">
-        <div class="s-card">
-          <div class="s-title">今晚活動</div>
-          <div id="sb-evening" style="font-size:.82rem;color:var(--text2)">—</div>
-        </div>
         <div class="s-card">
           <div class="s-title">當日場地</div>
           <div id="sb-locs" style="font-size:.76rem;line-height:2.2"></div>
@@ -491,9 +491,8 @@ function renderSchedule(){
     html+=`<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
     html+=pf.map(s=>{
       const evName = s.event || '';
-      const isTransit=s.transit||evName.includes('換場');
+      const isTransit = s.transit === true || evName === '換場';
       const icon=getIcon(evName);
-      const must=isMust(evName,s.groups);
       const badge=isTransit?'<span class="tl-badge badge-transit">移動</span>':'';
       const locEsc = s.loc ? s.loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'") : '';
       const evDisplay = evName || '<span style="color:var(--text3);font-style:italic;font-weight:400">（未填寫活動名稱）</span>';
@@ -510,7 +509,7 @@ function renderSchedule(){
   });
   $('timelineEl').innerHTML=hasAny?html:'<div class="empty-state">此日無符合行程</div>';
   const evening=getSortedItems(currentDay).find(s=>s.time&&parseInt(s.time.split('-')[0])===19&&!s.transit);
-  $('sb-evening').innerHTML=evening?`<strong style="color:var(--emerald)">${evening.event||'（未命名）'}</strong>${evening.loc?`<br><span style="font-size:.74rem;color:var(--text3)">📍 ${evening.loc}</span>`:''}`:'<span style="color:var(--text3)">（未設定）</span>';
+  $('sb-evening').innerHTML=evening?`<strong style="color:var(--emerald)">${evening.event||'（未命名）'}</strong>${evening.loc?`<span style="color:var(--text3);font-size:.7rem;margin-left:.35rem">📍 ${evening.loc}</span>`:''}`:'<span style="color:var(--text3)">（未設定）</span>';
   const locs=[...new Set(getSortedItems(currentDay).map(s=>s.loc).filter(Boolean))];
   $('sb-locs').innerHTML=locs.map(l=>{
     const le=l.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
@@ -564,7 +563,7 @@ function renderMySchedule(){
     ${myItems.length?`<div class="my-rows">${myItems.map(s=>{
       // ── FIX 3：loc 欄位存在於 personSchedule（v6 GAS 已補入），正確顯示 ──
       const locEsc = s.loc ? s.loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'") : '';
-      const isTransit2 = s.transit || (s.event && s.event.includes('換場'));
+      const isTransit2 = s.transit === true || (s.event === '換場');
       return `<div class="tl-row${isTransit2?' transit':''}" style="margin-bottom:0">
         <div class="tl-time">${s.time||'—'}</div>
         <div class="tl-icon-cell" style="${isTransit2?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${getIcon(s.event||'')}</div>
