@@ -51,7 +51,6 @@
       <div class="map-header-dot"></div>
       <span class="map-header-label">校園地圖 · Campus Map</span>
       <span class="map-header-loc" id="mapModalLocLabel"></span>
-      <button class="map-close-btn" onclick="closeMapModal()" aria-label="關閉地圖">✕</button>
     </div>
     <div class="map-img-wrap">
       <img
@@ -93,13 +92,13 @@
   <div style="background:linear-gradient(105deg,rgba(26,80,26,0.10) 0%,rgba(255,250,240,0.88) 28%,rgba(255,250,240,0.88) 72%,rgba(192,69,106,0.08) 100%);border:1px solid rgba(200,134,10,0.22);border-top:3px solid var(--emerald-mid);border-radius:14px;padding:1.35rem 2rem 1.2rem;margin-bottom:1.1rem;text-align:center;position:relative;overflow:visible;box-shadow:0 2px 18px rgba(26,110,53,0.09)">
     <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(26,110,53,0.025) 0px,rgba(26,110,53,0.025) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(0deg,rgba(26,110,53,0.025) 0px,rgba(26,110,53,0.025) 1px,transparent 1px,transparent 40px);pointer-events:none;border-radius:14px;overflow:hidden"></div>
     <!-- 左側：掃把在後（z-index低），女巫在前（z-index高） -->
-    <img src="掃把.png" alt="" aria-hidden="true" style="position:absolute;left:-14px;bottom:-6px;height:88px;width:auto;object-fit:contain;z-index:1;filter:drop-shadow(0 2px 8px rgba(100,60,20,0.18));pointer-events:none;transform:rotate(-15deg)">
+    <img src="掃把.png" alt="" aria-hidden="true" style="position:absolute;left:2px;bottom:-6px;height:88px;width:auto;object-fit:contain;z-index:1;filter:drop-shadow(0 2px 8px rgba(100,60,20,0.18));pointer-events:none;transform:rotate(-15deg)">
     <img src="女巫.png" alt="" aria-hidden="true" style="position:absolute;left:3px;bottom:-3px;height:96px;width:auto;object-fit:contain;z-index:2;filter:drop-shadow(0 3px 10px rgba(100,60,20,0.22));pointer-events:none">
     <!-- 右側：魔法棒在後（z-index低），公主在前（z-index高） -->
     <img src="魔法棒.png" alt="" aria-hidden="true" style="position:absolute;right:-8px;bottom:-3px;height:88px;width:auto;object-fit:contain;z-index:1;filter:drop-shadow(0 2px 8px rgba(192,69,106,0.18));pointer-events:none;transform:rotate(12deg)">
     <img src="公主.png" alt="" aria-hidden="true" style="position:absolute;right:6px;bottom:-3px;height:96px;width:auto;object-fit:contain;z-index:2;filter:drop-shadow(0 3px 10px rgba(192,69,106,0.22));pointer-events:none">
     <!-- 中間：城堡背景，z-index 在格線之上、文字之下 -->
-    <img src="城堡.png" alt="" aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:100%;width:auto;max-width:60%;object-fit:contain;z-index:1;opacity:0.5;pointer-events:none;filter:drop-shadow(0 0 0 transparent)">
+    <img src="城堡.png" alt="" aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:100%;width:auto;max-width:75%;object-fit:contain;z-index:1;opacity:0.3;pointer-events:none;filter:drop-shadow(0 0 0 transparent)">
     <div style="position:relative;z-index:3">
       <div style="font-family:'Cinzel Decorative',serif;font-size:1.85rem;font-weight:900;letter-spacing:.28em;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald-mid),var(--gold-warm),var(--emerald-mid),var(--emerald-deep));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-transform:uppercase;line-height:1.1;margin-bottom:.2rem">WICKED</div>
       <div style="font-family:'Noto Sans TC',sans-serif;font-size:.95rem;font-weight:500;color:var(--text2);letter-spacing:.22em;margin-bottom:.55rem">魔法壞女巫</div>
