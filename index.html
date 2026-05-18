@@ -357,8 +357,7 @@ function hasData(){
 // ════════════════════════════════════════════════
 function buildDayStrip(){
   $('dayStrip').innerHTML = DAYS.map(d =>
-    `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend?' weekend':''}"
-      onclick="selectDay('${d.id}')">${d.label}</button>`
+    `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
   ).join('');
 }
 function selectDay(id){
