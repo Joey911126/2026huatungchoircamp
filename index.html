@@ -6,7 +6,15 @@
 <title>細流 2026｜志工行程管理系統</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style> *{box-sizing:border-box;margin:0;padding:0}html{font-size:15px;-webkit-text-size-adjust:100%}body{font-family:'Noto Sans TC',sans-serif;background:#FAF5EE;color:#1E1208;min-height:100vh;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none}input,select,textarea{font-family:inherit;font-size:inherit}:root{--emerald:#1a6e35;--emerald-deep:#0d4520;--emerald-light:#E2F0E8;--emerald-mid:#228B44;--rose:#C0456A;--rose-deep:#8C2A4A;--rose-light:#FAE8EE;--rose-mid:#D4648A;--gold:#A06C00;--gold-warm:#C8860A;--gold-light:#FDF3DC;--violet:#5D1A96;--violet-light:#EEE5F8;--violet-mid:#7A35BE;--bg:#FAF5EE;--bg2:#F4EDE2;--surface:#FFFFFF;--surface2:#FBF7F2;--border:#E8D8C8;--border2:#D4BEA8;--text:#1E1208;--text2:#5A3E28;--text3:#A08060;--radius:10px;--radius-sm:6px;--shadow:0 1px 3px rgba(100,60,20,0.08),0 4px 12px rgba(100,60,20,0.06);}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 18% 22% at 6% 22%,rgba(26,110,53,0.13) 0%,transparent 100%),radial-gradient(ellipse 24% 20% at 2% 68%,rgba(26,110,53,0.11) 0%,transparent 100%),radial-gradient(ellipse 28% 18% at 8% 95%,rgba(26,110,53,0.14) 0%,transparent 100%),radial-gradient(ellipse 16% 16% at 12% 50%,rgba(26,110,53,0.07) 0%,transparent 100%),radial-gradient(ellipse at 88% 60%,rgba(192,69,106,0.09) 0%,transparent 47%),radial-gradient(ellipse at 82% 8%,rgba(192,69,106,0.10) 0%,transparent 45%),radial-gradient(ellipse at 50% 50%,rgba(200,150,80,0.05) 0%,transparent 40%),radial-gradient(ellipse at 50% 0%,rgba(200,134,10,0.06) 0%,transparent 40%);pointer-events:none;z-index:0}.app{display:flex;flex-direction:column;min-height:100vh;position:relative;z-index:1}header{background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border);padding:0 1.5rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);box-shadow:0 2px 12px rgba(60,30,100,0.06)}.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px}.logo{font-family:'Cinzel Decorative',serif;font-size:1.05rem;font-weight:700;letter-spacing:.08em;display:flex;align-items:center;gap:.6rem;flex-shrink:0;background:linear-gradient(135deg,var(--emerald),var(--gold-warm),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--emerald),var(--violet));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 0 12px rgba(0,168,107,0.3)}.logo-sub{font-size:.62rem;font-family:'Noto Sans TC',sans-serif;color:var(--text3);letter-spacing:.03em;font-weight:400;-webkit-text-fill-color:var(--text3);display:block;margin-top:1px}.nav{display:flex;gap:3px;margin-left:auto}.nav-btn{padding:.4rem .9rem;border-radius:var(--radius-sm);font-size:.8rem;color:var(--text3);transition:all .2s;letter-spacing:.02em}.nav-btn:hover{background:var(--surface2);color:var(--text)}.nav-btn.active{background:linear-gradient(135deg,var(--emerald-light),var(--rose-light));color:var(--emerald);border:1px solid rgba(26,110,53,0.25);box-shadow:0 1px 6px rgba(26,110,53,0.1)}.header-deco{height:38px;width:auto;object-fit:contain;flex-shrink:0;pointer-events:none;filter:drop-shadow(0 1px 3px rgba(100,60,20,0.15))}.header-deco-l{order:-1}.header-deco-r{order:99}.sync-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .75rem;border-radius:20px;font-size:.72rem;border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .2s;margin-left:.5rem}.sync-pill:hover{border-color:rgba(26,110,53,0.4);color:var(--emerald)}.sync-pill.syncing{color:var(--gold-warm);border-color:rgba(200,134,10,0.4);animation:pulse .8s infinite}.sync-pill.ok{color:var(--emerald);border-color:rgba(26,110,53,0.35);background:var(--emerald-light)}.sync-pill.err{color:var(--rose);border-color:rgba(192,69,106,0.35);background:var(--rose-light)}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}.main{flex:1;max-width:1280px;margin:0 auto;width:100%;padding:1.25rem 1.5rem}.top-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}.top-bar-title{font-family:'Cinzel Decorative',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald-mid),var(--gold-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.1em}.top-bar-sub{font-size:.75rem;color:var(--text3);margin-left:.25rem}.view-switcher{display:flex;gap:4px;background:var(--surface2);border-radius:20px;padding:3px;border:1px solid var(--border);margin-left:auto}.view-btn{padding:.28rem .8rem;border-radius:16px;font-size:.75rem;color:var(--text3);transition:all .18s}.view-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(60,30,100,0.1);font-weight:600}.day-strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:1rem}.day-strip::-webkit-scrollbar{display:none}.day-chip{flex-shrink:0;padding:.3rem .75rem;border-radius:16px;font-size:.75rem;border:1px solid var(--border);color:var(--text3);background:var(--surface);transition:all .16s;white-space:nowrap;cursor:pointer;font-family:'JetBrains Mono',monospace}.day-chip:hover{border-color:rgba(26,110,53,0.35);color:var(--text);background:var(--surface2)}.day-chip.active{background:var(--emerald);color:#fff;border-color:var(--emerald);box-shadow:0 2px 8px rgba(26,110,53,0.3);font-weight:600}.day-chip.weekend.active{background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3)}.search-row{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}.search-input{padding:.42rem .9rem;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;min-width:200px;flex:1;max-width:280px;transition:border-color .15s}.search-input:focus{outline:none;border-color:rgba(26,110,53,0.5);box-shadow:0 0 0 3px rgba(26,110,53,0.08)}.group-chips{display:flex;gap:4px;flex-wrap:wrap}.g-chip{padding:.26rem .7rem;border-radius:14px;font-size:.72rem;border:1px solid;cursor:pointer;transition:all .14s;font-weight:500}.layout{display:grid;grid-template-columns:1fr 300px;gap:1rem}@media(max-width:960px){.layout{grid-template-columns:1fr}}.sidebar-stack{display:flex;flex-direction:column;gap:.75rem}.tl-period{margin-bottom:1.25rem}.tl-period-head{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;color:var(--emerald-mid);letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);border-radius:20px;margin-bottom:.65rem;font-family:'Cinzel',serif;box-shadow:0 0 0 3px rgba(26,110,53,0.05)}.tl-list{display:flex;flex-direction:column;gap:4px}.tl-row{display:grid;grid-template-columns:78px 28px 1fr auto;gap:.6rem;align-items:flex-start;padding:.65rem .85rem;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--emerald-mid);cursor:pointer;transition:all .18s;box-shadow:0 1px 4px rgba(26,110,53,0.04)}.tl-row:hover{border-left-color:var(--gold-warm);box-shadow:0 3px 12px rgba(26,110,53,0.10);transform:translateX(2px)}.tl-row.transit{opacity:.55;border-left-color:#ccc;background:var(--surface2)}.tl-row.transit:hover{transform:none;box-shadow:none}.tl-time{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--emerald);padding-top:2px;line-height:1.4;font-weight:500}.tl-icon-cell{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);flex-shrink:0}.tl-content{min-width:0}.tl-ev-name{font-size:.82rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}.tl-task-txt{font-size:.74rem;color:var(--text2);margin-top:2px}.tl-loc-btn{font-size:.7rem;color:var(--emerald);margin-top:4px;display:inline-flex;align-items:center;gap:3px;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer;background:none;border:none;padding:0;font-family:inherit}.tl-badge{font-size:.58rem;font-weight:700;padding:1px 6px;border-radius:8px;flex-shrink:0;vertical-align:middle}.badge-must{background:rgba(26,110,53,0.14);color:var(--emerald);border:1px solid rgba(26,110,53,0.22)}.badge-transit{background:#f0f0f0;color:#999;border:1px solid #ddd}.my-view{display:flex;flex-direction:column;gap:1rem}.person-selector{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}.person-selector-title{font-family:'Cinzel',serif;font-size:.75rem;color:var(--text2);margin-bottom:.65rem;letter-spacing:.06em}.person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.4rem}.pc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.55rem .5rem;text-align:center;cursor:pointer;transition:all .16s;position:relative;overflow:hidden}.pc:hover{box-shadow:0 3px 10px rgba(26,110,53,0.1);transform:translateY(-1px)}.pc.sel{box-shadow:0 0 0 2px var(--emerald),0 3px 10px rgba(26,110,53,0.15)}.pc-name{font-size:.75rem;font-weight:600;color:var(--text)}.pc-no{font-size:.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace}.my-schedule-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow);position:relative;overflow:hidden}.my-schedule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.my-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}.my-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;font-family:'Cinzel',serif;flex-shrink:0}.my-name{font-size:.95rem;font-weight:700;font-family:'Cinzel',serif;color:var(--text)}.my-sub{font-size:.72rem;color:var(--text3);margin-top:2px}.my-rows{display:flex;flex-direction:column;gap:3px}.my-row{display:flex;gap:.6rem;align-items:flex-start;padding:.45rem .6rem;border-radius:6px;border:1px solid var(--border);transition:background .12s}.my-row:hover{background:var(--surface2)}.my-row-time{font-family:'JetBrains Mono',monospace;color:var(--emerald);min-width:88px;flex-shrink:0;font-size:.65rem;padding-top:2px}.my-row-ev{font-size:.78rem;font-weight:500;color:var(--text)}.my-row-task{font-size:.68rem;color:var(--text3)}.my-row-loc{font-size:.68rem;color:var(--text3);flex-shrink:0;font-family:'JetBrains Mono',monospace}.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}.loc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:0 1px 4px rgba(60,30,100,0.04);transition:border-color .18s}.loc-card:hover{border-color:rgba(93,26,150,0.2)}.loc-name{font-size:.88rem;font-weight:700;color:var(--emerald);font-family:'Cinzel',serif;margin-bottom:.55rem;cursor:pointer;display:flex;align-items:center;gap:.4rem}.loc-item{display:flex;gap:.5rem;font-size:.74rem;padding:.3rem 0;border-bottom:1px solid var(--border);align-items:flex-start}.loc-item:last-child{border-bottom:none}.loc-t{font-family:'JetBrains Mono',monospace;color:var(--text3);font-size:.66rem;min-width:78px;flex-shrink:0}.loc-ev{color:var(--text);flex:1}.loc-task{font-size:.66rem;color:var(--text3)}.s-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}.s-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.s-title{font-size:.72rem;font-weight:600;color:var(--text);margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;letter-spacing:.04em}.s-title::before{content:'';display:block;width:3px;height:13px;border-radius:2px;background:linear-gradient(180deg,var(--emerald),var(--rose))}.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(10,20,15,0.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}.modal-overlay.open{display:flex}@keyframes modal-in{from{transform:scale(.88) translateY(18px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;max-width:min(500px,90vw);width:100%;box-shadow:0 12px 40px rgba(30,12,8,0.2);animation:modal-in .25s cubic-bezier(.34,1.56,.64,1);position:relative;max-height:85vh;overflow-y:auto;}.modal-close{position:absolute;top:.75rem;right:.9rem;font-size:1.1rem;color:var(--text3);cursor:pointer;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;transition:all .15s;}.modal-close:hover{color:var(--text);background:var(--bg2)}.modal-title{font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:var(--emerald);margin-bottom:.25rem}.modal-sub{font-size:.72rem;color:var(--text3);margin-bottom:1rem;font-family:'Cinzel',serif;letter-spacing:.06em}#mapModal .map-modal-inner{background:var(--surface);border-radius:16px;border:1px solid var(--border2);max-width:min(92vw,720px);width:100%;overflow:hidden;animation:modal-in .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 72px rgba(10,20,15,0.4),0 0 0 1px rgba(26,110,53,0.12);}.map-header{padding:.75rem 1.1rem;display:flex;align-items:center;gap:.65rem;background:linear-gradient(90deg,var(--emerald-light) 0%,rgba(253,243,220,0.6) 60%,var(--rose-light) 100%);border-bottom:1px solid var(--border);}.map-header-dot{width:9px;height:9px;border-radius:50%;background:var(--emerald-mid);box-shadow:0 0 8px rgba(34,139,68,0.5);flex-shrink:0;}.map-header-label{font-family:'Cinzel',serif;font-size:.68rem;color:var(--emerald);letter-spacing:.14em;font-variant:small-caps;}.map-header-loc{font-size:.8rem;font-weight:600;color:var(--text);margin-left:2px;font-family:'Noto Sans TC',sans-serif;}.map-close-btn{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--text3);transition:all .15s;flex-shrink:0;}.map-close-btn:hover{background:var(--rose-light);color:var(--rose);border-color:var(--rose-mid);transform:scale(1.08);}.map-img-wrap{position:relative;overflow:hidden;background:var(--emerald-light);min-height:240px;display:flex;align-items:center;justify-content:center;}.map-img-wrap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,110,53,0.09) 1px,transparent 1px),linear-gradient(90deg,rgba(26,110,53,0.09) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}.map-img-wrap img{width:100%;display:block;position:relative;z-index:1;max-height:55vh;object-fit:contain;}.map-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;position:relative;z-index:1;}.map-placeholder-icon{font-size:3rem;margin-bottom:.75rem;line-height:1}.map-placeholder-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;color:var(--emerald);letter-spacing:.06em;margin-bottom:.3rem;}.map-placeholder-sub{font-size:.72rem;color:var(--text3);line-height:1.6}.map-footer{padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--surface2);flex-wrap:wrap;gap:.5rem;}.map-footer-brand{font-size:.65rem;color:var(--text3);font-family:'Cinzel',serif;letter-spacing:.06em;}.map-footer-btns{display:flex;gap:.45rem}.map-footer-close{font-size:.74rem;padding:.3rem .9rem;border-radius:20px;border:1px solid var(--emerald);background:var(--emerald-light);color:var(--emerald);cursor:pointer;font-family:inherit;font-weight:600;transition:all .15s;}.map-footer-close:hover{background:var(--emerald);color:#fff}.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--text);color:#fff;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:.8rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;box-shadow:0 4px 16px rgba(30,12,8,0.2)}.toast.show{opacity:1}.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-top:1px solid var(--border);backdrop-filter:blur(16px);padding:0 0 env(safe-area-inset-bottom,0)}.mobile-nav-inner{display:flex;height:56px}.mb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.56rem;color:var(--text3);cursor:pointer;transition:color .15s}.mb-btn .ico{font-size:1.15rem}.mb-btn.active{color:var(--emerald)}.fab{position:fixed;right:1.1rem;bottom:72px;z-index:210;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:1.55rem;background:radial-gradient(ellipse at 35% 30%,rgba(255,245,235,0.55) 0%,rgba(192,69,106,0.12) 45%,rgba(26,110,53,0.15) 100%),linear-gradient(145deg,#f4ede2 0%,#e8d8c8 50%,#d4bea8 100%);box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2);transition:transform .2s,box-shadow .2s}.fab:hover{transform:scale(1.1) translateY(-2px)}.fab:active{transform:scale(.95)}@keyframes fab-glow{0%,100%{box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2)}50%{box-shadow:0 0 0 1px rgba(192,69,106,0.38),0 0 22px rgba(192,69,106,0.26),0 0 12px rgba(26,110,53,0.18),0 4px 14px rgba(100,60,20,0.2)}}.fab{animation:fab-glow 3s ease-in-out infinite}.fab-tip{position:fixed;right:72px;z-index:210;background:var(--text);color:#fff;font-size:.68rem;padding:.3rem .65rem;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;display:none}.fab-tip::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--text);border-right:0}.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:.85rem}.empty-state::before{content:'🎵';display:block;font-size:2rem;margin-bottom:.75rem;opacity:.4}@media(max-width:640px){header{padding:0 .85rem}.nav{display:none}.main{padding:.75rem .75rem 76px}.mobile-nav{display:block}.layout{grid-template-columns:1fr}.fab{display:flex}.fab-tip{display:block}.header-deco{height:28px}}.group-view{display:grid;gap:.75rem;overflow-x:auto;padding-bottom:4px}.group-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-width:220px;box-shadow:var(--shadow)}.group-col-head{padding:.55rem .85rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--border)}.group-col-name{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;letter-spacing:.05em}.group-col-cnt{font-size:.63rem;opacity:.7;font-family:'JetBrains Mono',monospace}.group-col-body{padding:.5rem .55rem;display:flex;flex-direction:column;gap:3px;max-height:calc(100vh - 320px);overflow-y:auto}.gv-row{padding:.42rem .55rem;border-radius:6px;border:1px solid var(--border);border-left:3px solid;transition:background .14s;cursor:pointer}.gv-row:hover{background:var(--surface2)}.gv-time{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text3);margin-bottom:2px}.gv-ev{font-size:.75rem;font-weight:600;color:var(--text);line-height:1.3}.gv-task{font-size:.67rem;color:var(--text3);margin-top:2px}.gv-loc{font-size:.63rem;color:var(--emerald);margin-top:2px}</style></head>
+<style> *{box-sizing:border-box;margin:0;padding:0}html{font-size:15px;-webkit-text-size-adjust:100%}body{font-family:'Noto Sans TC',sans-serif;background:#FAF5EE;color:#1E1208;min-height:100vh;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none}input,select,textarea{font-family:inherit;font-size:inherit}:root{--emerald:#1a6e35;--emerald-deep:#0d4520;--emerald-light:#E2F0E8;--emerald-mid:#228B44;--rose:#C0456A;--rose-deep:#8C2A4A;--rose-light:#FAE8EE;--rose-mid:#D4648A;--gold:#A06C00;--gold-warm:#C8860A;--gold-light:#FDF3DC;--violet:#5D1A96;--violet-light:#EEE5F8;--violet-mid:#7A35BE;--bg:#FAF5EE;--bg2:#F4EDE2;--surface:#FFFFFF;--surface2:#FBF7F2;--border:#E8D8C8;--border2:#D4BEA8;--text:#1E1208;--text2:#5A3E28;--text3:#A08060;--radius:10px;--radius-sm:6px;--shadow:0 1px 3px rgba(100,60,20,0.08),0 4px 12px rgba(100,60,20,0.06);}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 18% 22% at 6% 22%,rgba(26,110,53,0.13) 0%,transparent 100%),radial-gradient(ellipse 24% 20% at 2% 68%,rgba(26,110,53,0.11) 0%,transparent 100%),radial-gradient(ellipse 28% 18% at 8% 95%,rgba(26,110,53,0.14) 0%,transparent 100%),radial-gradient(ellipse 16% 16% at 12% 50%,rgba(26,110,53,0.07) 0%,transparent 100%),radial-gradient(ellipse at 88% 60%,rgba(192,69,106,0.09) 0%,transparent 47%),radial-gradient(ellipse at 82% 8%,rgba(192,69,106,0.10) 0%,transparent 45%),radial-gradient(ellipse at 50% 50%,rgba(200,150,80,0.05) 0%,transparent 40%),radial-gradient(ellipse at 50% 0%,rgba(200,134,10,0.06) 0%,transparent 40%);pointer-events:none;z-index:0}.app{display:flex;flex-direction:column;min-height:100vh;position:relative;z-index:1}header{background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border);padding:0 1.5rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);box-shadow:0 2px 12px rgba(60,30,100,0.06)}.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px}.logo{font-family:'Cinzel Decorative',serif;font-size:1.05rem;font-weight:700;letter-spacing:.08em;display:flex;align-items:center;gap:.6rem;flex-shrink:0;background:linear-gradient(135deg,var(--emerald),var(--gold-warm),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--emerald),var(--violet));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 0 12px rgba(0,168,107,0.3)}.logo-sub{font-size:.62rem;font-family:'Noto Sans TC',sans-serif;color:var(--text3);letter-spacing:.03em;font-weight:400;-webkit-text-fill-color:var(--text3);display:block;margin-top:1px}.nav{display:flex;gap:3px;margin-left:auto}.nav-btn{padding:.4rem .9rem;border-radius:var(--radius-sm);font-size:.8rem;color:var(--text3);transition:all .2s;letter-spacing:.02em}.nav-btn:hover{background:var(--surface2);color:var(--text)}.nav-btn.active{background:linear-gradient(135deg,var(--emerald-light),var(--rose-light));color:var(--emerald);border:1px solid rgba(26,110,53,0.25);box-shadow:0 1px 6px rgba(26,110,53,0.1)}.sync-pill{display:inline-flex;align-items:center;gap:.35rem;padding:.28rem .75rem;border-radius:20px;font-size:.72rem;border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .2s;margin-left:.5rem}.sync-pill:hover{border-color:rgba(26,110,53,0.4);color:var(--emerald)}.sync-pill.syncing{color:var(--gold-warm);border-color:rgba(200,134,10,0.4);animation:pulse .8s infinite}.sync-pill.ok{color:var(--emerald);border-color:rgba(26,110,53,0.35);background:var(--emerald-light)}.sync-pill.err{color:var(--rose);border-color:rgba(192,69,106,0.35);background:var(--rose-light)}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}.main{flex:1;max-width:1280px;margin:0 auto;width:100%;padding:1.25rem 1.5rem}.top-bar{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}.top-bar-title{font-family:'Cinzel Decorative',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(90deg,var(--emerald-deep),var(--emerald-mid),var(--gold-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.1em}.top-bar-sub{font-size:.75rem;color:var(--text3);margin-left:.25rem}.view-switcher{display:flex;gap:4px;background:var(--surface2);border-radius:20px;padding:3px;border:1px solid var(--border);margin-left:auto}.view-btn{padding:.28rem .8rem;border-radius:16px;font-size:.75rem;color:var(--text3);transition:all .18s}.view-btn.active{background:var(--surface);color:var(--text);box-shadow:0 1px 4px rgba(60,30,100,0.1);font-weight:600}.day-strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:1rem}.day-strip::-webkit-scrollbar{display:none}.day-chip{flex-shrink:0;padding:.3rem .75rem;border-radius:16px;font-size:.75rem;border:1px solid var(--border);color:var(--text3);background:var(--surface);transition:all .16s;white-space:nowrap;cursor:pointer;font-family:'JetBrains Mono',monospace}.day-chip:hover{border-color:rgba(26,110,53,0.35);color:var(--text);background:var(--surface2)}.day-chip.active{background:var(--emerald);color:#fff;border-color:var(--emerald);box-shadow:0 2px 8px rgba(26,110,53,0.3);font-weight:600}.day-chip.weekend.active{background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3)}.search-row{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}.search-input{padding:.42rem .9rem;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;min-width:200px;flex:1;max-width:280px;transition:border-color .15s}.search-input:focus{outline:none;border-color:rgba(26,110,53,0.5);box-shadow:0 0 0 3px rgba(26,110,53,0.08)}.group-chips{display:flex;gap:4px;flex-wrap:wrap}.g-chip{padding:.26rem .7rem;border-radius:14px;font-size:.72rem;border:1px solid;cursor:pointer;transition:all .14s;font-weight:500}.layout{display:grid;grid-template-columns:1fr 300px;gap:1rem}@media(max-width:960px){.layout{grid-template-columns:1fr}}.sidebar-stack{display:flex;flex-direction:column;gap:.75rem}.tl-period{margin-bottom:1.25rem}.tl-period-head{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;color:var(--emerald-mid);letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);border-radius:20px;margin-bottom:.65rem;font-family:'Cinzel',serif;box-shadow:0 0 0 3px rgba(26,110,53,0.05)}.tl-list{display:flex;flex-direction:column;gap:4px}.tl-row{display:grid;grid-template-columns:78px 28px 1fr auto;gap:.6rem;align-items:flex-start;padding:.65rem .85rem;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--emerald-mid);cursor:pointer;transition:all .18s;box-shadow:0 1px 4px rgba(26,110,53,0.04)}.tl-row:hover{border-left-color:var(--gold-warm);box-shadow:0 3px 12px rgba(26,110,53,0.10);transform:translateX(2px)}.tl-row.transit{opacity:.55;border-left-color:#ccc;background:var(--surface2)}.tl-row.transit:hover{transform:none;box-shadow:none}.tl-time{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--emerald);padding-top:2px;line-height:1.4;font-weight:500}.tl-icon-cell{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);flex-shrink:0}.tl-content{min-width:0}.tl-ev-name{font-size:.82rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}.tl-task-txt{font-size:.74rem;color:var(--text2);margin-top:2px}.tl-loc-btn{font-size:.7rem;color:var(--emerald);margin-top:4px;display:inline-flex;align-items:center;gap:3px;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer;background:none;border:none;padding:0;font-family:inherit}.tl-badge{font-size:.58rem;font-weight:700;padding:1px 6px;border-radius:8px;flex-shrink:0;vertical-align:middle}.badge-must{background:rgba(26,110,53,0.14);color:var(--emerald);border:1px solid rgba(26,110,53,0.22)}.badge-transit{background:#f0f0f0;color:#999;border:1px solid #ddd}.my-view{display:flex;flex-direction:column;gap:1rem}.person-selector{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}.person-selector-title{font-family:'Cinzel',serif;font-size:.75rem;color:var(--text2);margin-bottom:.65rem;letter-spacing:.06em}.person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.4rem}.pc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.55rem .5rem;text-align:center;cursor:pointer;transition:all .16s;position:relative;overflow:hidden}.pc:hover{box-shadow:0 3px 10px rgba(26,110,53,0.1);transform:translateY(-1px)}.pc.sel{box-shadow:0 0 0 2px var(--emerald),0 3px 10px rgba(26,110,53,0.15)}.pc-name{font-size:.75rem;font-weight:600;color:var(--text)}.pc-no{font-size:.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace}.my-schedule-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow);position:relative;overflow:hidden}.my-schedule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.my-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}.my-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;font-family:'Cinzel',serif;flex-shrink:0}.my-name{font-size:.95rem;font-weight:700;font-family:'Cinzel',serif;color:var(--text)}.my-sub{font-size:.72rem;color:var(--text3);margin-top:2px}.my-rows{display:flex;flex-direction:column;gap:3px}.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}.loc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:0 1px 4px rgba(60,30,100,0.04);transition:border-color .18s}.loc-card:hover{border-color:rgba(93,26,150,0.2)}.loc-name{font-size:.88rem;font-weight:700;color:var(--emerald);font-family:'Cinzel',serif;margin-bottom:.55rem;cursor:pointer;display:flex;align-items:center;gap:.4rem}.loc-item{display:flex;gap:.5rem;font-size:.74rem;padding:.3rem 0;border-bottom:1px solid var(--border);align-items:flex-start}.loc-item:last-child{border-bottom:none}.loc-t{font-family:'JetBrains Mono',monospace;color:var(--text3);font-size:.66rem;min-width:78px;flex-shrink:0}.loc-ev{color:var(--text);flex:1}.loc-task{font-size:.66rem;color:var(--text3)}.s-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}.s-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.s-title{font-size:.72rem;font-weight:600;color:var(--text);margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem;font-family:'Cinzel',serif;letter-spacing:.04em}.s-title::before{content:'';display:block;width:3px;height:13px;border-radius:2px;background:linear-gradient(180deg,var(--emerald),var(--rose))}.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(10,20,15,0.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}.modal-overlay.open{display:flex}@keyframes modal-in{from{transform:scale(.88) translateY(18px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;max-width:min(500px,90vw);width:100%;box-shadow:0 12px 40px rgba(30,12,8,0.2);animation:modal-in .25s cubic-bezier(.34,1.56,.64,1);position:relative;max-height:85vh;overflow-y:auto;}.modal-close{position:absolute;top:.75rem;right:.9rem;font-size:1.1rem;color:var(--text3);cursor:pointer;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;transition:all .15s;}.modal-close:hover{color:var(--text);background:var(--bg2)}.modal-title{font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:var(--emerald);margin-bottom:.25rem}.modal-sub{font-size:.72rem;color:var(--text3);margin-bottom:1rem;font-family:'Cinzel',serif;letter-spacing:.06em}#mapModal .map-modal-inner{background:var(--surface);border-radius:16px;border:1px solid var(--border2);max-width:min(92vw,720px);width:100%;overflow:hidden;animation:modal-in .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 72px rgba(10,20,15,0.4),0 0 0 1px rgba(26,110,53,0.12);}.map-header{padding:.75rem 1.1rem;display:flex;align-items:center;gap:.65rem;background:linear-gradient(90deg,var(--emerald-light) 0%,rgba(253,243,220,0.6) 60%,var(--rose-light) 100%);border-bottom:1px solid var(--border);}.map-header-dot{width:9px;height:9px;border-radius:50%;background:var(--emerald-mid);box-shadow:0 0 8px rgba(34,139,68,0.5);flex-shrink:0;}.map-header-label{font-family:'Cinzel',serif;font-size:.68rem;color:var(--emerald);letter-spacing:.14em;font-variant:small-caps;}.map-header-loc{font-size:.8rem;font-weight:600;color:var(--text);margin-left:2px;font-family:'Noto Sans TC',sans-serif;}.map-close-btn{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--text3);transition:all .15s;flex-shrink:0;}.map-close-btn:hover{background:var(--rose-light);color:var(--rose);border-color:var(--rose-mid);transform:scale(1.08);}.map-img-wrap{position:relative;overflow:hidden;background:var(--emerald-light);min-height:240px;display:flex;align-items:center;justify-content:center;}.map-img-wrap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,110,53,0.09) 1px,transparent 1px),linear-gradient(90deg,rgba(26,110,53,0.09) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}.map-img-wrap img{width:100%;display:block;position:relative;z-index:1;max-height:55vh;object-fit:contain;}.map-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;position:relative;z-index:1;}.map-placeholder-icon{font-size:3rem;margin-bottom:.75rem;line-height:1}.map-placeholder-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;color:var(--emerald);letter-spacing:.06em;margin-bottom:.3rem;}.map-placeholder-sub{font-size:.72rem;color:var(--text3);line-height:1.6}.map-footer{padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--surface2);flex-wrap:wrap;gap:.5rem;}.map-footer-brand{font-size:.65rem;color:var(--text3);font-family:'Cinzel',serif;letter-spacing:.06em;}.map-footer-btns{display:flex;gap:.45rem}.map-footer-close{font-size:.74rem;padding:.3rem .9rem;border-radius:20px;border:1px solid var(--emerald);background:var(--emerald-light);color:var(--emerald);cursor:pointer;font-family:inherit;font-weight:600;transition:all .15s;}.map-footer-close:hover{background:var(--emerald);color:#fff}.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--text);color:#fff;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:.8rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;box-shadow:0 4px 16px rgba(30,12,8,0.2)}.toast.show{opacity:1}.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-top:1px solid var(--border);backdrop-filter:blur(16px);padding:0 0 env(safe-area-inset-bottom,0)}.mobile-nav-inner{display:flex;height:56px}.mb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.56rem;color:var(--text3);cursor:pointer;transition:color .15s}.mb-btn .ico{font-size:1.15rem}.mb-btn.active{color:var(--emerald)}.fab{position:fixed;right:1.1rem;bottom:72px;z-index:210;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:1.55rem;background:radial-gradient(ellipse at 35% 30%,rgba(255,245,235,0.55) 0%,rgba(192,69,106,0.12) 45%,rgba(26,110,53,0.15) 100%),linear-gradient(145deg,#f4ede2 0%,#e8d8c8 50%,#d4bea8 100%);box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2);transition:transform .2s,box-shadow .2s}.fab:hover{transform:scale(1.1) translateY(-2px)}.fab:active{transform:scale(.95)}@keyframes fab-glow{0%,100%{box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2)}50%{box-shadow:0 0 0 1px rgba(192,69,106,0.38),0 0 22px rgba(192,69,106,0.26),0 0 12px rgba(26,110,53,0.18),0 4px 14px rgba(100,60,20,0.2)}}.fab{animation:fab-glow 3s ease-in-out infinite}.fab-tip{position:fixed;right:72px;z-index:210;background:var(--text);color:#fff;font-size:.68rem;padding:.3rem .65rem;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;display:none}.fab-tip::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--text);border-right:0}.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:.85rem}.empty-state::before{content:'🎵';display:block;font-size:2rem;margin-bottom:.75rem;opacity:.4}@media(max-width:640px){header{padding:0 .85rem}.nav{display:none}.main{padding:.75rem .75rem 76px}.mobile-nav{display:block}.layout{grid-template-columns:1fr}.fab{display:flex}.fab-tip{display:block}.header-deco{height:28px}}.group-view{display:grid;gap:.75rem;overflow-x:auto;padding-bottom:4px}.group-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;min-width:220px;box-shadow:var(--shadow)}.group-col-head{padding:.55rem .85rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--border)}.group-col-name{font-family:'Cinzel',serif;font-size:.75rem;font-weight:700;letter-spacing:.05em}.group-col-cnt{font-size:.63rem;opacity:.7;font-family:'JetBrains Mono',monospace}.group-col-body{padding:.5rem .55rem;display:flex;flex-direction:column;gap:3px;max-height:calc(100vh - 320px);overflow-y:auto}.gv-row{padding:.42rem .55rem;border-radius:6px;border:1px solid var(--border);border-left:3px solid;transition:background .14s;cursor:pointer}.gv-row:hover{background:var(--surface2)}.gv-time{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text3);margin-bottom:2px}.gv-ev{font-size:.75rem;font-weight:600;color:var(--text);line-height:1.3}.gv-task{font-size:.67rem;color:var(--text3);margin-top:2px}.gv-loc{font-size:.63rem;color:var(--emerald);margin-top:2px}
+/* ── 多地點 pill 樣式 ── */
+.loc-pills{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.loc-pill{font-size:.65rem;padding:1px 7px;border-radius:10px;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.2);color:var(--emerald);cursor:pointer;transition:background .12s}
+.loc-pill:hover{background:rgba(26,110,53,0.18)}
+.loc-pill.multi-badge{background:var(--gold-light);border-color:rgba(200,134,10,0.3);color:var(--gold-warm)}
+.sync-hint{text-align:center;padding:2.5rem 1rem;color:var(--text3);font-size:.83rem;line-height:2}
+.sync-hint-icon{font-size:2.2rem;display:block;margin-bottom:.6rem;opacity:.45}
+</style></head>
 <body>
 <div class="app">
 <header>
@@ -34,6 +42,8 @@
 </nav>
 <div class="fab-tip" id="fabTip" style="bottom:88px">跳至現在</div>
 <button class="fab" id="fabBtn" onclick="jumpToNow()" onmouseenter="showFabTip()" onmouseleave="hideFabTip()" title="跳至現在（台北時間）">🔮</button>
+
+<!-- 場地 Modal -->
 <div class="modal-overlay" id="locModal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -41,10 +51,12 @@
     <div class="modal-sub">📍 使用場地</div>
     <div id="modalLocBody"></div>
     <div style="margin-top:1rem">
-      <button class="btn btn-primary btn-sm" onclick="openMapModal(document.getElementById('modalLocName').textContent)">🗺 查看地圖</button>
+      <button style="padding:.3rem .9rem;border-radius:20px;border:1px solid var(--emerald);background:var(--emerald-light);color:var(--emerald);cursor:pointer;font-size:.78rem;font-family:inherit" onclick="openMapModal(document.getElementById('modalLocName').textContent)">🗺 查看地圖</button>
     </div>
   </div>
 </div>
+
+<!-- 地圖 Modal -->
 <div class="modal-overlay" id="mapModal" onclick="if(event.target===this)closeMapModal()">
   <div class="map-modal-inner">
     <div class="map-header">
@@ -53,20 +65,13 @@
       <span class="map-header-loc" id="mapModalLocLabel"></span>
     </div>
     <div class="map-img-wrap">
-      <img
-        id="mapImg"
-        src=""
-        alt="校園地圖"
+      <img id="mapImg" src="" alt="校園地圖"
         onerror="this.style.display='none';document.getElementById('mapImgFallback').style.display='flex'"
-        onload="document.getElementById('mapImgFallback').style.display='none'"
-      >
+        onload="document.getElementById('mapImgFallback').style.display='none'">
       <div id="mapImgFallback" class="map-placeholder" style="display:flex">
         <div class="map-placeholder-icon">🗺</div>
         <div class="map-placeholder-title">尚未設定地圖圖片</div>
-        <div class="map-placeholder-sub">
-          請將 <code style="background:rgba(26,110,53,0.12);padding:1px 5px;border-radius:4px;font-size:.68rem;color:var(--emerald)">#mapImg</code> 的<br>
-          <code style="background:rgba(26,110,53,0.12);padding:1px 5px;border-radius:4px;font-size:.68rem;color:var(--emerald)">src</code> 屬性改為您的地圖圖片路徑
-        </div>
+        <div class="map-placeholder-sub">請將 <code style="background:rgba(26,110,53,0.12);padding:1px 5px;border-radius:4px;font-size:.68rem;color:var(--emerald)">#mapImg</code> 的 <code style="background:rgba(26,110,53,0.12);padding:1px 5px;border-radius:4px;font-size:.68rem;color:var(--emerald)">src</code> 屬性改為您的地圖圖片路徑</div>
       </div>
     </div>
     <div class="map-footer">
@@ -77,6 +82,8 @@
     </div>
   </div>
 </div>
+
+<!-- 個人 Modal -->
 <div class="modal-overlay" id="personModal" onclick="if(event.target===this)closePersonModal()">
   <div class="modal">
     <button class="modal-close" onclick="closePersonModal()">✕</button>
@@ -87,17 +94,17 @@
     <div id="pmBody"></div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <main class="main">
+  <!-- Banner -->
   <div style="background:linear-gradient(105deg,rgba(26,80,26,0.10) 0%,rgba(255,250,240,0.88) 28%,rgba(255,250,240,0.88) 72%,rgba(192,69,106,0.08) 100%);border:1px solid rgba(200,134,10,0.22);border-top:3px solid var(--emerald-mid);border-radius:14px;padding:1.35rem 2rem 1.2rem;margin-bottom:1.1rem;text-align:center;position:relative;overflow:visible;box-shadow:0 2px 18px rgba(26,110,53,0.09)">
     <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(26,110,53,0.025) 0px,rgba(26,110,53,0.025) 1px,transparent 1px,transparent 40px),repeating-linear-gradient(0deg,rgba(26,110,53,0.025) 0px,rgba(26,110,53,0.025) 1px,transparent 1px,transparent 40px);pointer-events:none;border-radius:14px;overflow:hidden"></div>
-    <!-- 左側：掃把在後（z-index低），女巫在前（z-index高） -->
     <img src="掃把.png" alt="" aria-hidden="true" style="position:absolute;left:2px;bottom:-6px;height:88px;width:auto;object-fit:contain;z-index:1;filter:drop-shadow(0 2px 8px rgba(100,60,20,0.18));pointer-events:none;transform:rotate(-15deg)">
     <img src="女巫.png" alt="" aria-hidden="true" style="position:absolute;left:3px;bottom:-3px;height:96px;width:auto;object-fit:contain;z-index:2;filter:drop-shadow(0 3px 10px rgba(100,60,20,0.22));pointer-events:none">
-    <!-- 右側：魔法棒在後（z-index低），公主在前（z-index高） -->
     <img src="魔法棒.png" alt="" aria-hidden="true" style="position:absolute;right:-8px;bottom:-3px;height:79px;width:auto;object-fit:contain;z-index:1;filter:drop-shadow(0 2px 8px rgba(192,69,106,0.18));pointer-events:none;transform:rotate(12deg)">
     <img src="公主.png" alt="" aria-hidden="true" style="position:absolute;right:2px;bottom:-3px;height:96px;width:auto;object-fit:contain;z-index:3;filter:drop-shadow(0 3px 10px rgba(192,69,106,0.22));pointer-events:none">
-    <!-- 中間：城堡背景，用獨立 overflow:hidden 的 wrapper 裁切，不影響角色圖片 -->
     <div style="position:absolute;inset:0;overflow:hidden;border-radius:14px;pointer-events:none;z-index:1">
       <img src="城堡.png" alt="" aria-hidden="true" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-58%);height:125%;width:auto;max-width:none;object-fit:contain;opacity:0.3;pointer-events:none;">
     </div>
@@ -112,8 +119,11 @@
       <div style="font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;color:var(--rose);text-transform:uppercase">IALAC · I'm Lovable And Capable</div>
     </div>
   </div>
+
   <div class="top-bar"></div>
   <div class="day-strip" id="dayStrip"></div>
+
+  <!-- 行程總覽 Tab -->
   <div id="tab-schedule">
     <div class="search-row" style="align-items:center;flex-wrap:nowrap;gap:.5rem">
       <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 1 140px;max-width:180px">
@@ -132,6 +142,8 @@
       </aside>
     </div>
   </div>
+
+  <!-- 個人行程 Tab -->
   <div id="tab-my" style="display:none">
     <div class="my-view">
       <div class="person-selector">
@@ -145,396 +157,345 @@
       <div id="myScheduleEl"></div>
     </div>
   </div>
+
+  <!-- 場地 Tab -->
   <div id="tab-location" style="display:none">
     <div class="loc-grid" id="locGrid"></div>
   </div>
-  <div id="tab-config" style="display:none">
 </main>
 </div>
+
 <script>
+// ════════════════════════════════════════════════
+//  常數與狀態
+// ════════════════════════════════════════════════
 const DAYS = [
-  {id:'d1', label:'6/30', full:'2026/6/30 (二) Day1', type:'weekday'},
-  {id:'d2', label:'7/1',  full:'2026/7/1 (三) Day2',  type:'weekday'},
-  {id:'d3', label:'7/2',  full:'2026/7/2 (四) Day3',  type:'weekday'},
-  {id:'d4', label:'7/3',  full:'2026/7/3 (五) Day4',  type:'weekday'},
-  {id:'d5', label:'7/4',  full:'2026/7/4 (六) Day5',  type:'weekend'},
-  {id:'d6', label:'7/5',  full:'2026/7/5 (日) Day6',  type:'weekend'},
-  {id:'d7', label:'7/6',  full:'2026/7/6 (一) Day7',  type:'weekday'},
-  {id:'d8', label:'7/7',  full:'2026/7/7 (二) Day8',  type:'weekday'},
-  {id:'d9', label:'7/8',  full:'2026/7/8 (三) Day9',  type:'weekday'},
-  {id:'d10',label:'7/9',  full:'2026/7/9 (四) Day10', type:'weekday'},
-  {id:'d11',label:'7/10', full:'2026/7/10 (五) Day11',type:'weekday'},
-  {id:'d12',label:'7/11', full:'2026/7/11 (六) Day12',type:'weekend'},
-  {id:'d13',label:'7/12', full:'2026/7/12 (日) Day13',type:'weekend'},
+  {id:'d1', label:'6/30', full:'2026/6/30 (二) Day1',  type:'weekday'},
+  {id:'d2', label:'7/1',  full:'2026/7/1 (三) Day2',   type:'weekday'},
+  {id:'d3', label:'7/2',  full:'2026/7/2 (四) Day3',   type:'weekday'},
+  {id:'d4', label:'7/3',  full:'2026/7/3 (五) Day4',   type:'weekday'},
+  {id:'d5', label:'7/4',  full:'2026/7/4 (六) Day5',   type:'weekend'},
+  {id:'d6', label:'7/5',  full:'2026/7/5 (日) Day6',   type:'weekend'},
+  {id:'d7', label:'7/6',  full:'2026/7/6 (一) Day7',   type:'weekday'},
+  {id:'d8', label:'7/7',  full:'2026/7/7 (二) Day8',   type:'weekday'},
+  {id:'d9', label:'7/8',  full:'2026/7/8 (三) Day9',   type:'weekday'},
+  {id:'d10',label:'7/9',  full:'2026/7/9 (四) Day10',  type:'weekday'},
+  {id:'d11',label:'7/10', full:'2026/7/10 (五) Day11', type:'weekday'},
+  {id:'d12',label:'7/11', full:'2026/7/11 (六) Day12', type:'weekend'},
+  {id:'d13',label:'7/12', full:'2026/7/12 (日) Day13', type:'weekend'},
 ];
-const GROUPS={'活動組':{color:'#9C2B2B',bg:'#FAD7D7',mid:'#C0456A'},'生輔組':{color:'#8C4A1A',bg:'#FCE9D9',mid:'#C8720A'},'選課組':{color:'#7A5A00',bg:'#FFF2CC',mid:'#C8A000'},'戲劇組':{color:'#2E6B1A',bg:'#E2EFDA',mid:'#4A9A2A'},'影像組':{color:'#1a4a8C',bg:'#DDEBF7',mid:'#2D6CC0'},'SDL':{color:'#4A3A7A',bg:'#E4DFEC',mid:'#6A5AAA'},'CIT':{color:'#7A2A2A',bg:'#F2DCDB',mid:'#A84040'},'營長':{color:'#1E1208',bg:'#FFFFFF',mid:'#888888'}};
-let PEOPLE = [
-  {no:1,  name:'玉米',   group:'活動組', slack:''},
-  {no:2,  name:'阿寶',   group:'活動組', slack:''},
-  {no:3,  name:'小歪',   group:'活動組', slack:''},
-  {no:4,  name:'恩恩',   group:'活動組', slack:''},
-  {no:5,  name:'登登',   group:'活動組', slack:''},
-  {no:6,  name:'EN',     group:'活動組', slack:''},
-  {no:7,  name:'融融',   group:'活動組', slack:''},
-  {no:8,  name:'Timmie', group:'活動組', slack:''},
-  {no:9,  name:'星星',   group:'活動組', slack:''},
-  {no:11, name:'蛙靜',   group:'活動組', slack:''},
-  {no:12, name:'白白',   group:'活動組', slack:''},
-  {no:13, name:'Hank',   group:'活動組', slack:''},
-  {no:14, name:'里程',   group:'活動組', slack:''},
-  {no:15, name:'蒜泥',   group:'活動組', slack:''},
-  {no:16, name:'仔仔',   group:'活動組', slack:''},
-  {no:17, name:'哈利',   group:'活動組', slack:''},
-  {no:18, name:'ICU',    group:'活動組', slack:''},
-  {no:19, name:'Hatin',  group:'活動組', slack:''},
-  {no:20, name:'歐歐',   group:'活動組', slack:''},
-  {no:21, name:'歐哭',   group:'生輔組', slack:''},
-  {no:22, name:'青青',   group:'生輔組', slack:''},
-  {no:23, name:'小欣甘', group:'生輔組', slack:''},
-  {no:24, name:'嘻嘻',   group:'生輔組', slack:''},
-  {no:25, name:'小莓',   group:'生輔組', slack:''},
-  {no:26, name:'Riva',   group:'生輔組', slack:''},
-  {no:27, name:'咪嗚',   group:'生輔組', slack:''},
-  {no:28, name:'ㄘㄞ琪', group:'生輔組', slack:''},
-  {no:29, name:'米勒',   group:'生輔組', slack:''},
-  {no:30, name:'凱尼',   group:'生輔組', slack:''},
-  {no:31, name:'海豚',   group:'生輔組', slack:''},
-  {no:32, name:'地瓜球', group:'生輔組', slack:''},
-  {no:33, name:'西歪西', group:'生輔組', slack:''},
-  {no:34, name:'Joeman', group:'生輔組', slack:''},
-  {no:37, name:'巫葛格', group:'生輔組', slack:''},
-  {no:39, name:'91',     group:'生輔組', slack:''},
-  {no:40, name:'傑洛特', group:'生輔組', slack:''},
-  {no:41, name:'兩分',   group:'選課組', slack:''},
-  {no:42, name:'米心',   group:'選課組', slack:''},
-  {no:43, name:'木木',   group:'選課組', slack:''},
-  {no:44, name:'Mika',   group:'選課組', slack:''},
-  {no:45, name:'AA',     group:'選課組', slack:''},
-  {no:46, name:'貝貝',   group:'選課組', slack:''},
-  {no:47, name:'抓餅',   group:'戲劇組', slack:''},
-  {no:48, name:'烏龜',   group:'戲劇組', slack:''},
-  {no:49, name:'AN',     group:'戲劇組', slack:''},
-  {no:50, name:'汪汪',   group:'戲劇組', slack:''},
-  {no:52, name:'烏安',   group:'戲劇組', slack:''},
-  {no:53, name:'嚕批',   group:'戲劇組', slack:''},
-  {no:54, name:'滑倒',   group:'戲劇組', slack:''},
-  {no:56, name:'阿瘦',   group:'戲劇組', slack:''},
-  {no:57, name:'Joying', group:'影像組', slack:''},
-  {no:58, name:'敏特',   group:'影像組', slack:''},
-  {no:59, name:'Enni',   group:'影像組', slack:''},
-  {no:61, name:'阿嘎',   group:'影像組', slack:''},
-  {no:62, name:'靜香',   group:'影像組', slack:''},
-  {no:63, name:'恆恆',   group:'影像組', slack:''},
-  {no:64, name:'阿鵝',   group:'SDL',    slack:''},
-  {no:65, name:'Winnie', group:'SDL',    slack:''},
-  {no:66, name:'玉仔',   group:'CIT',    slack:''},
-  {no:67, name:'西呱',   group:'CIT',    slack:''},
-  {no:68, name:'秋秋',   group:'營長',   slack:''},
-  {no:69, name:'里歐',   group:'營長',   slack:''},
-];
-let SCHEDULE = {
-  d1: [
-    {time:'08:00-08:20', event:'營前訓 Assigned by 營長', task:'', loc:'', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-17:50', event:'學員報到 分聲部&選角', task:'引導學員報到、分聲部', loc:'女宿1F', groups:['活動組','生輔組'], nos:[]},
-    {time:'19:00-20:30', event:'始業式', task:'擔任隊輔帶隊', loc:'PAC', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy陪伴學員', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-    {time:'22:00-', event:'全員會議', task:'幹部開會', loc:'女宿1F', groups:['活動組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  ],
-  d2: [
-    {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'08:20-08:30', event:'換場', task:'移動換場', loc:'風雨球場', groups:['活動組','生輔組'], nos:[], transit:true},
-    {time:'08:30-08:55', event:'早操', task:'帶動早操', loc:'風雨球場', groups:['活動組'], nos:[]},
-    {time:'09:00-09:50', event:'合唱課程 S1', task:'擔任聲部導師', loc:'7A', groups:['活動組'], nos:[]},
-    {time:'10:00-10:50', event:'合唱課程 S2', task:'擔任聲部導師', loc:'7B', groups:['活動組'], nos:[]},
-    {time:'11:00-11:50', event:'合唱課程 S3', task:'擔任聲部導師', loc:'9B', groups:['活動組'], nos:[]},
-    {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'13:00-13:45', event:'午休', task:'午休', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-14:50', event:'合唱課程 S4', task:'擔任聲部導師', loc:'11B', groups:['活動組'], nos:[]},
-    {time:'15:00-15:50', event:'合唱排練', task:'擔任聲部導師', loc:'PAC', groups:['活動組'], nos:[]},
-    {time:'16:00-16:50', event:'選修課程', task:'擔任課堂助教', loc:'12B', groups:['選課組'], nos:[]},
-    {time:'17:00-17:50', event:'環境清潔', task:'帶學員打掃', loc:'教學區', groups:['生輔組'], nos:[]},
-    {time:'18:00-18:40', event:'晚餐', task:'吃晚餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'19:00-20:30', event:'Welcome Party 🎊', task:'擔任隊輔帶隊', loc:'風雨球場', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-    {time:'22:00-', event:'Free Time', task:'自由活動', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  ],
-  d3: [
-    {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'08:30-08:55', event:'早操', task:'帶動早操', loc:'風雨球場', groups:['活動組'], nos:[]},
-    {time:'09:00-09:50', event:'合唱課程 S1', task:'擔任聲部導師', loc:'7A', groups:['活動組'], nos:[]},
-    {time:'10:00-10:50', event:'合唱課程 S2', task:'擔任聲部導師', loc:'7B', groups:['活動組'], nos:[]},
-    {time:'11:00-11:50', event:'合唱課程（師培）', task:'課程開場', loc:'師培1樓', groups:['活動組'], nos:[]},
-    {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'13:00-13:45', event:'午休', task:'午休', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-14:50', event:'合唱課程 S4', task:'擔任聲部導師', loc:'11B', groups:['活動組'], nos:[]},
-    {time:'15:00-15:50', event:'合唱排練', task:'擔任聲部導師', loc:'9B', groups:['活動組'], nos:[]},
-    {time:'16:00-16:50', event:'選修課程', task:'課程開場', loc:'10B', groups:['選課組'], nos:[]},
-    {time:'17:00-17:50', event:'環境清潔', task:'帶學員打掃', loc:'教學區', groups:['生輔組'], nos:[]},
-    {time:'18:00-18:40', event:'晚餐', task:'吃晚餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'19:00-20:30', event:'電影之夜 🎬', task:'場佈、播映', loc:'風雨球場', groups:['活動組','影像組'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-  ],
+
+const GROUPS = {
+  '活動組':{color:'#9C2B2B',bg:'#FAD7D7',mid:'#C0456A'},
+  '生輔組':{color:'#8C4A1A',bg:'#FCE9D9',mid:'#C8720A'},
+  '選課組':{color:'#7A5A00',bg:'#FFF2CC',mid:'#C8A000'},
+  '戲劇組':{color:'#2E6B1A',bg:'#E2EFDA',mid:'#4A9A2A'},
+  '影像組':{color:'#1a4a8C',bg:'#DDEBF7',mid:'#2D6CC0'},
+  'SDL'   :{color:'#4A3A7A',bg:'#E4DFEC',mid:'#6A5AAA'},
+  'CIT'   :{color:'#7A2A2A',bg:'#F2DCDB',mid:'#A84040'},
+  '營長'  :{color:'#1E1208',bg:'#FFFFFF',mid:'#888888'}
 };
-['d4','d5','d6','d7','d8','d9','d10','d11'].forEach((d)=>{
-  const eveningEvents = {d4:'極限體能王 💪',d5:'謀殺之謎 🕵️',d6:'百萬大歌星 🎤',d7:'賭場之夜 🃏',d8:'變裝之夜 👗',d9:'戲劇組之夜 🎭',d10:'Talent Show ✨',d11:'Farewell Party 🎊'};
-  SCHEDULE[d] = [
-    {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'08:30-08:55', event:'早操', task:'帶動早操', loc:'風雨球場', groups:['活動組'], nos:[]},
-    {time:'09:00-11:50', event:'合唱課程', task:'擔任聲部導師', loc:'各教室', groups:['活動組'], nos:[]},
-    {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'13:00-13:45', event:'午休', task:'午休', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'14:00-16:50', event:'合唱排練 + 選修', task:'各組任務', loc:'PAC、各教室', groups:['活動組','選課組'], nos:[]},
-    {time:'17:00-17:50', event:'環境清潔', task:'帶學員打掃', loc:'教學區', groups:['生輔組'], nos:[]},
-    {time:'18:00-18:40', event:'晚餐', task:'吃晚餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-    {time:'19:00-20:30', event:eveningEvents[d], task:'場佈、帶隊', loc:'風雨球場', groups:['活動組','生輔組','戲劇組'], nos:[]},
-    {time:'20:40-21:55', event:'Buddy Time', task:'擔任buddy', loc:'各寢室', groups:['活動組','生輔組'], nos:[]},
-    {time:'21:55-22:00', event:'準備就寢', task:'確認學員就寢', loc:'各寢室', groups:['生輔組'], nos:[]},
-  ];
-});
-SCHEDULE.d12 = [{time:'全天', event:'Day12（7/11）行程', task:'試算表尚未設定此天工作表，請同步後查看', loc:'TBD', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]}];
-SCHEDULE.d13 = [
-  {time:'08:00-08:20', event:'早餐', task:'吃早餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  {time:'08:30-10:50', event:'結業式 🎓', task:'帶隊、場地布置', loc:'PAC', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  {time:'10:00-12:00', event:'學員賦歸', task:'協助學員辦理離營', loc:'女宿1F', groups:['生輔組'], nos:[]},
-  {time:'12:00-12:50', event:'午餐', task:'吃午餐', loc:'女宿1F', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-  {time:'13:00-', event:'Assigned by 營長', task:'依營長安排', loc:'TBD', groups:['活動組','生輔組','選課組','戲劇組','影像組','SDL','CIT','營長'], nos:[]},
-];
-const _BUILTIN = JSON.parse(JSON.stringify(SCHEDULE));
-let PERSON_SCHEDULE = {};
-const _BUILTIN_PEOPLE = JSON.parse(JSON.stringify(PEOPLE));
-let currentDay = 'd1';
-let currentTab = 'schedule';
-let filterGroup = null;
+
+// 所有資料完全來自 GAS，初始為空
+let PEOPLE          = [];   // [{no, name, group, slack}]
+let SCHEDULE        = {};   // {d1:[{time,event,task,loc,groups,nos,transit}]}
+let PERSON_SCHEDULE = {};   // {d1:{"1":[{time,event,task,loc,note,transit}]}}
+
+let currentDay    = 'd1';
+let currentTab    = 'schedule';
+let filterGroup   = null;
 let myFilterGroup = null;
-let selectedPerson = null;
-let searchQ = '';
-const ICONS = {'早餐':'🍳','午餐':'🥢','晚餐':'🍽️','午休':'😴','早操':'🏃','換場':'🚶',
+let selectedPerson= null;
+let searchQ       = '';
+
+const ICONS = {
+  '早餐':'🍳','午餐':'🥢','晚餐':'🍽️','午休':'😴','早操':'🏃','換場':'🚶',
   '合唱':'🎵','排練':'🎶','選修':'✏️','始業':'🌟','結業':'🎓','Party':'🎊','farewell':'🎊',
   '電影':'🎬','大歌星':'🎤','謀殺':'🕵️','賭場':'🃏','變裝':'👗','戲劇':'🎭','Talent':'✨',
   'talent':'✨','buddy':'🤝','Buddy':'🤝','清潔':'🧹','報到':'📋','會議':'📢',
-  '賦歸':'🎒','Free':'☕','就寢':'🌙','Assigned':'📋'};
-function getIcon(ev){for(const[k,v]of Object.entries(ICONS))if(ev.includes(k))return v;return'✦'}
-const ALL_GROUPS_LIST = Object.keys({'活動組':1,'生輔組':1,'選課組':1,'戲劇組':1,'影像組':1,'SDL':1,'CIT':1,'營長':1});
-function isMust(ev,groups){
-  if(!groups||!groups.length) return false;
-  return ALL_GROUPS_LIST.every(g=>groups.includes(g));
-}
-function showToast(msg,t=2400){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),t)}
-function $(id){return document.getElementById(id)}
-function personById(no){return PEOPLE.find(p=>p.no===no)}
+  '賦歸':'🎒','Free':'☕','就寢':'🌙','Assigned':'📋'
+};
+function getIcon(ev){ for(const[k,v] of Object.entries(ICONS)) if((ev||'').includes(k)) return v; return '✦'; }
 
-// ── 個人行程 fallback ──
-// 優先用 PERSON_SCHEDULE（來自 GAS 橫式解析），
-// 若無資料則 fallback 到 SCHEDULE 的 groups 篩選（內建資料）
-function getPersonItems(dayId, personNo) {
+const ALL_GROUPS_LIST = Object.keys(GROUPS);
+
+// ════════════════════════════════════════════════
+//  核心：從 personSchedule 聚合「行程總覽」
+//  同一天、同一活動（time+event），收集所有人的地點
+// ════════════════════════════════════════════════
+/**
+ * 從 PERSON_SCHEDULE[dayId] 聚合出行程總覽列表。
+ * 每個 entry = {time, event, task, transit, locs:[...不重複地點]}
+ * locs 為所有人在此活動填寫的不重複地點陣列。
+ */
+function getAggregatedSchedule(dayId) {
   const psDay = PERSON_SCHEDULE[dayId] || {};
-  const psItems = psDay[String(personNo)] || [];
-  const p = personById(personNo);
-  if (!p) return psItems;
+  // key = time + '||' + event
+  const map = new Map();
 
-  // 從 SCHEDULE 找出這個人「應該參與」的所有活動（依 groups 或 nos）
-  const allItems = getSortedItems(dayId).filter(s =>
-    (s.groups && s.groups.includes(p.group)) || (s.nos && s.nos.includes(personNo))
+  Object.values(psDay).forEach(items => {
+    (items || []).forEach(s => {
+      const key = (s.time || '') + '||' + (s.event || '');
+      if (!map.has(key)) {
+        map.set(key, {
+          time: s.time || '',
+          event: s.event || '',
+          task: s.task || '',
+          transit: s.transit || false,
+          locs: new Set()
+        });
+      }
+      const entry = map.get(key);
+      if (s.loc && s.loc.trim()) entry.locs.add(s.loc.trim());
+      // 若某人的 task 有值但 entry 還是空，補入
+      if (!entry.task && s.task) entry.task = s.task;
+    });
+  });
+
+  // 轉換 Set → Array，依時間排序
+  const result = [...map.values()]
+    .map(e => ({ ...e, locs: [...e.locs] }))
+    .sort((a, b) => {
+      const ta = (a.time || '99:99').split('-')[0];
+      const tb = (b.time || '99:99').split('-')[0];
+      return ta.localeCompare(tb);
+    });
+
+  // ── 固定場地覆寫（行程總覽專用，不影響個人行程）──
+  // 規則1：時間含 08:20 的換場 → 風雨球場
+  // 規則2：早操（event 含「早操」）→ 風雨球場
+  // 規則3：時間含 20:30 的換場 → 各寢室
+  // 規則4：Buddy Time（event 含「Buddy」或「buddy」）→ 各寢室
+  // 規則5：今晚活動（19:xx）→ 地點取活動組成員的 loc，若無則保留聚合結果
+  const KENTEN_NOS = new Set(
+    PEOPLE.filter(p => p.group === '活動組').map(p => String(p.no))
   );
 
-  // psItems 有的保留（有任務內容），沒有的補入（顯示時間+活動名稱+場地）
-  // key 用 time + '||' + ri 風格改為 time + '||' + event，但空 event 也算獨立 key
-  const psKeys = new Set(psItems.map((s, i) => (s.time || '') + '||' + (s.event || '') + '||' + i));
-  // 比對時只用 time + event（不加 index），避免重複加入已有的時段
-  const psSimpleKeys = new Set(psItems.map(s => (s.time || '') + '||' + (s.event || '')));
+  result.forEach(entry => {
+    const startTime = (entry.time || '').split('-')[0].trim(); // e.g. "08:20"
+    const ev        = entry.event || '';
 
-  const extra = allItems
-    .filter(s => !psSimpleKeys.has((s.time || '') + '||' + (s.event || '')))
-    .map(s => ({ time: s.time, event: s.event, task: '', note: '', loc: s.loc || '', transit: s.transit || false }));
+    // 規則1：08:20 換場
+    if (startTime === '08:20' && (entry.transit || ev.includes('換場'))) {
+      entry.locs = ['風雨球場']; return;
+    }
+    // 規則2：早操
+    if (ev.includes('早操')) {
+      entry.locs = ['風雨球場']; return;
+    }
+    // 規則3：20:30 換場
+    if (startTime === '20:30' && (entry.transit || ev.includes('換場'))) {
+      entry.locs = ['各寢室']; return;
+    }
+    // 規則4：Buddy Time
+    if (ev.toLowerCase().includes('buddy')) {
+      entry.locs = ['各寢室']; return;
+    }
+    // 規則5：今晚活動（19:xx）→ 以活動組的 loc 為主
+    if (startTime && parseInt(startTime) === 19) {
+      const psDay = PERSON_SCHEDULE[dayId] || {};
+      const eveningLocs = new Set();
+      Object.entries(psDay).forEach(([no, items]) => {
+        if (!KENTEN_NOS.has(no)) return;
+        (items || []).forEach(s => {
+          const st = (s.time || '').split('-')[0].trim();
+          if (parseInt(st) === 19 && s.loc && s.loc.trim()
+              && (s.event || '') === ev) {
+            eveningLocs.add(s.loc.trim());
+          }
+        });
+      });
+      if (eveningLocs.size > 0) entry.locs = [...eveningLocs];
+      // 若活動組沒有地點資料，保留原聚合結果
+    }
+  });
 
-  // 合併後依時間排序
-  return [...psItems, ...extra].sort((a, b) => {
+  return result;
+}
+
+/**
+ * 從聚合列表取得所有不重複地點
+ */
+function getAllLocsForDay(dayId) {
+  const items = getAggregatedSchedule(dayId);
+  const set = new Set();
+  items.forEach(s => s.locs.forEach(l => set.add(l)));
+  return [...set];
+}
+
+/**
+ * 個人行程：直接取 PERSON_SCHEDULE[dayId][personNo]
+ */
+function getPersonItems(dayId, personNo) {
+  const psDay = PERSON_SCHEDULE[dayId] || {};
+  return (psDay[String(personNo)] || []).slice().sort((a, b) => {
     const ta = (a.time || '99:99').split('-')[0];
     const tb = (b.time || '99:99').split('-')[0];
     return ta.localeCompare(tb);
   });
 }
 
-function getSortedItems(dayId){
-  return (SCHEDULE[dayId]||[]).slice().sort((a,b)=>{
-    const ta=a.time?a.time.split('-')[0]:'99:99';
-    const tb=b.time?b.time.split('-')[0]:'99:99';
-    return ta.localeCompare(tb);
-  });
+// ════════════════════════════════════════════════
+//  工具
+// ════════════════════════════════════════════════
+function $(id){ return document.getElementById(id); }
+function showToast(msg, t=2400){
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), t);
 }
-function showFabTip(){const t=$('fabTip');if(t){t.style.opacity='1';}}
-function showFabMenu(){
-  const m=$('fabMenu');
-  if(!m)return;
-  if(m.style.display==='flex'){hideFabMenu();return;}
-  m.style.display='flex';
-  setTimeout(()=>document.addEventListener('click',_fabOutside,{once:true}),10);
+function personById(no){ return PEOPLE.find(p => p.no === no); }
+function escLoc(loc){ return (loc||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function hasData(){
+  return PEOPLE.length > 0 || Object.keys(PERSON_SCHEDULE).length > 0;
 }
-function hideFabMenu(){const m=$('fabMenu');if(m)m.style.display='none';}
-function _fabOutside(e){if(!$('fabBtn').contains(e.target)&&!($('fabMenu')&&$('fabMenu').contains(e.target)))hideFabMenu();}
-function jumpToSelectedDay(){
-  const day=DAYS.find(d=>d.id===currentDay);
-  if(!day){showToast('無選取日期');return;}
-  showToast('📅 已切換至 '+day.label);
-  if(currentTab!=='schedule')switchTab('schedule');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function hideFabTip(){const t=$('fabTip');if(t)t.style.opacity='0';}
-function jumpToNow(){
-  const now = new Date();
-  const tpe = new Date(now.toLocaleString('en-US', {timeZone:'Asia/Taipei'}));
-  const hhmm = String(tpe.getHours()).padStart(2,'0') + ':' + String(tpe.getMinutes()).padStart(2,'0');
-  const hhmm_mins = parseInt(hhmm.split(':')[0])*60 + parseInt(hhmm.split(':')[1]);
 
-  // ── 台北時間比對是否在營期（6/30～7/12）內，是的話自動切換日期 ──
-  const tpeDateStr = `${tpe.getFullYear()}/${tpe.getMonth()+1}/${tpe.getDate()}`;
-  const todayDay = DAYS.find(d => {
-    const m = d.full.match(/^(\d{4}\/\d+\/\d+)/);
-    return m && m[1] === tpeDateStr;
-  });
-  let dayChanged = false;
-  if(todayDay && todayDay.id !== currentDay){
-    currentDay = todayDay.id;
-    dayChanged = true;
-    buildDayStrip();
-    renderSchedule();
-    renderLocGrid();
-    if(currentTab === 'my') renderMySchedule();
-  }
-  // 若不在營期內，日期不切換，在目前選取日期中尋找最近時段
-
-  function highlightRow(el){
-    el.scrollIntoView({behavior:'smooth', block:'center'});
-    el.style.transition='box-shadow .2s,border-left-color .2s';
-    el.style.boxShadow='0 0 0 3px rgba(192,69,106,0.35),0 4px 20px rgba(192,69,106,0.2)';
-    el.style.borderLeftColor='var(--rose)';
-    setTimeout(()=>{el.style.boxShadow='';el.style.borderLeftColor='';},1800);
-  }
-
-  function findBestRow(selector, timeSelector){
-    const rows = document.querySelectorAll(selector);
-    let bestEl = null, bestDiff = Infinity;
-    rows.forEach(el => {
-      const timeEl = el.querySelector(timeSelector);
-      if(!timeEl) return;
-      const t = timeEl.textContent.trim().split('-')[0].trim();
-      if(!/^\d{2}:\d{2}/.test(t)) return;
-      const diff = Math.abs(hhmm_mins - (parseInt(t.split(':')[0])*60 + parseInt(t.split(':')[1])));
-      if(diff < bestDiff){ bestDiff = diff; bestEl = el; }
-    });
-    return bestEl;
-  }
-
-  // 個人頁：renderMySchedule 也用 .tl-row + .tl-time，需等 DOM 更新後再搜尋
-  if(currentTab === 'my'){
-    if(!selectedPerson){ showToast('🔮 請先選擇一位志工'); return; }
-    const doScroll = () => {
-      // 個人行程卡片在 #myScheduleEl 內，同樣用 tl-row / tl-time
-      const bestEl = findBestRow('#myScheduleEl .tl-row', '.tl-time');
-      if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm+(todayDay?'':' · 非營期，顯示選取日')); }
-      else { window.scrollTo({top:0,behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，無行程'); }
-    };
-    // 若剛切換日期，等一個 microtask 讓 DOM 渲染完畢
-    if(dayChanged) requestAnimationFrame(doScroll); else doScroll();
-    return;
-  }
-
-  // 行程總覽頁
-  if(currentTab !== 'schedule') switchTab('schedule');
-  const doScrollSchedule = () => {
-    const bestEl = findBestRow('#timelineEl .tl-row', '.tl-time');
-    if(bestEl){ highlightRow(bestEl); showToast('🔮 台北時間 '+hhmm+(todayDay?'':' · 非營期，顯示選取日')); }
-    else { window.scrollTo({top:0, behavior:'smooth'}); showToast('🔮 現在是 '+hhmm+'，非行程時段'); }
-  };
-  if(dayChanged) requestAnimationFrame(doScrollSchedule); else doScrollSchedule();
-}
-function switchTab(tab){
-  currentTab=tab;
-  ['schedule','my','location'].forEach(t=>{
-    $('tab-'+t).style.display=t===tab?'':'none';
-    const btnEl=$('btn-'+t);if(btnEl)btnEl.classList.toggle('active',t===tab);
-    const mb=$('mb-'+t);if(mb)mb.classList.toggle('active',t===tab);
-  });
-}
+// ════════════════════════════════════════════════
+//  UI：日期條、群組 chip
+// ════════════════════════════════════════════════
 function buildDayStrip(){
-  $('dayStrip').innerHTML=DAYS.map(d=>
-    `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
+  $('dayStrip').innerHTML = DAYS.map(d =>
+    `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend?' weekend':''}"
+      onclick="selectDay('${d.id}')">${d.label}</button>`
   ).join('');
 }
-function selectDay(id){currentDay=id;buildDayStrip();renderSchedule();renderLocGrid();if(selectedPerson&&currentTab==='my')renderMySchedule();}
+function selectDay(id){
+  currentDay = id;
+  buildDayStrip();
+  renderSchedule();
+  renderLocGrid();
+  if(selectedPerson && currentTab === 'my') renderMySchedule();
+}
+function switchTab(tab){
+  currentTab = tab;
+  ['schedule','my','location'].forEach(t => {
+    $('tab-'+t).style.display = t===tab ? '' : 'none';
+    const b = $('btn-'+t); if(b) b.classList.toggle('active', t===tab);
+    const m = $('mb-'+t);  if(m) m.classList.toggle('active', t===tab);
+  });
+}
 function buildGroupChips(elId, selected, onChange){
-  $(elId).innerHTML=Object.entries(GROUPS).map(([g,cfg])=>{
-    const on=selected===g;
-    const cnt=PEOPLE.filter(p=>p.group===g).length;
-    const sty=on?`color:${cfg.color};background:${cfg.bg};border-color:${cfg.mid}48`:`color:var(--text3);background:transparent;border-color:var(--border)`;
+  $(elId).innerHTML = Object.entries(GROUPS).map(([g, cfg]) => {
+    const on  = selected === g;
+    const cnt = PEOPLE.filter(p => p.group === g).length;
+    const sty = on
+      ? `color:${cfg.color};background:${cfg.bg};border-color:${cfg.mid}48`
+      : `color:var(--text3);background:transparent;border-color:var(--border)`;
     return `<button class="g-chip" style="${sty}" onclick="${onChange}('${g}')">${g} <span style="font-size:.62rem;opacity:.75">${cnt}</span></button>`;
   }).join('');
 }
+
+// ════════════════════════════════════════════════
+//  行程總覽渲染
+// ════════════════════════════════════════════════
 function renderSchedule(){
-  searchQ=($('searchInput')||{value:''}).value.trim().toLowerCase();
-  let items=getSortedItems(currentDay);
-  if(filterGroup) items=items.filter(i=>i.groups&&i.groups.includes(filterGroup));
-  if(searchQ) items=items.filter(i=>((i.event||'')+(i.task||'')+(i.loc||'')).toLowerCase().includes(searchQ));
-  const periods=[
-    {label:'🌅 早上 MORNING',   test:t=>{ const h=parseInt(t);return h>=6&&h<12;}},
-    {label:'☀️ 中午 NOON',      test:t=>{ const h=parseInt(t);return h>=12&&h<14;}},
-    {label:'🌤 下午 AFTERNOON',  test:t=>{ const h=parseInt(t);return h>=14&&h<18;}},
-    {label:'🌙 晚間 EVENING',    test:t=>{ const h=parseInt(t);return h>=18||t==='全天'||h<=2;}},
+  searchQ = ($('searchInput')||{value:''}).value.trim().toLowerCase();
+
+  if(!hasData()){
+    $('timelineEl').innerHTML = `<div class="sync-hint"><span class="sync-hint-icon">☁️</span>尚未取得行程資料<br>請點右上角「同步」按鈕載入最新行程</div>`;
+    $('sb-evening').innerHTML = '<span style="color:var(--text3)">—</span>';
+    $('sb-locs').innerHTML    = '<span style="color:var(--text3)">—</span>';
+    return;
+  }
+
+  let items = getAggregatedSchedule(currentDay);
+  if(searchQ) items = items.filter(i =>
+    ((i.event||'') + (i.task||'') + (i.locs||[]).join(' ')).toLowerCase().includes(searchQ)
+  );
+
+  const periods = [
+    {label:'🌅 早上 MORNING',   test:t=>{ const h=parseInt(t); return h>=6&&h<12; }},
+    {label:'☀️ 中午 NOON',      test:t=>{ const h=parseInt(t); return h>=12&&h<14; }},
+    {label:'🌤 下午 AFTERNOON',  test:t=>{ const h=parseInt(t); return h>=14&&h<18; }},
+    {label:'🌙 晚間 EVENING',    test:t=>{ const h=parseInt(t); return h>=18||t==='全天'||h<=2; }},
   ];
-  let html='',hasAny=false;
-  periods.forEach(period=>{
-    const pi2=items.filter(s=>s.time&&period.test(s.time.split('-')[0]));
-    const pi=items.filter(s=>s.time&&period.test(s.time.split('-')[0])||s.time==='全天'&&period.label.includes('晚'));
-    const pf=period.label.includes('晚')?pi:pi2;
-    if(!pf.length) return;
-    hasAny=true;
-    html+=`<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
-    html+=pf.map(s=>{
-      const evName = s.event || '';
+
+  let html = '', hasAny = false;
+  periods.forEach(period => {
+    const pf = items.filter(s => {
+      if (!s.time) return false;
+      const t = s.time.split('-')[0];
+      if (period.label.includes('晚') && s.time === '全天') return true;
+      return period.test(t);
+    });
+    if (!pf.length) return;
+    hasAny = true;
+    html += `<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
+    html += pf.map(s => {
+      const evName    = s.event || '';
       const isTransit = s.transit === true || evName === '換場';
-      const icon=getIcon(evName);
-      const badge=isTransit?'<span class="tl-badge badge-transit">移動</span>':'';
-      const locEsc = s.loc ? s.loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'") : '';
-      const evDisplay = evName || '<span style="color:var(--text3);font-style:italic;font-weight:400">（未填寫活動名稱）</span>';
+      const icon      = getIcon(evName);
+      const badge     = isTransit ? '<span class="tl-badge badge-transit">移動</span>' : '';
+      const evDisplay = evName || '<span style="color:var(--text3);font-style:italic;font-weight:400">（未填寫）</span>';
+
+      // ── 地點 pills（可能多個）──
+      let locHtml = '';
+      if (s.locs && s.locs.length) {
+        const multi = s.locs.length > 1;
+        locHtml = `<div class="loc-pills">` +
+          s.locs.map(l => {
+            const le = escLoc(l);
+            return `<button class="loc-pill${multi?' multi-badge':''}" onclick="openLocModal('${le}')">📍 ${l}</button>`;
+          }).join('') +
+          `</div>`;
+      }
+
       return `<div class="tl-row${isTransit?' transit':''}">
         <div class="tl-time">${s.time||'—'}</div>
         <div class="tl-icon-cell" style="${isTransit?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${icon}</div>
         <div class="tl-content">
           <div class="tl-ev-name">${evDisplay} ${badge}</div>
-          ${s.loc?`<button class="tl-loc-btn" onclick="openLocModal('${locEsc}')">📍 ${s.loc}</button>`:''}
+          ${locHtml}
         </div>
       </div>`;
     }).join('');
-    html+='</div></div>';
+    html += '</div></div>';
   });
-  $('timelineEl').innerHTML=hasAny?html:'<div class="empty-state">此日無符合行程</div>';
-  const evening=getSortedItems(currentDay).find(s=>s.time&&parseInt(s.time.split('-')[0])===19&&!s.transit);
-  $('sb-evening').innerHTML=evening?`<strong style="color:var(--emerald)">${evening.event||'（未命名）'}</strong>${evening.loc?`<span style="color:var(--text3);font-size:.7rem;margin-left:.35rem">📍 ${evening.loc}</span>`:''}`:'<span style="color:var(--text3)">（未設定）</span>';
-  const locs=[...new Set(getSortedItems(currentDay).map(s=>s.loc).filter(Boolean))];
-  $('sb-locs').innerHTML=locs.map(l=>{
-    const le=l.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+
+  $('timelineEl').innerHTML = hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
+
+  // 今晚活動（19:xx 第一筆）
+  const allItems = getAggregatedSchedule(currentDay);
+  const evening  = allItems.find(s => s.time && parseInt(s.time.split('-')[0]) === 19 && !s.transit);
+  $('sb-evening').innerHTML = evening
+    ? `<strong style="color:var(--emerald)">${evening.event||'（未命名）'}</strong>${
+        evening.locs&&evening.locs.length
+          ? `<span style="color:var(--text3);font-size:.7rem;margin-left:.35rem">📍 ${evening.locs.join('／')}</span>`
+          : ''}`
+    : '<span style="color:var(--text3)">（未設定）</span>';
+
+  // 側欄：當日所有地點
+  const locs = getAllLocsForDay(currentDay);
+  $('sb-locs').innerHTML = locs.map(l => {
+    const le = escLoc(l);
     return `<button onclick="openLocModal('${le}')" style="display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:10px;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);margin:2px;font-size:.7rem;color:var(--emerald);cursor:pointer;font-family:inherit">📍 ${l}</button>`;
-  }).join('')||'<span style="color:var(--text3)">—</span>';
+  }).join('') || '<span style="color:var(--text3)">—</span>';
 }
-function toggleMyGroup(g){myFilterGroup=myFilterGroup===g?null:g;buildGroupChips('myGroupChips',myFilterGroup,'toggleMyGroup');renderPersonGrid();}
+
+// ════════════════════════════════════════════════
+//  個人行程
+// ════════════════════════════════════════════════
+function toggleMyGroup(g){ myFilterGroup = myFilterGroup===g ? null : g; buildGroupChips('myGroupChips', myFilterGroup, 'toggleMyGroup'); renderPersonGrid(); }
+
 function renderPersonGrid(){
-  const q=($('mySearch')||{value:''}).value.trim().toLowerCase();
-  let pp=PEOPLE.filter(p=>{
-    const matchG=!myFilterGroup||p.group===myFilterGroup;
-    const matchQ=!q||p.name.toLowerCase().includes(q)||String(p.no).includes(q);
-    return matchG&&matchQ;
-  });
-  // 若有搜尋文字，只顯示符合的；否則確保營長永遠出現
-  if(!q&&!myFilterGroup){
-    const hasLeader=pp.some(p=>p.group==='營長');
-    if(!hasLeader) pp=[...pp,...PEOPLE.filter(p=>p.group==='營長')];
+  if(!hasData()){
+    $('personGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem">請先同步取得志工名單</div>`;
+    return;
   }
-  const byGroup={};
-  pp.forEach(p=>{if(!byGroup[p.group])byGroup[p.group]=[];byGroup[p.group].push(p);});
-  $('personGrid').innerHTML=Object.entries(byGroup).map(([g,members])=>{
-    const cfg=GROUPS[g]||{color:'#888',bg:'#eee',mid:'#ccc'};
-    return members.map(p=>{
-      const sel=selectedPerson?.no===p.no;
+  const q  = ($('mySearch')||{value:''}).value.trim().toLowerCase();
+  let pp = PEOPLE.filter(p => {
+    const matchG = !myFilterGroup || p.group === myFilterGroup;
+    const matchQ = !q || p.name.toLowerCase().includes(q) || String(p.no).includes(q);
+    return matchG && matchQ;
+  });
+  const byGroup = {};
+  pp.forEach(p => { if(!byGroup[p.group]) byGroup[p.group]=[]; byGroup[p.group].push(p); });
+  $('personGrid').innerHTML = Object.entries(byGroup).map(([g, members]) => {
+    const cfg = GROUPS[g]||{color:'#888',bg:'#eee',mid:'#ccc'};
+    return members.map(p => {
+      const sel = selectedPerson?.no === p.no;
       return `<div class="pc${sel?' sel':''}" onclick="selectPerson(${p.no})">
         <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${cfg.mid}"></div>
         <div class="pc-name">${p.name}</div>
@@ -544,19 +505,21 @@ function renderPersonGrid(){
   }).join('');
   renderMySchedule();
 }
+
 function selectPerson(no){
-  selectedPerson=selectedPerson?.no===no?null:PEOPLE.find(p=>p.no===no);
+  selectedPerson = selectedPerson?.no === no ? null : PEOPLE.find(p => p.no === no);
   renderPersonGrid();
 }
+
 function renderMySchedule(){
-  const el=$('myScheduleEl');
-  if(!selectedPerson){el.innerHTML='';return;}
-  const p=selectedPerson;
-  const cfg=GROUPS[p.group]||{color:'#888',bg:'#eee',mid:'#ccc'};
-  const day=DAYS.find(d=>d.id===currentDay);
-  // ── FIX 1 applied：使用 getPersonItems 帶 fallback ──
+  const el = $('myScheduleEl');
+  if(!selectedPerson){ el.innerHTML = ''; return; }
+  const p   = selectedPerson;
+  const cfg = GROUPS[p.group]||{color:'#888',bg:'#eee',mid:'#ccc'};
+  const day = DAYS.find(d => d.id === currentDay);
   const myItems = getPersonItems(currentDay, p.no);
-  el.innerHTML=`<div class="my-schedule-card">
+
+  el.innerHTML = `<div class="my-schedule-card">
     <div class="my-header">
       <div class="my-avatar" style="background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.name[0]}</div>
       <div>
@@ -565,103 +528,181 @@ function renderMySchedule(){
       </div>
       <span style="margin-left:auto;font-size:.72rem;padding:.25rem .65rem;border-radius:12px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.group}</span>
     </div>
-    ${myItems.length?`<div class="my-rows">${myItems.map(s=>{
-      // ── FIX 3：loc 欄位存在於 personSchedule（v6 GAS 已補入），正確顯示 ──
-      const locEsc = s.loc ? s.loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'") : '';
-      const isTransit2 = s.transit === true || (s.event === '換場');
-      return `<div class="tl-row${isTransit2?' transit':''}" style="margin-bottom:0">
-        <div class="tl-time">${s.time||'—'}</div>
-        <div class="tl-icon-cell" style="${isTransit2?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${getIcon(s.event||'')}</div>
-        <div class="tl-content">
-          <div class="tl-ev-name">${s.event||'<span style="color:var(--text3);font-style:italic">（未填寫活動名稱）</span>'}</div>
-          ${s.task?`<div class="tl-task-txt">${s.task}</div>`:'<div class="tl-task-txt" style="color:var(--text3)">（未填寫行程）</div>'}
-          ${s.note?`<div class="tl-task-txt" style="color:var(--violet-mid)">📝 ${s.note}</div>`:''}
-          ${s.loc?`<button class="tl-loc-btn" onclick="openLocModal('${locEsc}')">📍 ${s.loc}</button>`:'<div class="tl-task-txt" style="color:var(--text3)">（未填寫地點）</div>'}
-        </div>
-      </div>`;
-    }).join('')}</div>`:'<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem">尚未填寫行程</div>'}
+    ${myItems.length
+      ? `<div class="my-rows">${myItems.map(s => {
+          const locEsc    = escLoc(s.loc);
+          const isTransit = s.transit === true || s.event === '換場';
+          return `<div class="tl-row${isTransit?' transit':''}" style="margin-bottom:0">
+            <div class="tl-time">${s.time||'—'}</div>
+            <div class="tl-icon-cell" style="${isTransit?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${getIcon(s.event||'')}</div>
+            <div class="tl-content">
+              <div class="tl-ev-name">${s.event||'<span style="color:var(--text3);font-style:italic">（未填寫活動名稱）</span>'}</div>
+              ${s.task  ? `<div class="tl-task-txt">${s.task}</div>`                                         : '<div class="tl-task-txt" style="color:var(--text3)">（未填寫行程）</div>'}
+              ${s.note  ? `<div class="tl-task-txt" style="color:var(--violet-mid)">📝 ${s.note}</div>`     : ''}
+              ${s.loc   ? `<button class="tl-loc-btn" onclick="openLocModal('${locEsc}')">📍 ${s.loc}</button>` : '<div class="tl-task-txt" style="color:var(--text3)">（未填寫地點）</div>'}
+            </div>
+          </div>`;
+        }).join('')}</div>`
+      : '<div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem">尚未填寫行程</div>'}
   </div>`;
 }
+
+// ════════════════════════════════════════════════
+//  場地 Tab
+// ════════════════════════════════════════════════
 function renderLocGrid(){
-  const items=getSortedItems(currentDay).filter(s=>s.loc&&!s.transit);
-  const byLoc={};
-  items.forEach(s=>{if(!byLoc[s.loc])byLoc[s.loc]=[];byLoc[s.loc].push(s);});
-  $('locGrid').innerHTML=Object.entries(byLoc).map(([loc,si])=>{
-    const le=loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  if(!hasData()){
+    $('locGrid').innerHTML = `<div class="sync-hint" style="grid-column:1/-1"><span class="sync-hint-icon">☁️</span>尚未取得場地資料<br>請先同步</div>`;
+    return;
+  }
+  const items = getAggregatedSchedule(currentDay).filter(s => s.locs && s.locs.length && !s.transit);
+  // 依地點分組
+  const byLoc = {};
+  items.forEach(s => {
+    s.locs.forEach(loc => {
+      if(!byLoc[loc]) byLoc[loc] = [];
+      byLoc[loc].push(s);
+    });
+  });
+  $('locGrid').innerHTML = Object.entries(byLoc).map(([loc, si]) => {
+    const le = escLoc(loc);
     return `<div class="loc-card">
       <div class="loc-name" onclick="openLocModal('${le}')">📍 ${loc}</div>
-      ${si.map(s=>`<div class="loc-item"><div class="loc-t">${s.time}</div><div style="flex:1"><div class="loc-ev">${s.event}</div>${s.task?`<div class="loc-task">${s.task}</div>`:''}</div></div>`).join('')}
+      ${si.map(s => `<div class="loc-item">
+        <div class="loc-t">${s.time}</div>
+        <div style="flex:1">
+          <div class="loc-ev">${s.event}</div>
+          ${s.task ? `<div class="loc-task">${s.task}</div>` : ''}
+        </div>
+      </div>`).join('')}
     </div>`;
-  }).join('')||'<div class="empty-state">當日無場地資料</div>';
+  }).join('') || '<div class="empty-state">當日無場地資料</div>';
 }
+
+// ════════════════════════════════════════════════
+//  Modals
+// ════════════════════════════════════════════════
 function openLocModal(loc){
-  $('modalLocName').textContent=loc;
-  const items=getSortedItems(currentDay).filter(s=>s.loc===loc);
-  $('modalLocBody').innerHTML=items.map(s=>
+  $('modalLocName').textContent = loc;
+  // 找出此地點對應的所有活動（從聚合資料中 locs 包含此地點的）
+  const items = getAggregatedSchedule(currentDay).filter(s => s.locs && s.locs.includes(loc));
+  $('modalLocBody').innerHTML = items.map(s =>
     `<div style="padding:.45rem .6rem;border-radius:6px;border:1px solid var(--border);margin-bottom:4px;display:flex;gap:.6rem;align-items:flex-start;font-size:.8rem">
       <span style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:.68rem;min-width:88px;flex-shrink:0">${s.time}</span>
       <span>${s.event}${s.task?'<br><span style="font-size:.7rem;color:var(--text3)">'+s.task+'</span>':''}</span>
     </div>`
-  ).join('')||'<div style="color:var(--text3);font-size:.8rem">無資料</div>';
+  ).join('') || '<div style="color:var(--text3);font-size:.8rem">無資料</div>';
   $('locModal').classList.add('open');
 }
-function closeModal(){$('locModal').classList.remove('open')}
+function closeModal(){ $('locModal').classList.remove('open'); }
+
 function openMapModal(locName){
   const label = $('mapModalLocLabel');
   if(label) label.textContent = locName ? '· ' + locName : '';
-
-  // 根據場地名稱自動決定顯示哪張地圖
   const MAP_1F = ['7A','7B','學務處','多功能教室1'];
   const MAP_2F = ['9A','9B','10A','10B','12A','12B'];
   const MAP_3F = ['11A','11B'];
-  let mapSrc = '平面圖.png'; // 預設：校園平面圖
-  if (locName) {
-    if (MAP_1F.some(k => locName.includes(k)))      mapSrc = '1F.jpg';
-    else if (MAP_2F.some(k => locName.includes(k))) mapSrc = '2F.jpg';
-    else if (MAP_3F.some(k => locName.includes(k))) mapSrc = '3F.jpg';
+  let mapSrc = '平面圖.png';
+  if(locName){
+    if(MAP_1F.some(k => locName.includes(k)))      mapSrc = '1F.jpg';
+    else if(MAP_2F.some(k => locName.includes(k))) mapSrc = '2F.jpg';
+    else if(MAP_3F.some(k => locName.includes(k))) mapSrc = '3F.jpg';
   }
-
-  const img = $('mapImg');
-  const fallback = $('mapImgFallback');
-  if(img){
-    img.src = mapSrc;
-    img.style.display = '';
-    if(fallback) fallback.style.display = 'none';
-  }
+  const img = $('mapImg'), fallback = $('mapImgFallback');
+  if(img){ img.src = mapSrc; img.style.display = ''; if(fallback) fallback.style.display = 'none'; }
   $('mapModal').classList.add('open');
   $('locModal').classList.remove('open');
 }
-function closeMapModal(){$('mapModal').classList.remove('open')}
-function openPersonModal(no){
-  const p=PEOPLE.find(x=>x.no===no);if(!p)return;
-  const cfg=GROUPS[p.group]||{color:'#888',bg:'#eee'};
-  $('pmAvatar').style.cssText=`background:${cfg.bg};color:${cfg.color}`;
-  $('pmAvatar').textContent=p.name[0];
-  $('pmName').textContent=p.name;
-  $('pmSub').textContent=`${p.group} · #${p.no}`;
-  // ── FIX 1 applied：使用 getPersonItems ──
-  const myItems = getPersonItems(currentDay, p.no);
-  $('pmBody').innerHTML=myItems.map(s=>{
-    const locEsc = s.loc ? s.loc.replace(/\\/g,'\\\\').replace(/'/g,"\\'") : '';
-    return `<div style="padding:.42rem .55rem;border-radius:6px;border:1px solid var(--border);margin-bottom:3px;display:flex;gap:.55rem;align-items:flex-start;font-size:.78rem">
-      <span style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:.66rem;min-width:84px;flex-shrink:0">${s.time}</span>
-      <span style="flex:1">${getIcon(s.event)} ${s.event||'<span style="color:var(--text3);font-style:italic">（未填寫活動名稱）</span>'}${s.task?'<br><span style="color:var(--text3);font-size:.7rem">'+s.task+'</span>':'<br><span style="color:var(--text3);font-size:.7rem">（未填寫行程）</span>'}${s.note?'<br><span style="color:var(--violet-mid);font-size:.68rem">📝 '+s.note+'</span>':''}</span>
-      <span style="color:var(--emerald);font-size:.66rem;flex-shrink:0">${s.loc?`<button class="tl-loc-btn" style="font-size:.66rem" onclick="openLocModal('${locEsc}')">📍 ${s.loc}</button>`:'<span style="color:var(--text3);font-size:.66rem">（未填寫地點）</span>'}</span>
-    </div>`;
-  }).join('')||'<div style="color:var(--text3);font-size:.8rem;padding:.75rem 0">尚未填寫行程</div>';
-  $('personModal').classList.add('open');
+function closeMapModal(){ $('mapModal').classList.remove('open'); }
+
+function closePersonModal(){ $('personModal').classList.remove('open'); }
+
+// ════════════════════════════════════════════════
+//  FAB
+// ════════════════════════════════════════════════
+function showFabTip(){ const t=$('fabTip'); if(t) t.style.opacity='1'; }
+function hideFabTip(){ const t=$('fabTip'); if(t) t.style.opacity='0'; }
+
+function jumpToNow(){
+  const now = new Date();
+  const tpe = new Date(now.toLocaleString('en-US',{timeZone:'Asia/Taipei'}));
+  const hhmm = String(tpe.getHours()).padStart(2,'0')+':'+String(tpe.getMinutes()).padStart(2,'0');
+  const hhmm_mins = parseInt(hhmm.split(':')[0])*60 + parseInt(hhmm.split(':')[1]);
+
+  const tpeDateStr = `${tpe.getFullYear()}/${tpe.getMonth()+1}/${tpe.getDate()}`;
+  const todayDay = DAYS.find(d => { const m=d.full.match(/^(\d{4}\/\d+\/\d+)/); return m&&m[1]===tpeDateStr; });
+  let dayChanged = false;
+  if(todayDay && todayDay.id !== currentDay){
+    currentDay = todayDay.id;
+    dayChanged = true;
+    buildDayStrip(); renderSchedule(); renderLocGrid();
+    if(currentTab==='my') renderMySchedule();
+  }
+
+  function highlightRow(el){
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.style.transition='box-shadow .2s,border-left-color .2s';
+    el.style.boxShadow='0 0 0 3px rgba(192,69,106,0.35),0 4px 20px rgba(192,69,106,0.2)';
+    el.style.borderLeftColor='var(--rose)';
+    setTimeout(()=>{ el.style.boxShadow=''; el.style.borderLeftColor=''; },1800);
+  }
+  function findBestRow(selector, timeSelector){
+    const rows = document.querySelectorAll(selector);
+    let bestEl=null, bestDiff=Infinity;
+    rows.forEach(el=>{
+      const timeEl=el.querySelector(timeSelector); if(!timeEl) return;
+      const t=timeEl.textContent.trim().split('-')[0].trim();
+      if(!/^\d{2}:\d{2}/.test(t)) return;
+      const diff=Math.abs(hhmm_mins-(parseInt(t.split(':')[0])*60+parseInt(t.split(':')[1])));
+      if(diff<bestDiff){bestDiff=diff;bestEl=el;}
+    });
+    return bestEl;
+  }
+
+  if(currentTab==='my'){
+    if(!selectedPerson){showToast('🔮 請先選擇一位志工');return;}
+    const doScroll=()=>{
+      const bestEl=findBestRow('#myScheduleEl .tl-row','.tl-time');
+      if(bestEl){highlightRow(bestEl);showToast('🔮 台北時間 '+hhmm+(todayDay?'':' · 非營期'));}
+      else{window.scrollTo({top:0,behavior:'smooth'});showToast('🔮 現在是 '+hhmm+'，無行程');}
+    };
+    if(dayChanged) requestAnimationFrame(doScroll); else doScroll();
+    return;
+  }
+  if(currentTab!=='schedule') switchTab('schedule');
+  const doScrollSchedule=()=>{
+    const bestEl=findBestRow('#timelineEl .tl-row','.tl-time');
+    if(bestEl){highlightRow(bestEl);showToast('🔮 台北時間 '+hhmm+(todayDay?'':' · 非營期'));}
+    else{window.scrollTo({top:0,behavior:'smooth'});showToast('🔮 現在是 '+hhmm+'，非行程時段');}
+  };
+  if(dayChanged) requestAnimationFrame(doScrollSchedule); else doScrollSchedule();
 }
-function closePersonModal(){$('personModal').classList.remove('open')}
 
-
-
+// ════════════════════════════════════════════════
+//  GAS 同步
+// ════════════════════════════════════════════════
 const GAS_URL = 'https://script.google.com/macros/s/AKfycby3uztOmRwAwc7dBUZt5p8nL2uiGq2Pra5vG_uJ7Kok08q7ktcq9715oHWyZc47CdFR/exec';
 
 function setSyncState(state, msg){
   const pill=$('syncPill'), dot=$('syncDot'), lbl=$('syncLabel');
-  pill.className='sync-pill'+({syncing:' syncing',ok:' ok',err:' err'}[state]||'');
-  dot.textContent={syncing:'◎',ok:'●',err:'✕',idle:'○'}[state]||'○';
-  lbl.textContent=msg||'同步';
+  pill.className = 'sync-pill' + ({syncing:' syncing',ok:' ok',err:' err'}[state]||'');
+  dot.textContent  = {syncing:'◎',ok:'●',err:'✕',idle:'○'}[state]||'○';
+  lbl.textContent  = msg||'同步';
+}
+
+function applyData(data){
+  if(data.people && data.people.length)          PEOPLE          = data.people;
+  if(data.personSchedule)                        PERSON_SCHEDULE = data.personSchedule;
+  // schedule 欄位：若 GAS 有回傳則存下（供 fallback 或備用），但渲染優先用 personSchedule
+  if(data.schedule && Object.keys(data.schedule).length) SCHEDULE = data.schedule;
+
+  localStorage.setItem('xiuData', JSON.stringify({people:PEOPLE, schedule:SCHEDULE, personSchedule:PERSON_SCHEDULE}));
+  localStorage.setItem('xiuAt', String(Date.now()));
+
+  setSyncState('ok','已同步 '+new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}));
+  buildGroupChips('myGroupChips', myFilterGroup, 'toggleMyGroup');
+  renderSchedule(); renderPersonGrid(); renderLocGrid();
+  showToast('✅ 行程同步成功！');
 }
 
 function loadCached(){
@@ -669,65 +710,55 @@ function loadCached(){
     const saved = localStorage.getItem('xiuData');
     if(saved){
       const d = JSON.parse(saved);
-      if(d.people) PEOPLE = d.people;
-      if(d.personSchedule) PERSON_SCHEDULE = d.personSchedule;
-      if(d.schedule){ Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]); Object.assign(SCHEDULE, d.schedule); }
+      if(d.people)          PEOPLE          = d.people;
+      if(d.personSchedule)  PERSON_SCHEDULE = d.personSchedule;
+      if(d.schedule)        SCHEDULE        = d.schedule;
       const at = localStorage.getItem('xiuAt');
       if(at){
-        const ago = Math.round((Date.now()-parseInt(at))/60000);
+        const ago    = Math.round((Date.now()-parseInt(at))/60000);
         const agoStr = ago < 60 ? `${ago} 分鐘前` : `${Math.round(ago/60)} 小時前`;
         setSyncState('ok','上次同步：'+agoStr);
+        buildGroupChips('myGroupChips', myFilterGroup, 'toggleMyGroup');
         renderSchedule(); renderPersonGrid(); renderLocGrid();
       }
     }
-    // 自動同步：每 15 分鐘
-    const at = localStorage.getItem('xiuAt');
-    const age = at ? (Date.now() - parseInt(at)) / 60000 : 9999;
+    const at  = localStorage.getItem('xiuAt');
+    const age = at ? (Date.now()-parseInt(at))/60000 : 9999;
     if(age >= 15) syncNow();
-    setInterval(syncNow, 15 * 60 * 1000);
+    setInterval(syncNow, 15*60*1000);
   }catch(e){ console.warn('loadCached error', e); }
 }
-function applyData(data){
-  if(data.people&&data.people.length) PEOPLE=data.people;
-  if(data.personSchedule) PERSON_SCHEDULE=data.personSchedule;
-  if(data.schedule&&Object.keys(data.schedule).length){
-    Object.keys(SCHEDULE).forEach(k=>delete SCHEDULE[k]);
-    Object.assign(SCHEDULE,data.schedule);
-  }
-  localStorage.setItem('xiuData',JSON.stringify({people:PEOPLE,schedule:SCHEDULE,personSchedule:PERSON_SCHEDULE}));
-  localStorage.setItem('xiuAt',String(Date.now()));
-  setSyncState('ok','已同步 '+new Date().toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}));
-  buildGroupChips('myGroupChips',myFilterGroup,'toggleMyGroup');
-  renderSchedule(); renderPersonGrid(); renderLocGrid();
-  showToast('✅ 行程同步成功！');
-}
+
 function syncNow(){
-  const url=GAS_URL;
-  if(!url){showToast('⚠️ GAS 網址未設定');return;}
+  if(!GAS_URL){ showToast('⚠️ GAS 網址未設定'); return; }
   setSyncState('syncing','同步中…');
-  const tryFetch = () => fetch(url, {redirect:'follow'})
-    .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
-    .then(data=>{applyData(data);})
-    .catch(()=>tryJsonp());
+  const tryFetch = () =>
+    fetch(GAS_URL, {redirect:'follow'})
+      .then(r => { if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(data => applyData(data))
+      .catch(() => tryJsonp());
+
   const tryJsonp = () => {
-    const cb = '_xiu_cb_'+Date.now();
+    const cb     = '_xiu_cb_'+Date.now();
     const script = document.createElement('script');
-    const timer = setTimeout(()=>{
+    const timer  = setTimeout(()=>{
       cleanup(); setSyncState('err','同步逾時');
-      showToast('❌ 同步逾時，請確認部署設定',4000);
+      showToast('❌ 同步逾時，請確認部署設定', 4000);
     }, 15000);
     function cleanup(){ window[cb]=null; if(script.parentNode) script.parentNode.removeChild(script); clearTimeout(timer); }
-    window[cb] = data => { cleanup(); try{ applyData(data); } catch(e){ setSyncState('err','同步失敗'); } };
-    script.onerror = ()=>{ cleanup(); setSyncState('err','同步失敗'); showToast('❌ 網址錯誤或未部署',3500); };
-    script.src = url+'?callback='+cb+'&t='+Date.now();
+    window[cb] = data => { cleanup(); try{ applyData(data); }catch(e){ setSyncState('err','同步失敗'); } };
+    script.onerror = ()=>{ cleanup(); setSyncState('err','同步失敗'); showToast('❌ 網址錯誤或未部署', 3500); };
+    script.src = GAS_URL + '?callback=' + cb + '&t=' + Date.now();
     document.head.appendChild(script);
   };
   tryFetch();
 }
 
-// ── 初始化 ──
+// ════════════════════════════════════════════════
+//  初始化
+// ════════════════════════════════════════════════
 buildDayStrip();
-buildGroupChips('myGroupChips',null,'toggleMyGroup');
+buildGroupChips('myGroupChips', null, 'toggleMyGroup');
 renderSchedule();
 renderPersonGrid();
 renderLocGrid();
