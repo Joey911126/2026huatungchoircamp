@@ -18,14 +18,14 @@
 .sync-hint-icon{font-size:2.2rem;display:block;margin-bottom:.6rem;opacity:.45}
 
 /* ── 每日小語 ── */
-.qcard{background:linear-gradient(105deg,rgba(26,80,26,0.10) 0%,rgba(255,250,240,0.88) 28%,rgba(255,250,240,0.88) 72%,rgba(192,69,106,0.08) 100%);border:none;outline:none;border-radius:14px;padding:.45rem 1.25rem .4rem;position:relative;overflow:hidden;box-shadow:none;margin-bottom:.75rem;text-align:center}
+.qcard{background:linear-gradient(105deg,rgba(26,80,26,0.10) 0%,rgba(255,250,240,0.88) 28%,rgba(255,250,240,0.88) 72%,rgba(192,69,106,0.08) 100%);border:none;outline:none;border-radius:14px;padding:.5rem 1.5rem .45rem;position:relative;overflow:hidden;box-shadow:none;margin-bottom:.75rem;text-align:center}
 .qcard-bg{display:none}
 .qcard-inner{display:block}
 .q-icon{display:none}
 .q-body{min-width:0}
 .q-label{display:none}
-.q-text{font-family:'Noto Serif TC',serif;font-size:.74rem;font-weight:400;color:#5A3E28;line-height:1.6;letter-spacing:.03em}
-.q-author{font-family:'LXGW WenKai TC',serif;font-size:.58rem;color:#B09070;margin-top:.12rem;letter-spacing:.06em}
+.q-text{font-family:'LXGW WenKai TC',serif;font-size:.82rem;font-weight:400;color:#5A3E28;line-height:1.55;letter-spacing:.06em}
+.q-author{font-family:'LXGW WenKai TC',serif;font-size:.58rem;color:#B09070;margin-top:.3rem;letter-spacing:.06em}
 .q-day{display:none}
 .q-countdown{font-family:'Cinzel Decorative',serif;font-size:.6rem;color:#1a6e35;letter-spacing:.06em;margin-top:.12rem;display:inline-block}
 </style></head>
@@ -584,17 +584,17 @@ function renderSchedule(){
 
   // 今晚活動 → { loc, url } 對照表
   const EVENING_MAP = [
-    { keywords: ['Welcome Party'],                loc: 'PAC',                                    url: '' },
-    { keywords: ['電影之夜', '電影'],              loc: 'PAC',                                    url: '' },
-    { keywords: ['百萬大歌星', '大歌星'],          loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/16E1xlnp-RODDbOhZa_K6nU0yDWTCkam-?usp=drive_link' },
-    { keywords: ['變裝'],                         loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/1tzZcpfhb2TkunZgsw2xfNvz_Yh09rGn1?usp=drive_link' },
-    { keywords: ['Talent Show', 'talent show'],   loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/1TIOLDfVHrs3i2FZcccASMs8l5Crh2ybh?usp=drive_link' },
-    { keywords: ['Farewell', 'farewell'],          loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/1ckhh0YMLLEYML0JSYCFh6O1_kjb6j8sH?usp=drive_link' },
-    { keywords: ['結業式', '結業'],                loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/1hlVvCdEOkYg39_2FXXGun54RzHxUHDEl?usp=drive_link' },
-    { keywords: ['極限體能'],                      loc: '風雨球場 + 教學樓走廊',                   url: 'https://drive.google.com/drive/folders/1ymtSyWvbhJbz_IcWltFvo8vQDismgdjt?usp=drive_link' },
-    { keywords: ['謀殺之謎', '謀殺'],              loc: 'PAC 前空地 + 風雨球場 + 教學樓一樓',       url: 'https://drive.google.com/drive/folders/1eHCoYvcq0_YxZ3aO-og8-fZV3s4pTgRo?usp=drive_link' },
-    { keywords: ['賭場'],                         loc: '風雨球場',                                url: 'https://drive.google.com/drive/folders/1QbyxudYX9e6lqxt-zF3oxqHeybg8tP_h?usp=drive_link' },
-    { keywords: ['戲劇組之夜', '戲劇組'],          loc: '男宿 1F + 女宿 1F',                       url: '' },
+    { keywords: ['Welcome Party', 'welcome party', 'Welcome party'], loc: 'PAC',                                    url: '' },
+    { keywords: ['電影之夜', '電影'],                                  loc: 'PAC',                                    url: '' },
+    { keywords: ['百萬大歌星', '大歌星'],                              loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/16E1xlnp-RODDbOhZa_K6nU0yDWTCkam-?usp=drive_link' },
+    { keywords: ['變裝之夜', '變裝'],                                  loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/1tzZcpfhb2TkunZgsw2xfNvz_Yh09rGn1?usp=drive_link' },
+    { keywords: ['Talent Show', 'talent show', 'Talent show', 'TALENT SHOW'], loc: 'PAC',                            url: 'https://drive.google.com/drive/folders/1TIOLDfVHrs3i2FZcccASMs8l5Crh2ybh?usp=drive_link' },
+    { keywords: ['Farewell', 'farewell', 'Farewell Party', 'Farewell party'], loc: 'PAC',                            url: 'https://drive.google.com/drive/folders/1ckhh0YMLLEYML0JSYCFh6O1_kjb6j8sH?usp=drive_link' },
+    { keywords: ['結業式', '結業'],                                    loc: 'PAC',                                    url: 'https://drive.google.com/drive/folders/1hlVvCdEOkYg39_2FXXGun54RzHxUHDEl?usp=drive_link' },
+    { keywords: ['極限體能王', '極限體能'],                            loc: '風雨球場 + 教學樓走廊',                   url: 'https://drive.google.com/drive/folders/1ymtSyWvbhJbz_IcWltFvo8vQDismgdjt?usp=drive_link' },
+    { keywords: ['謀殺之謎', '謀殺'],                                  loc: 'PAC 前空地 + 風雨球場 + 教學樓一樓',       url: 'https://drive.google.com/drive/folders/1eHCoYvcq0_YxZ3aO-og8-fZV3s4pTgRo?usp=drive_link' },
+    { keywords: ['賭場'],                                              loc: '風雨球場',                                url: 'https://drive.google.com/drive/folders/1QbyxudYX9e6lqxt-zF3oxqHeybg8tP_h?usp=drive_link' },
+    { keywords: ['戲劇組之夜', '戲劇組'],                              loc: '男宿 1F + 女宿 1F',                       url: '' },
   ];
   function getEveningMeta(evName) {
     if (!evName) return null;
@@ -610,8 +610,8 @@ function renderSchedule(){
   const eveningLoc  = eveningMeta?.loc || (evening?.locs?.length ? evening.locs.join(' · ') : null);
   const eveningUrl  = eveningMeta?.url || '';
   const eveningNameHtml = evening
-    ? (eveningUrl
-        ? `<a href="${eveningUrl}" target="_blank" rel="noopener" style="color:var(--emerald);font-weight:700;text-decoration:underline;text-decoration-style:solid;text-underline-offset:3px;text-decoration-color:rgba(26,110,53,0.45);transition:text-decoration-color .15s" onmouseover="this.style.textDecorationColor='var(--emerald)'" onmouseout="this.style.textDecorationColor='rgba(26,110,53,0.45)'">${evening.event||'（未命名）'}</a>`
+    ? (eveningUrl && eveningUrl.length > 0
+        ? `<a href="${eveningUrl}" target="_blank" rel="noopener" style="color:var(--emerald);font-weight:700;text-decoration:underline;text-decoration-style:solid;text-underline-offset:3px;text-decoration-color:rgba(26,110,53,0.45);transition:text-decoration-color .15s" onmouseover="this.style.textDecorationColor='var(--emerald)'" onmouseout="this.style.textDecorationColor='rgba(26,110,53,0.45)'">${evening.event||'（未命名）'} ↗</a>`
         : `<span style="color:var(--text2);font-weight:700">${evening.event||'（未命名）'}</span>`)
     : null;
   $('sb-evening').innerHTML = evening
