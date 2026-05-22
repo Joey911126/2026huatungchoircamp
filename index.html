@@ -144,9 +144,9 @@
   <div id="tab-schedule">
     <div class="search-row" style="align-items:center;flex-wrap:nowrap;gap:.5rem">
       <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 1 140px;max-width:180px">
-      <div id="eveningCard" style="display:inline-flex;align-items:center;gap:.4rem;padding:.32rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;overflow:hidden">
-        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2)">✦ 今晚活動</span>
-        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0">—</div>
+      <div id="eveningCard" style="display:flex;align-items:flex-start;gap:.4rem;padding:.38rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;flex-wrap:wrap;row-gap:.18rem">
+        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2);padding-top:1px;white-space:nowrap">✦ 今晚活動</span>
+        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0;word-break:break-word">—</div>
       </div>
     </div>
     <div class="layout" id="allViewLayout">
@@ -601,7 +601,7 @@ function renderSchedule(){
         : `<span style="color:var(--text2);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${evening.event||'（未命名）'}</span>`)
     : null;
   $('sb-evening').innerHTML = evening
-    ? `<span style="display:flex;align-items:center;gap:.35rem;min-width:0;overflow:hidden">${eveningNameHtml}${eveningLoc ? `<span style="color:var(--text3);font-size:.7rem;white-space:nowrap;flex-shrink:0">📍 ${eveningLoc}</span>` : ''}</span>`
+    ? `<span style="display:flex;align-items:baseline;gap:.35rem;min-width:0;flex-wrap:wrap">${eveningNameHtml}${eveningLoc ? `<span style="color:var(--text3);font-size:.7rem;white-space:nowrap">📍 ${eveningLoc}</span>` : ''}</span>`
     : '<span style="color:var(--text3)">（未設定）</span>';
 
   // 側欄：當日所有地點
@@ -730,26 +730,75 @@ function renderLocGrid(){
     $('locGrid').innerHTML = `<div class="sync-hint" style="grid-column:1/-1"><span class="sync-hint-icon">☁️</span>尚未取得場地資料<br>請先同步</div>`;
     return;
   }
-  const items = getAggregatedSchedule(currentDay).filter(s => s.locs && s.locs.length && !s.transit);
-  // 依地點分組
+  const psDay = PERSON_SCHEDULE[currentDay] || {};
+
+  // 建立 loc → Map<slotKey, {time, event, taskGroups: Map<task, {people:[{name,group}], note}>}>
   const byLoc = {};
-  items.forEach(s => {
-    s.locs.forEach(loc => {
-      if(!byLoc[loc]) byLoc[loc] = [];
-      byLoc[loc].push(s);
+
+  Object.entries(psDay).forEach(([no, pItems]) => {
+    const person = PEOPLE.find(p => String(p.no) === no);
+    (pItems || []).forEach(pi => {
+      if (!pi.loc || !pi.loc.trim()) return;
+      if (pi.transit || pi.event === '換場') return;
+      const loc  = pi.loc.trim();
+      const task = (pi.task || '').trim();
+      const note = (pi.note || '').trim();
+      if (!byLoc[loc]) byLoc[loc] = new Map();
+      const slotKey = (pi.time || '') + '||' + (pi.event || '');
+      if (!byLoc[loc].has(slotKey)) byLoc[loc].set(slotKey, { time: pi.time || '', event: pi.event || '', taskGroups: new Map() });
+      const slot = byLoc[loc].get(slotKey);
+      // 同任務合併：相同 task 文字只顯示一次，但列出所有人名
+      const taskKey = task || '（未填任務）';
+      if (!slot.taskGroups.has(taskKey)) slot.taskGroups.set(taskKey, { task: taskKey, people: [], note });
+      const tg = slot.taskGroups.get(taskKey);
+      if (person) {
+        // 避免同一人重複
+        if (!tg.people.some(p => p.name === person.name)) {
+          tg.people.push({ name: person.name, group: person.group });
+        }
+      }
     });
   });
-  $('locGrid').innerHTML = Object.entries(byLoc).map(([loc, si]) => {
+
+  const sortedLocs = Object.keys(byLoc).sort();
+
+  $('locGrid').innerHTML = sortedLocs.map(loc => {
     const le = escLoc(loc);
+    const slots = [...byLoc[loc].values()].sort((a, b) => {
+      const ta = (a.time || '99:99').split('-')[0];
+      const tb = (b.time || '99:99').split('-')[0];
+      return ta.localeCompare(tb);
+    });
+
     return `<div class="loc-card">
       <div class="loc-name" onclick="openLocModal('${le}')">📍 ${loc}</div>
-      ${si.map(s => `<div class="loc-item">
-        <div class="loc-t">${s.time}</div>
-        <div style="flex:1">
-          <div class="loc-ev">${s.event}</div>
-          ${s.task ? `<div class="loc-task">${s.task}</div>` : ''}
-        </div>
-      </div>`).join('')}
+      ${slots.map(s => {
+        const taskGroups = [...s.taskGroups.values()];
+        const taskHtml = taskGroups.map(tg => {
+          const isNoTask = tg.task === '（未填任務）';
+          // 人名標籤列
+          const nameChips = tg.people.map(pt => {
+            const cfg = GROUPS[pt.group] || {color:'#888', bg:'#f0f0f0', mid:'#ccc'};
+            return `<span style="font-size:.6rem;font-weight:700;padding:1px 5px;border-radius:6px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44;white-space:nowrap">${pt.name}</span>`;
+          }).join('');
+          return `<div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem;padding:.2rem 0;border-top:1px dashed var(--border)">
+            ${nameChips}
+            <span style="font-size:.68rem;color:${isNoTask?'var(--text3)':'var(--text2)'};font-style:${isNoTask?'italic':'normal'};line-height:1.4;flex:1;min-width:80px">${tg.task}</span>
+            ${tg.note ? `<span style="font-size:.62rem;color:var(--violet-mid);width:100%;padding-left:.2rem">📝 ${tg.note}</span>` : ''}
+          </div>`;
+        }).join('');
+
+        return `<div class="loc-item" style="flex-direction:column;gap:.22rem;align-items:stretch">
+          <div style="display:flex;gap:.5rem;align-items:baseline">
+            <div class="loc-t" style="flex-shrink:0">${s.time}</div>
+            <div class="loc-ev" style="font-weight:600">${s.event}</div>
+          </div>
+          ${taskGroups.length
+            ? `<div style="padding-left:.4rem">${taskHtml}</div>`
+            : '<div style="font-size:.65rem;color:var(--text3);padding-left:.4rem">（無人員資料）</div>'
+          }
+        </div>`;
+      }).join('')}
     </div>`;
   }).join('') || '<div class="empty-state">當日無場地資料</div>';
 }
