@@ -177,6 +177,7 @@
 
   <!-- 場地 Tab -->
   <div id="tab-location" style="display:none">
+    <div class="day-strip" id="locPeriodStrip" style="margin-bottom:.75rem"></div>
     <div class="loc-grid" id="locGrid"></div>
   </div>
 </main>
@@ -273,6 +274,14 @@
 // ════════════════════════════════════════════════
 //  常數與狀態
 // ════════════════════════════════════════════════
+const LOC_PERIODS = [
+  {id:'morning',   label:'🌅 早上', test: h => h>=6  && h<12},
+  {id:'noon',      label:'☀️ 中午', test: h => h>=12 && h<14},
+  {id:'afternoon', label:'🌤 下午', test: h => h>=14 && h<18},
+  {id:'evening',   label:'🌙 晚間', test: h => h>=18 || h<=2},
+];
+let currentLocPeriod = 'morning';
+
 const DAYS = [
   {id:'d1', label:'6/30', full:'2026/6/30 (二) Day1',  type:'weekday'},
   {id:'d2', label:'7/1',  full:'2026/7/1 (三) Day2',   type:'weekday'},
@@ -725,70 +734,89 @@ function renderMySchedule(){
 // ════════════════════════════════════════════════
 //  場地 Tab
 // ════════════════════════════════════════════════
+function buildLocPeriodStrip(){
+  const psDay = PERSON_SCHEDULE[currentDay] || {};
+  const periodHas = {};
+  LOC_PERIODS.forEach(p => periodHas[p.id] = false);
+  Object.values(psDay).forEach(pItems => {
+    (pItems||[]).forEach(pi => {
+      if (!pi.loc || !pi.loc.trim() || pi.transit || pi.event === '換場') return;
+      const h = parseInt((pi.time||'').split(':')[0]);
+      LOC_PERIODS.forEach(p => { if(p.test(h)) periodHas[p.id] = true; });
+    });
+  });
+  const el = $('locPeriodStrip'); if(!el) return;
+  el.innerHTML = LOC_PERIODS.map(p =>
+    `<button class="day-chip${p.id===currentLocPeriod?' active':''}" onclick="selectLocPeriod('${p.id}')">${p.label}${periodHas[p.id]?'':'<span style="font-size:.5rem;opacity:.4;margin-left:2px">—</span>'}</button>`
+  ).join('');
+}
+
+function selectLocPeriod(id){
+  currentLocPeriod = id;
+  buildLocPeriodStrip();
+  renderLocGrid();
+}
+
 function renderLocGrid(){
   if(!hasData()){
+    buildLocPeriodStrip();
     $('locGrid').innerHTML = `<div class="sync-hint" style="grid-column:1/-1"><span class="sync-hint-icon">☁️</span>尚未取得場地資料<br>請先同步</div>`;
     return;
   }
-  const psDay = PERSON_SCHEDULE[currentDay] || {};
+  buildLocPeriodStrip();
 
-  // 建立 loc → Map<slotKey, {time, event, taskGroups: Map<task, {people:[{name,group}], note}>}>
-  const byLoc = {};
+  const psDay  = PERSON_SCHEDULE[currentDay] || {};
+  const period = LOC_PERIODS.find(p => p.id === currentLocPeriod) || LOC_PERIODS[0];
+  const byLoc  = {};
 
   Object.entries(psDay).forEach(([no, pItems]) => {
     const person = PEOPLE.find(p => String(p.no) === no);
     (pItems || []).forEach(pi => {
       if (!pi.loc || !pi.loc.trim()) return;
       if (pi.transit || pi.event === '換場') return;
-      const loc  = pi.loc.trim();
-      const task = (pi.task || '').trim();
-      const note = (pi.note || '').trim();
+      const h = parseInt((pi.time||'').split(':')[0]);
+      if (!period.test(h)) return;
+      const loc     = pi.loc.trim();
+      const task    = (pi.task || '').trim();
+      const note    = (pi.note || '').trim();
       if (!byLoc[loc]) byLoc[loc] = new Map();
-      const slotKey = (pi.time || '') + '||' + (pi.event || '');
-      if (!byLoc[loc].has(slotKey)) byLoc[loc].set(slotKey, { time: pi.time || '', event: pi.event || '', taskGroups: new Map() });
-      const slot = byLoc[loc].get(slotKey);
-      // 同任務合併：相同 task 文字只顯示一次，但列出所有人名
+      const slotKey = (pi.time||'') + '||' + (pi.event||'');
+      if (!byLoc[loc].has(slotKey)) byLoc[loc].set(slotKey, { time: pi.time||'', event: pi.event||'', taskGroups: new Map() });
+      const slot    = byLoc[loc].get(slotKey);
       const taskKey = task || '（未填任務）';
       if (!slot.taskGroups.has(taskKey)) slot.taskGroups.set(taskKey, { task: taskKey, people: [], note });
       const tg = slot.taskGroups.get(taskKey);
-      if (person) {
-        // 避免同一人重複
-        if (!tg.people.some(p => p.name === person.name)) {
-          tg.people.push({ name: person.name, group: person.group });
-        }
+      if (person && !tg.people.some(p => p.name === person.name)){
+        tg.people.push({ name: person.name, group: person.group });
       }
     });
   });
 
   const sortedLocs = Object.keys(byLoc).sort();
+  if (!sortedLocs.length) { $('locGrid').innerHTML = '<div class="empty-state">此時段無場地資料</div>'; return; }
 
   $('locGrid').innerHTML = sortedLocs.map(loc => {
-    const le = escLoc(loc);
-    const slots = [...byLoc[loc].values()].sort((a, b) => {
-      const ta = (a.time || '99:99').split('-')[0];
-      const tb = (b.time || '99:99').split('-')[0];
-      return ta.localeCompare(tb);
-    });
-
-    return `<div class="loc-card">
+    const le    = escLoc(loc);
+    const slots = [...byLoc[loc].values()].sort((a, b) =>
+      (a.time||'99:99').split('-')[0].localeCompare((b.time||'99:99').split('-')[0])
+    );
+    return `<div class="loc-card" data-loc="${loc}">
       <div class="loc-name" onclick="openLocModal('${le}')">📍 ${loc}</div>
       ${slots.map(s => {
         const taskGroups = [...s.taskGroups.values()];
-        const taskHtml = taskGroups.map(tg => {
-          const isNoTask = tg.task === '（未填任務）';
-          // 人名標籤列
+        const taskHtml   = taskGroups.map(tg => {
+          const isNoTask  = tg.task === '（未填任務）';
           const nameChips = tg.people.map(pt => {
-            const cfg = GROUPS[pt.group] || {color:'#888', bg:'#f0f0f0', mid:'#ccc'};
+            const cfg = GROUPS[pt.group] || {color:'#888',bg:'#f0f0f0',mid:'#ccc'};
             return `<span style="font-size:.6rem;font-weight:700;padding:1px 5px;border-radius:6px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44;white-space:nowrap">${pt.name}</span>`;
           }).join('');
           return `<div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem;padding:.2rem 0;border-top:1px dashed var(--border)">
             ${nameChips}
             <span style="font-size:.68rem;color:${isNoTask?'var(--text3)':'var(--text2)'};font-style:${isNoTask?'italic':'normal'};line-height:1.4;flex:1;min-width:80px">${tg.task}</span>
-            ${tg.note ? `<span style="font-size:.62rem;color:var(--violet-mid);width:100%;padding-left:.2rem">📝 ${tg.note}</span>` : ''}
+            ${tg.note?`<span style="font-size:.62rem;color:var(--violet-mid);width:100%;padding-left:.2rem">📝 ${tg.note}</span>`:''}
           </div>`;
         }).join('');
-
-        return `<div class="loc-item" style="flex-direction:column;gap:.22rem;align-items:stretch">
+        return `<div class="loc-item loc-slot" data-time="${s.time}" style="flex-direction:column;gap:.22rem;align-items:stretch">
           <div style="display:flex;gap:.5rem;align-items:baseline">
             <div class="loc-t" style="flex-shrink:0">${s.time}</div>
             <div class="loc-ev" style="font-weight:600">${s.event}</div>
@@ -800,7 +828,7 @@ function renderLocGrid(){
         </div>`;
       }).join('')}
     </div>`;
-  }).join('') || '<div class="empty-state">當日無場地資料</div>';
+  }).join('');
 }
 
 // ════════════════════════════════════════════════
@@ -882,6 +910,45 @@ function jumpToNow(){
     return bestEl;
   }
 
+  if(currentTab==='location'){
+    // 依目前時間選對應時段
+    const h = tpe.getHours();
+    let bestPeriod = LOC_PERIODS[LOC_PERIODS.length-1];
+    for(const p of LOC_PERIODS){ if(p.test(h)){ bestPeriod=p; break; } }
+    const doScrollLoc = () => {
+      if(currentLocPeriod !== bestPeriod.id){
+        currentLocPeriod = bestPeriod.id;
+        buildLocPeriodStrip();
+        renderLocGrid();
+      }
+      // 在當前時段的卡片中找最近時段的 slot
+      const slots = document.querySelectorAll('#locGrid .loc-slot[data-time]');
+      let bestEl=null, bestDiff=Infinity;
+      slots.forEach(el => {
+        const t = (el.dataset.time||'').split('-')[0].trim();
+        if(!/^\d{2}:\d{2}/.test(t)) return;
+        const diff = Math.abs(hhmm_mins-(parseInt(t.split(':')[0])*60+parseInt(t.split(':')[1])));
+        if(diff<bestDiff){ bestDiff=diff; bestEl=el; }
+      });
+      if(bestEl){
+        bestEl.scrollIntoView({behavior:'smooth',block:'center'});
+        const cards = document.querySelectorAll('#locGrid .loc-card');
+        cards.forEach(c => {
+          if(c.contains(bestEl)){
+            c.style.transition='box-shadow .2s,border-color .2s';
+            c.style.boxShadow='0 0 0 2px rgba(192,69,106,0.4),0 4px 20px rgba(192,69,106,0.18)';
+            c.style.borderColor='rgba(192,69,106,0.4)';
+            setTimeout(()=>{ c.style.boxShadow=''; c.style.borderColor=''; },1800);
+          }
+        });
+        showToast('🔮 台北時間 '+hhmm+' · '+bestPeriod.label+(todayDay?'':' · 非營期'));
+      } else {
+        showToast('🔮 現在是 '+hhmm+'，此時段無場地資料');
+      }
+    };
+    if(dayChanged) requestAnimationFrame(doScrollLoc); else doScrollLoc();
+    return;
+  }
   if(currentTab==='my'){
     if(!selectedPerson){showToast('🔮 請先選擇一位志工');return;}
     const doScroll=()=>{
