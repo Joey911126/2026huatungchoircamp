@@ -142,11 +142,11 @@
 
   <!-- 行程總覽 Tab -->
   <div id="tab-schedule">
-    <div class="search-row" style="align-items:center;flex-wrap:nowrap;gap:.5rem">
-      <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 1 140px;max-width:180px">
-      <div id="eveningCard" style="display:flex;align-items:flex-start;gap:.4rem;padding:.38rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;flex-wrap:wrap;row-gap:.18rem">
-        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2);padding-top:1px;white-space:nowrap">✦ 今晚活動</span>
-        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0;word-break:break-word">—</div>
+    <div class="search-row" style="align-items:flex-start;flex-wrap:nowrap;gap:.5rem">
+      <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 0 140px;max-width:180px;margin-top:1px">
+      <div id="eveningCard" style="display:flex;align-items:flex-start;gap:.4rem;padding:.38rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;flex-wrap:wrap;row-gap:.18rem;align-content:flex-start">
+        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2);white-space:nowrap;line-height:1.6">✦ 今晚活動</span>
+        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0;word-break:break-word;line-height:1.6">—</div>
       </div>
     </div>
     <div class="layout" id="allViewLayout">
@@ -836,12 +836,24 @@ function renderLocGrid(){
 // ════════════════════════════════════════════════
 function openLocModal(loc){
   $('modalLocName').textContent = loc;
-  // 找出此地點對應的所有活動（從聚合資料中 locs 包含此地點的）
-  const items = getAggregatedSchedule(currentDay).filter(s => s.locs && s.locs.includes(loc) && !s.transit);
-  $('modalLocBody').innerHTML = items.map(s =>
-    `<div style="padding:.45rem .6rem;border-radius:6px;border:1px solid var(--border);margin-bottom:4px;display:flex;gap:.6rem;align-items:flex-start;font-size:.8rem">
+  // 從 PERSON_SCHEDULE 直接收集此地點的所有時段活動（排除換場），去重
+  const psDay = PERSON_SCHEDULE[currentDay] || {};
+  const slotMap = new Map();
+  Object.values(psDay).forEach(pItems => {
+    (pItems||[]).forEach(pi => {
+      if ((pi.loc||'').trim() !== loc) return;
+      if (pi.transit || pi.event === '換場') return;
+      const key = (pi.time||'') + '||' + (pi.event||'');
+      if (!slotMap.has(key)) slotMap.set(key, { time: pi.time||'', event: pi.event||'' });
+    });
+  });
+  const slots = [...slotMap.values()].sort((a,b) =>
+    (a.time||'99:99').split('-')[0].localeCompare((b.time||'99:99').split('-')[0])
+  );
+  $('modalLocBody').innerHTML = slots.map(s =>
+    `<div style="padding:.45rem .6rem;border-radius:6px;border:1px solid var(--border);margin-bottom:4px;display:flex;gap:.6rem;align-items:center;font-size:.8rem">
       <span style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:.68rem;min-width:88px;flex-shrink:0">${s.time}</span>
-      <span>${s.event}${s.task?'<br><span style="font-size:.7rem;color:var(--text3)">'+s.task+'</span>':''}</span>
+      <span>${s.event}</span>
     </div>`
   ).join('') || '<div style="color:var(--text3);font-size:.8rem">無資料</div>';
   $('locModal').classList.add('open');
