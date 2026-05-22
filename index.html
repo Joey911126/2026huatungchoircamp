@@ -314,6 +314,9 @@ let PEOPLE          = [];   // [{no, name, group, slack}]
 let SCHEDULE        = {};   // GAS 備用，渲染以 PERSON_SCHEDULE 為主
 let PERSON_SCHEDULE = {};   // {d1:{"1":[{time,event,task,loc,note,transit}]}}
 
+// 靜態個人資訊（小隊、Buddy、聲部班導）
+const PERSON_INFO = {"2":{"squad":"國3","buddy":"205","voice":""},"3":{"squad":"國6","buddy":"207","voice":""},"4":{"squad":"國8","buddy":"302","voice":""},"5":{"squad":"高5","buddy":"305","voice":""},"6":{"squad":"高4","buddy":"204","voice":""},"7":{"squad":"國4","buddy":"304","voice":""},"8":{"squad":"國5","buddy":"203","voice":""},"9":{"squad":"國1","buddy":"206","voice":""},"11":{"squad":"國3","buddy":"202","voice":""},"12":{"squad":"國7","buddy":"206","voice":""},"13":{"squad":"國7","buddy":"204","voice":""},"14":{"squad":"國5","buddy":"305","voice":""},"15":{"squad":"高2","buddy":"208","voice":""},"16":{"squad":"高3","buddy":"204","voice":""},"17":{"squad":"高6","buddy":"207","voice":""},"18":{"squad":"國6","buddy":"205","voice":""},"19":{"squad":"國1","buddy":"307","voice":""},"20":{"squad":"國2","buddy":"306","voice":""},"22":{"squad":"國4","buddy":"306","voice":""},"23":{"squad":"國7","buddy":"206","voice":""},"24":{"squad":"高6","buddy":"204","voice":""},"25":{"squad":"國2","buddy":"203","voice":""},"26":{"squad":"高3","buddy":"205","voice":""},"27":{"squad":"國8","buddy":"202","voice":""},"28":{"squad":"高2","buddy":"207","voice":""},"29":{"squad":"高1","buddy":"207","voice":""},"30":{"squad":"國8","buddy":"204","voice":""},"31":{"squad":"國6","buddy":"206","voice":""},"32":{"squad":"國5","buddy":"206","voice":""},"33":{"squad":"國1","buddy":"205","voice":""},"34":{"squad":"國2","buddy":"205","voice":""},"37":{"squad":"高5","buddy":"208","voice":""},"39":{"squad":"國3","buddy":"207","voice":""},"40":{"squad":"國4","buddy":"305","voice":""},"42":{"squad":"","buddy":"306","voice":""},"43":{"squad":"高1","buddy":"207","voice":""},"44":{"squad":"","buddy":"203","voice":""},"45":{"squad":"高4","buddy":"205","voice":""},"46":{"squad":"","buddy":"206","voice":""},"48":{"squad":"","buddy":"202","voice":""},"49":{"squad":"","buddy":"304","voice":""},"50":{"squad":"","buddy":"302","voice":""},"52":{"squad":"","buddy":"206","voice":""},"53":{"squad":"","buddy":"204","voice":""},"54":{"squad":"","buddy":"205","voice":""},"56":{"squad":"","buddy":"208","voice":""},"58":{"squad":"","buddy":"305","voice":""},"59":{"squad":"","buddy":"307","voice":""},"61":{"squad":"","buddy":"307","voice":""},"62":{"squad":"","buddy":"204","voice":""},"63":{"squad":"","buddy":"306","voice":""},"68":{"squad":"無","buddy":"307","voice":""},"69":{"squad":"無","buddy":"","voice":""}};
+
 let currentDay    = 'd1';
 let currentTab    = 'schedule';
 let myFilterGroup = null;
@@ -683,17 +686,32 @@ function renderMySchedule(){
   const el = $('myScheduleEl');
   if(!selectedPerson){ el.innerHTML = ''; return; }
   const p   = selectedPerson;
+
+  // 取得靜態個人資訊
+  function getInfoTags(no){
+    const info = PERSON_INFO[String(no)] || {};
+    const tags = [];
+    if(info.squad && info.squad !== '無') tags.push({icon:'🏷', label:'小隊', val:info.squad, color:'var(--emerald)', bg:'var(--emerald-light)', border:'rgba(26,110,53,0.22)'});
+    if(info.buddy) tags.push({icon:'🤝', label:'Buddy', val:info.buddy, color:'var(--violet-mid)', bg:'rgba(228,223,236,0.8)', border:'rgba(93,26,150,0.2)'});
+    if(info.voice) tags.push({icon:'🎵', label:'聲部', val:info.voice, color:'var(--gold)', bg:'rgba(255,242,204,0.85)', border:'rgba(160,108,0,0.2)'});
+    if(!tags.length) return '';
+    return `<div style="display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.45rem">` +
+      tags.map(t => `<span style="font-size:.65rem;padding:2px 8px;border-radius:10px;background:${t.bg};color:${t.color};border:1px solid ${t.border};display:inline-flex;align-items:center;gap:.25rem"><span style="opacity:.7">${t.icon}</span><span style="font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.04em;opacity:.7">${t.label}</span> <strong>${t.val}</strong></span>`).join('') +
+      `</div>`;
+  }
+
   if(p.group === '營長'){
     const cfg = GROUPS['營長']||{color:'#888',bg:'#eee',mid:'#ccc'};
     const day = DAYS.find(d => d.id === currentDay);
     el.innerHTML = `<div class="my-schedule-card">
       <div class="my-header">
         <div class="my-avatar" style="background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.name[0]}</div>
-        <div>
+        <div style="flex:1;min-width:0">
           <div class="my-name">${p.name}</div>
           <div class="my-sub">${p.group} · #${p.no} · ${day.full}</div>
+          ${getInfoTags(p.no)}
         </div>
-        <span style="margin-left:auto;font-size:.72rem;padding:.25rem .65rem;border-radius:12px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.group}</span>
+        <span style="margin-left:.5rem;flex-shrink:0;font-size:.72rem;padding:.25rem .65rem;border-radius:12px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.group}</span>
       </div>
       <div style="text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem">不顯示行程</div>
     </div>`;
@@ -706,11 +724,12 @@ function renderMySchedule(){
   el.innerHTML = `<div class="my-schedule-card">
     <div class="my-header">
       <div class="my-avatar" style="background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.name[0]}</div>
-      <div>
+      <div style="flex:1;min-width:0">
         <div class="my-name">${p.name}</div>
         <div class="my-sub">${p.group} · #${p.no} · ${day.full}</div>
+        ${getInfoTags(p.no)}
       </div>
-      <span style="margin-left:auto;font-size:.72rem;padding:.25rem .65rem;border-radius:12px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.group}</span>
+      <span style="margin-left:.5rem;flex-shrink:0;font-size:.72rem;padding:.25rem .65rem;border-radius:12px;background:${cfg.bg};color:${cfg.color};border:1px solid ${cfg.mid}44">${p.group}</span>
     </div>
     ${myItems.length
       ? `<div class="my-rows">${myItems.map(s => {
