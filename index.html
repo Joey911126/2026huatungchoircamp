@@ -21,8 +21,10 @@
 .qcard{background:linear-gradient(105deg,rgba(26,80,26,0.10) 0%,rgba(255,250,240,0.88) 28%,rgba(255,250,240,0.88) 72%,rgba(192,69,106,0.08) 100%);border:none;outline:none;border-radius:14px;padding:.5rem 1.5rem .45rem;position:relative;overflow:hidden;box-shadow:none;margin-bottom:.75rem;text-align:center}
 .qcard-inner{display:block}
 .q-body{min-width:0}
+.q-label{display:none}
 .q-text{font-family:'LXGW WenKai TC',serif;font-size:.82rem;font-weight:400;color:#5A3E28;line-height:1.55;letter-spacing:.06em}
 .q-author{font-family:'LXGW WenKai TC',serif;font-size:.58rem;color:#B09070;margin-top:.3rem;letter-spacing:.06em}
+.q-day{display:none}
 .q-countdown{font-family:'Cinzel Decorative',serif;font-size:.6rem;color:#1a6e35;letter-spacing:.06em;margin-top:.12rem;display:inline-block}
 </style></head>
 <body>
@@ -144,15 +146,7 @@
         <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0;word-break:break-word;line-height:1.6">—</div>
       </div>
     </div>
-    <div class="layout" id="allViewLayout">
-      <div id="timelineEl"></div>
-      <aside class="sidebar-stack" id="sidebarEl">
-        <div class="s-card">
-          <div class="s-title">當日場地</div>
-          <div id="sb-locs" style="font-size:.76rem;line-height:2.2"></div>
-        </div>
-      </aside>
-    </div>
+    <div id="timelineEl"></div>
   </div>
 
   <!-- 個人行程 Tab -->
@@ -510,7 +504,6 @@ function renderSchedule(){
   if(!hasData()){
     $('timelineEl').innerHTML = `<div class="sync-hint"><span class="sync-hint-icon">☁️</span>尚未取得行程資料<br>請點右上角「同步」按鈕載入最新行程</div>`;
     $('sb-evening').innerHTML = '<span style="color:var(--text3)">—</span>';
-    $('sb-locs').innerHTML    = '<span style="color:var(--text3)">—</span>';
     return;
   }
 
@@ -609,12 +602,6 @@ function renderSchedule(){
     ? `<span style="display:flex;align-items:baseline;gap:.35rem;min-width:0;flex-wrap:wrap">${eveningNameHtml}${eveningLoc ? `<span style="color:var(--text3);font-size:.7rem;white-space:nowrap">📍 ${eveningLoc}</span>` : ''}</span>`
     : '<span style="color:var(--text3)">（未設定）</span>';
 
-  // 側欄：當日所有地點
-  const locs = getAllLocsForDay(currentDay);
-  $('sb-locs').innerHTML = locs.map(l => {
-    const le = escLoc(l);
-    return `<button onclick="openLocModal('${le}')" style="display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:10px;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);margin:2px;font-size:.7rem;color:var(--emerald);cursor:pointer;font-family:inherit">📍 ${l}</button>`;
-  }).join('') || '<span style="color:var(--text3)">—</span>';
 }
 
 // ════════════════════════════════════════════════
