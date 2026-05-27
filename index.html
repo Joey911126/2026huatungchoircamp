@@ -6,7 +6,7 @@
 <title>細流 2026｜志工行程管理系統</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700;900&family=Playfair+Display:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;600&family=Noto+Serif+TC:wght@300;400;500;600;700&family=LXGW+WenKai+TC&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&family=Zen+Old+Mincho:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style> *{box-sizing:border-box;margin:0;padding:0}html{font-size:15px;-webkit-text-size-adjust:100%}body{font-family:'Noto Sans TC',sans-serif;background:#FAF5EE;color:#1E1208;min-height:100vh;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none}input,select,textarea{font-family:inherit;font-size:inherit}:root{--emerald:#1a6e35;--emerald-deep:#0d4520;--emerald-light:#E2F0E8;--emerald-mid:#228B44;--rose:#C0456A;--rose-light:#FAE8EE;--rose-mid:#D4648A;--gold:#A06C00;--gold-warm:#C8860A;--violet:#5D1A96;--violet-mid:#7A35BE;--bg:#FAF5EE;--bg2:#F4EDE2;--surface:#FFFFFF;--surface2:#FBF7F2;--border:#E8D8C8;--border2:#D4BEA8;--text:#1E1208;--text2:#5A3E28;--text3:#A08060;--radius:10px;--radius-sm:6px;--shadow:0 1px 3px rgba(100,60,20,0.08),0 4px 12px rgba(100,60,20,0.06);}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 38vw 55vh at 0% 18%,rgba(26,110,53,0.18) 0%,transparent 100%),radial-gradient(ellipse 32vw 40vh at 4% 55%,rgba(26,110,53,0.15) 0%,transparent 100%),radial-gradient(ellipse 40vw 48vh at 0% 90%,rgba(26,110,53,0.20) 0%,transparent 100%),radial-gradient(ellipse 26vw 35vh at 18% 38%,rgba(26,110,53,0.09) 0%,transparent 100%),radial-gradient(ellipse 50vw 48vh at 100% 65%,rgba(192,69,106,0.16) 0%,transparent 100%),radial-gradient(ellipse 42vw 40vh at 95% 8%,rgba(192,69,106,0.15) 0%,transparent 100%),radial-gradient(ellipse 35vw 30vh at 80% 95%,rgba(192,69,106,0.12) 0%,transparent 100%),radial-gradient(ellipse 55vw 40vh at 50% 50%,rgba(200,150,80,0.05) 0%,transparent 100%),radial-gradient(ellipse 50vw 32vh at 50% 0%,rgba(200,134,10,0.07) 0%,transparent 100%);pointer-events:none;z-index:0}@media(max-width:640px){body::before{background:radial-gradient(ellipse 80vw 22vh at 0% 8%,rgba(26,110,53,0.18) 0%,transparent 100%),radial-gradient(ellipse 70vw 20vh at 0% 32%,rgba(26,110,53,0.15) 0%,transparent 100%),radial-gradient(ellipse 75vw 22vh at 0% 58%,rgba(26,110,53,0.16) 0%,transparent 100%),radial-gradient(ellipse 65vw 18vh at 0% 82%,rgba(26,110,53,0.14) 0%,transparent 100%),radial-gradient(ellipse 80vw 22vh at 100% 15%,rgba(192,69,106,0.16) 0%,transparent 100%),radial-gradient(ellipse 75vw 20vh at 100% 45%,rgba(192,69,106,0.14) 0%,transparent 100%),radial-gradient(ellipse 65vw 18vh at 100% 75%,rgba(192,69,106,0.13) 0%,transparent 100%),radial-gradient(ellipse 100vw 28vh at 50% 50%,rgba(200,150,80,0.04) 0%,transparent 100%)}}.app{display:flex;flex-direction:column;min-height:100vh;position:relative;z-index:1}header{background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border);padding:0 1.5rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);box-shadow:0 2px 12px rgba(60,30,100,0.06)}.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px}.logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;letter-spacing:.1em;display:flex;align-items:center;gap:.6rem;flex-shrink:0;background:linear-gradient(135deg,var(--emerald),var(--gold-warm),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--emerald),var(--violet));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 0 12px rgba(0,168,107,0.3)}.logo-sub{font-size:.63rem;font-family:'LXGW WenKai TC',serif;color:var(--text3);letter-spacing:.14em;font-weight:400;-webkit-text-fill-color:var(--text3);display:block;margin-top:2px}.nav{display:flex;gap:3px;margin-left:auto}.nav-btn{padding:.4rem .9rem;border-radius:var(--radius-sm);font-size:.8rem;color:var(--text3);transition:all .2s;letter-spacing:.02em}.nav-btn:hover{background:var(--surface2);color:var(--text)}.nav-btn.active{background:linear-gradient(135deg,var(--emerald-light),var(--rose-light));color:var(--emerald);border:1px solid rgba(26,110,53,0.25);box-shadow:0 1px 6px rgba(26,110,53,0.1)}.sync-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .8rem;border-radius:20px;font-size:.72rem;border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .25s;margin-left:.5rem;position:relative;overflow:visible;font-family:inherit}.sync-pill:hover{border-color:rgba(93,26,150,0.35);color:var(--violet)}.sync-pill.syncing{color:transparent;border-color:rgba(93,26,150,0.22);background:linear-gradient(110deg,rgba(238,229,248,0.7),rgba(253,243,220,0.7));animation:sync-halo 2s ease-in-out infinite;box-shadow:0 0 10px rgba(93,26,150,0.10)}.sync-pill.syncing .sync-label-inner{background:linear-gradient(90deg,var(--violet-mid),var(--gold-warm),var(--violet-mid));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:sync-label-flow 2s linear infinite}.sync-pill.ok{border-color:rgba(26,110,53,0.35);background:linear-gradient(110deg,var(--emerald-light),rgba(253,243,220,0.7))}.sync-pill.ok .sync-label-inner{background:linear-gradient(90deg,var(--emerald),var(--gold-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.sync-pill.err{color:var(--rose);border-color:rgba(192,69,106,0.35);background:var(--rose-light)}@keyframes sync-halo{0%,100%{box-shadow:0 0 6px rgba(93,26,150,0.10),0 0 0px rgba(200,134,10,0.08)}50%{box-shadow:0 0 14px rgba(93,26,150,0.18),0 0 8px rgba(200,134,10,0.14)}}@keyframes sync-label-flow{0%{background-position:200%}100%{background-position:-200%}}@keyframes sparkle-orbit{from{transform:rotate(var(--start-angle)) translateX(15px) rotate(calc(-1*var(--start-angle)))}to{transform:rotate(calc(var(--start-angle) + 360deg)) translateX(15px) rotate(calc(-1*var(--start-angle) - 360deg))}}.sync-magic-wrap{position:absolute;inset:0;pointer-events:none;overflow:visible}.sync-spark{position:absolute;top:50%;left:50%;font-size:7px;line-height:1;animation:sparkle-orbit linear infinite;margin:-3.5px}.main{flex:1;max-width:1280px;margin:0 auto;width:100%;padding:1.25rem 1.5rem}.day-strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:1rem}.day-strip::-webkit-scrollbar{display:none}.day-chip{flex-shrink:0;padding:.3rem .75rem;border-radius:16px;font-size:.75rem;border:1px solid var(--border);color:var(--text3);background:var(--surface);transition:all .16s;white-space:nowrap;cursor:pointer;font-family:'JetBrains Mono',monospace}.day-chip:hover{border-color:rgba(26,110,53,0.35);color:var(--text);background:var(--surface2)}.day-chip.active{background:var(--emerald);color:#fff;border-color:var(--emerald);box-shadow:0 2px 8px rgba(26,110,53,0.3);font-weight:600}.day-chip.weekend.active{background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3)}.search-row{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}.search-input{padding:.42rem .9rem;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;min-width:200px;flex:1;max-width:280px;transition:border-color .15s}.search-input:focus{outline:none;border-color:rgba(26,110,53,0.5);box-shadow:0 0 0 3px rgba(26,110,53,0.08)}.group-chips{display:flex;gap:4px;flex-wrap:wrap}.g-chip{padding:.26rem .7rem;border-radius:14px;font-size:.72rem;border:1px solid;cursor:pointer;transition:all .14s;font-weight:500}@media(max-width:960px){}.tl-period{margin-bottom:1.25rem}.tl-period-head{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;color:var(--emerald-mid);letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);border-radius:20px;margin-bottom:.65rem;font-family:'Cinzel',serif;box-shadow:0 0 0 3px rgba(26,110,53,0.05)}.tl-list{display:flex;flex-direction:column;gap:4px}.tl-row{display:grid;grid-template-columns:78px 28px 1fr auto;gap:.6rem;align-items:flex-start;padding:.65rem .85rem;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--emerald-mid);cursor:pointer;transition:all .18s;box-shadow:0 1px 4px rgba(26,110,53,0.04)}.tl-row:hover{border-left-color:var(--gold-warm);box-shadow:0 3px 12px rgba(26,110,53,0.10);transform:translateX(2px)}.tl-row.transit{opacity:.55;border-left-color:#ccc;background:var(--surface2)}.tl-row.transit:hover{transform:none;box-shadow:none}.tl-time{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--emerald);padding-top:2px;line-height:1.4;font-weight:500}.tl-icon-cell{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);flex-shrink:0}.tl-content{min-width:0}.tl-ev-name{font-size:.82rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}.tl-task-txt{font-size:.74rem;color:var(--text2);margin-top:2px}.tl-loc-btn{font-size:.7rem;color:var(--emerald);margin-top:4px;display:inline-flex;align-items:center;gap:3px;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer;background:none;border:none;padding:0;font-family:inherit}.tl-badge{font-size:.58rem;font-weight:700;padding:1px 6px;border-radius:8px;flex-shrink:0;vertical-align:middle}.badge-transit{background:#f0f0f0;color:#999;border:1px solid #ddd}.my-view{display:flex;flex-direction:column;gap:1rem}.person-selector{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}.person-selector-title{font-family:'Cinzel',serif;font-size:.75rem;color:var(--text2);margin-bottom:.65rem;letter-spacing:.06em}.person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.4rem}.pc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.55rem .5rem;text-align:center;cursor:pointer;transition:all .16s;position:relative;overflow:hidden}.pc:hover{box-shadow:0 3px 10px rgba(26,110,53,0.1);transform:translateY(-1px)}.pc.sel{box-shadow:0 0 0 2px var(--emerald),0 3px 10px rgba(26,110,53,0.15)}.pc-name{font-size:.75rem;font-weight:600;color:var(--text)}.pc-no{font-size:.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace}.my-schedule-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow);position:relative;overflow:hidden}.my-schedule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.my-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}.my-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;font-family:'Cinzel',serif;flex-shrink:0}.my-name{font-size:.95rem;font-weight:700;font-family:'Cinzel',serif;color:var(--text)}.my-sub{font-size:.72rem;color:var(--text3);margin-top:2px}.my-rows{display:flex;flex-direction:column;gap:3px}.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}.loc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:0 1px 4px rgba(60,30,100,0.04);transition:border-color .18s}.loc-card:hover{border-color:rgba(93,26,150,0.2)}.loc-name{font-size:.88rem;font-weight:700;color:var(--emerald);font-family:'Cinzel',serif;margin-bottom:.55rem;cursor:pointer;display:flex;align-items:center;gap:.4rem}.loc-item{display:flex;gap:.5rem;font-size:.74rem;padding:.3rem 0;border-bottom:1px solid var(--border);align-items:flex-start}.loc-item:last-child{border-bottom:none}.loc-t{font-family:'JetBrains Mono',monospace;color:var(--text3);font-size:.66rem;min-width:78px;flex-shrink:0}.loc-ev{color:var(--text);flex:1}.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(10,20,15,0.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}.modal-overlay.open{display:flex}@keyframes modal-in{from{transform:scale(.88) translateY(18px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;max-width:min(500px,90vw);width:100%;box-shadow:0 12px 40px rgba(30,12,8,0.2);animation:modal-in .25s cubic-bezier(.34,1.56,.64,1);position:relative;max-height:85vh;overflow-y:auto;}.modal-close{position:absolute;top:.75rem;right:.9rem;font-size:1.1rem;color:var(--text3);cursor:pointer;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;transition:all .15s;}.modal-close:hover{color:var(--text);background:var(--bg2)}.modal-title{font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:var(--emerald);margin-bottom:.25rem}.modal-sub{font-size:.72rem;color:var(--text3);margin-bottom:1rem;font-family:'Cinzel',serif;letter-spacing:.06em}#mapModal .map-modal-inner{background:var(--surface);border-radius:16px;border:1px solid var(--border2);max-width:min(92vw,720px);width:100%;overflow:hidden;animation:modal-in .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 72px rgba(10,20,15,0.4),0 0 0 1px rgba(26,110,53,0.12);}.map-header{padding:.75rem 1.1rem;display:flex;align-items:center;gap:.65rem;background:linear-gradient(90deg,var(--emerald-light) 0%,rgba(253,243,220,0.6) 60%,var(--rose-light) 100%);border-bottom:1px solid var(--border);}.map-header-dot{width:9px;height:9px;border-radius:50%;background:var(--emerald-mid);box-shadow:0 0 8px rgba(34,139,68,0.5);flex-shrink:0;}.map-header-label{font-family:'Cinzel',serif;font-size:.68rem;color:var(--emerald);letter-spacing:.14em;font-variant:small-caps;}.map-header-loc{font-size:.8rem;font-weight:600;color:var(--text);margin-left:2px;font-family:'Noto Sans TC',sans-serif;}.map-img-wrap{position:relative;overflow:hidden;background:var(--emerald-light);min-height:240px;display:flex;align-items:center;justify-content:center;}.map-img-wrap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,110,53,0.09) 1px,transparent 1px),linear-gradient(90deg,rgba(26,110,53,0.09) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}.map-img-wrap img{width:100%;display:block;position:relative;z-index:1;max-height:55vh;object-fit:contain;}.map-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;position:relative;z-index:1;}.map-placeholder-icon{font-size:3rem;margin-bottom:.75rem;line-height:1}.map-placeholder-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;color:var(--emerald);letter-spacing:.06em;margin-bottom:.3rem;}.map-placeholder-sub{font-size:.72rem;color:var(--text3);line-height:1.6}.map-footer{padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--surface2);flex-wrap:wrap;gap:.5rem;}.map-footer-brand{font-size:.65rem;color:var(--text3);font-family:'Cinzel',serif;letter-spacing:.06em;}.map-footer-btns{display:flex;gap:.45rem}.map-footer-close{font-size:.74rem;padding:.3rem .9rem;border-radius:20px;border:1px solid var(--emerald);background:var(--emerald-light);color:var(--emerald);cursor:pointer;font-family:inherit;font-weight:600;transition:all .15s;}.map-footer-close:hover{background:var(--emerald);color:#fff}.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--text);color:#fff;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:.8rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;box-shadow:0 4px 16px rgba(30,12,8,0.2)}.toast.show{opacity:1}.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-top:1px solid var(--border);backdrop-filter:blur(16px);padding:0 0 env(safe-area-inset-bottom,0)}.mobile-nav-inner{display:flex;height:56px}.mb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.56rem;color:var(--text3);cursor:pointer;transition:color .15s}.mb-btn .ico{font-size:1.15rem}.mb-btn.active{color:var(--emerald)}.fab{position:fixed;right:1.1rem;bottom:72px;z-index:210;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:1.55rem;background:radial-gradient(ellipse at 35% 30%,rgba(255,245,235,0.55) 0%,rgba(192,69,106,0.12) 45%,rgba(26,110,53,0.15) 100%),linear-gradient(145deg,#f4ede2 0%,#e8d8c8 50%,#d4bea8 100%);box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2);transition:transform .2s,box-shadow .2s}.fab:hover{transform:scale(1.1) translateY(-2px)}.fab:active{transform:scale(.95)}@keyframes fab-glow{0%,100%{box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2)}50%{box-shadow:0 0 0 1px rgba(192,69,106,0.38),0 0 22px rgba(192,69,106,0.26),0 0 12px rgba(26,110,53,0.18),0 4px 14px rgba(100,60,20,0.2)}}.fab{animation:fab-glow 3s ease-in-out infinite}.fab-tip{position:fixed;right:72px;z-index:210;background:var(--text);color:#fff;font-size:.68rem;padding:.3rem .65rem;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;display:none}.fab-tip::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--text);border-right:0}.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:.85rem}.empty-state::before{content:'🎵';display:block;font-size:2rem;margin-bottom:.75rem;opacity:.4}@media(max-width:640px){header{padding:0 .85rem}.nav{display:none}.main{padding:.75rem .75rem 76px}.mobile-nav{display:block}.fab{display:flex}.fab-tip{display:block}}
+<style> *{box-sizing:border-box;margin:0;padding:0}html{font-size:15px;-webkit-text-size-adjust:100%}body{font-family:'Noto Sans TC',sans-serif;background:#FAF5EE;color:#1E1208;min-height:100vh;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer;border:none;background:none}input,select,textarea{font-family:inherit;font-size:inherit}:root{--emerald:#1a6e35;--emerald-deep:#0d4520;--emerald-light:#E2F0E8;--emerald-mid:#228B44;--rose:#C0456A;--rose-light:#FAE8EE;--rose-mid:#D4648A;--gold:#A06C00;--gold-warm:#C8860A;--violet:#5D1A96;--violet-mid:#7A35BE;--bg:#FAF5EE;--bg2:#F4EDE2;--surface:#FFFFFF;--surface2:#FBF7F2;--border:#E8D8C8;--border2:#D4BEA8;--text:#1E1208;--text2:#5A3E28;--text3:#A08060;--radius:10px;--radius-sm:6px;--shadow:0 1px 3px rgba(100,60,20,0.08),0 4px 12px rgba(100,60,20,0.06);}body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 38vw 55vh at 0% 18%,rgba(26,110,53,0.18) 0%,transparent 100%),radial-gradient(ellipse 32vw 40vh at 4% 55%,rgba(26,110,53,0.15) 0%,transparent 100%),radial-gradient(ellipse 40vw 48vh at 0% 90%,rgba(26,110,53,0.20) 0%,transparent 100%),radial-gradient(ellipse 26vw 35vh at 18% 38%,rgba(26,110,53,0.09) 0%,transparent 100%),radial-gradient(ellipse 50vw 48vh at 100% 65%,rgba(192,69,106,0.16) 0%,transparent 100%),radial-gradient(ellipse 42vw 40vh at 95% 8%,rgba(192,69,106,0.15) 0%,transparent 100%),radial-gradient(ellipse 35vw 30vh at 80% 95%,rgba(192,69,106,0.12) 0%,transparent 100%),radial-gradient(ellipse 55vw 40vh at 50% 50%,rgba(200,150,80,0.05) 0%,transparent 100%),radial-gradient(ellipse 50vw 32vh at 50% 0%,rgba(200,134,10,0.07) 0%,transparent 100%);pointer-events:none;z-index:0}@media(max-width:640px){body::before{background:radial-gradient(ellipse 80vw 22vh at 0% 8%,rgba(26,110,53,0.18) 0%,transparent 100%),radial-gradient(ellipse 70vw 20vh at 0% 32%,rgba(26,110,53,0.15) 0%,transparent 100%),radial-gradient(ellipse 75vw 22vh at 0% 58%,rgba(26,110,53,0.16) 0%,transparent 100%),radial-gradient(ellipse 65vw 18vh at 0% 82%,rgba(26,110,53,0.14) 0%,transparent 100%),radial-gradient(ellipse 80vw 22vh at 100% 15%,rgba(192,69,106,0.16) 0%,transparent 100%),radial-gradient(ellipse 75vw 20vh at 100% 45%,rgba(192,69,106,0.14) 0%,transparent 100%),radial-gradient(ellipse 65vw 18vh at 100% 75%,rgba(192,69,106,0.13) 0%,transparent 100%),radial-gradient(ellipse 100vw 28vh at 50% 50%,rgba(200,150,80,0.04) 0%,transparent 100%)}}.app{display:flex;flex-direction:column;min-height:100vh;position:relative;z-index:1}header{background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border);padding:0 1.5rem;position:sticky;top:0;z-index:100;backdrop-filter:blur(16px);box-shadow:0 2px 12px rgba(60,30,100,0.06)}.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px}.logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;letter-spacing:.1em;display:flex;align-items:center;gap:.6rem;flex-shrink:0;background:linear-gradient(135deg,var(--emerald),var(--gold-warm),var(--rose));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--emerald),var(--violet));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;box-shadow:0 0 12px rgba(0,168,107,0.3)}.logo-sub{font-size:.63rem;font-family:'LXGW WenKai TC',serif;color:var(--text3);letter-spacing:.14em;font-weight:400;-webkit-text-fill-color:var(--text3);display:block;margin-top:2px}.nav{display:flex;gap:3px;margin-left:auto}.nav-btn{padding:.4rem .9rem;border-radius:var(--radius-sm);font-size:.8rem;color:var(--text3);transition:all .2s;letter-spacing:.02em}.nav-btn:hover{background:var(--surface2);color:var(--text)}.nav-btn.active{background:linear-gradient(135deg,var(--emerald-light),var(--rose-light));color:var(--emerald);border:1px solid rgba(26,110,53,0.25);box-shadow:0 1px 6px rgba(26,110,53,0.1)}.sync-pill{display:inline-flex;align-items:center;gap:.4rem;padding:.28rem .8rem;border-radius:20px;font-size:.72rem;border:1px solid var(--border);color:var(--text3);cursor:pointer;transition:all .25s;margin-left:.5rem;position:relative;overflow:visible;font-family:inherit}.sync-pill:hover{border-color:rgba(93,26,150,0.35);color:var(--violet)}.sync-pill.syncing{color:transparent;border-color:rgba(93,26,150,0.22);background:linear-gradient(110deg,rgba(238,229,248,0.7),rgba(253,243,220,0.7));animation:sync-halo 2s ease-in-out infinite;box-shadow:0 0 10px rgba(93,26,150,0.10)}.sync-pill.syncing .sync-label-inner{background:linear-gradient(90deg,var(--violet-mid),var(--gold-warm),var(--violet-mid));background-size:200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:sync-label-flow 2s linear infinite}.sync-pill.ok{border-color:rgba(26,110,53,0.35);background:linear-gradient(110deg,var(--emerald-light),rgba(253,243,220,0.7))}.sync-pill.ok .sync-label-inner{background:linear-gradient(90deg,var(--emerald),var(--gold-warm));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}.sync-pill.err{color:var(--rose);border-color:rgba(192,69,106,0.35);background:var(--rose-light)}@keyframes sync-halo{0%,100%{box-shadow:0 0 6px rgba(93,26,150,0.10),0 0 0px rgba(200,134,10,0.08)}50%{box-shadow:0 0 14px rgba(93,26,150,0.18),0 0 8px rgba(200,134,10,0.14)}}@keyframes sync-label-flow{0%{background-position:200%}100%{background-position:-200%}}@keyframes sparkle-orbit{from{transform:rotate(var(--start-angle)) translateX(15px) rotate(calc(-1*var(--start-angle)))}to{transform:rotate(calc(var(--start-angle) + 360deg)) translateX(15px) rotate(calc(-1*var(--start-angle) - 360deg))}}.sync-magic-wrap{position:absolute;inset:0;pointer-events:none;overflow:visible}.sync-spark{position:absolute;top:50%;left:50%;font-size:7px;line-height:1;animation:sparkle-orbit linear infinite;margin:-3.5px}.main{flex:1;max-width:1280px;margin:0 auto;width:100%;padding:1.25rem 1.5rem}.day-strip{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;margin-bottom:1rem}.day-strip::-webkit-scrollbar{display:none}.day-chip{flex-shrink:0;padding:.3rem .75rem;border-radius:16px;font-size:.75rem;border:1px solid var(--border);color:var(--text3);background:var(--surface);transition:all .16s;white-space:nowrap;cursor:pointer;font-family:'JetBrains Mono',monospace}.day-chip:hover{border-color:rgba(26,110,53,0.35);color:var(--text);background:var(--surface2)}.day-chip.active{background:var(--emerald);color:#fff;border-color:var(--emerald);box-shadow:0 2px 8px rgba(26,110,53,0.3);font-weight:600}.day-chip.weekend.active{background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3)}.search-row{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}.search-input{padding:.42rem .9rem;border-radius:20px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.82rem;min-width:200px;flex:1;max-width:280px;transition:border-color .15s}.search-input:focus{outline:none;border-color:rgba(26,110,53,0.5);box-shadow:0 0 0 3px rgba(26,110,53,0.08)}.group-chips{display:flex;gap:4px;flex-wrap:wrap}.g-chip{padding:.26rem .7rem;border-radius:14px;font-size:.72rem;border:1px solid;cursor:pointer;transition:all .14s;font-weight:500}.tl-period{margin-bottom:1.25rem}.tl-period-head{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;color:var(--emerald-mid);letter-spacing:.12em;text-transform:uppercase;padding:.28rem .65rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);border-radius:20px;margin-bottom:.65rem;font-family:'Cinzel',serif;box-shadow:0 0 0 3px rgba(26,110,53,0.05)}.tl-list{display:flex;flex-direction:column;gap:4px}.tl-row{display:grid;grid-template-columns:78px 28px 1fr auto;gap:.6rem;align-items:flex-start;padding:.65rem .85rem;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--emerald-mid);cursor:pointer;transition:all .18s;box-shadow:0 1px 4px rgba(26,110,53,0.04)}.tl-row:hover{border-left-color:var(--gold-warm);box-shadow:0 3px 12px rgba(26,110,53,0.10);transform:translateX(2px)}.tl-row.transit{opacity:.55;border-left-color:#ccc;background:var(--surface2)}.tl-row.transit:hover{transform:none;box-shadow:none}.tl-time{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:var(--emerald);padding-top:2px;line-height:1.4;font-weight:500}.tl-icon-cell{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;background:var(--emerald-light);border:1px solid rgba(26,110,53,0.18);flex-shrink:0}.tl-content{min-width:0}.tl-ev-name{font-size:.82rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}.tl-task-txt{font-size:.74rem;color:var(--text2);margin-top:2px}.tl-loc-btn{font-size:.7rem;color:var(--emerald);margin-top:4px;display:inline-flex;align-items:center;gap:3px;text-decoration:underline dotted;text-underline-offset:2px;cursor:pointer;background:none;border:none;padding:0;font-family:inherit}.tl-badge{font-size:.58rem;font-weight:700;padding:1px 6px;border-radius:8px;flex-shrink:0;vertical-align:middle}.badge-transit{background:#f0f0f0;color:#999;border:1px solid #ddd}.my-view{display:flex;flex-direction:column;gap:1rem}.person-selector{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;box-shadow:var(--shadow)}.person-selector-title{font-family:'Cinzel',serif;font-size:.75rem;color:var(--text2);margin-bottom:.65rem;letter-spacing:.06em}.person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.4rem}.pc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.55rem .5rem;text-align:center;cursor:pointer;transition:all .16s;position:relative;overflow:hidden}.pc:hover{box-shadow:0 3px 10px rgba(26,110,53,0.1);transform:translateY(-1px)}.pc.sel{box-shadow:0 0 0 2px var(--emerald),0 3px 10px rgba(26,110,53,0.15)}.pc-name{font-size:.75rem;font-weight:600;color:var(--text)}.pc-no{font-size:.6rem;color:var(--text3);font-family:'JetBrains Mono',monospace}.my-schedule-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;box-shadow:var(--shadow);position:relative;overflow:hidden}.my-schedule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--emerald),var(--gold-warm),var(--rose))}.my-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.85rem;border-bottom:1px solid var(--border)}.my-avatar{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;font-family:'Cinzel',serif;flex-shrink:0}.my-name{font-size:.95rem;font-weight:700;font-family:'Cinzel',serif;color:var(--text)}.my-sub{font-size:.72rem;color:var(--text3);margin-top:2px}.my-rows{display:flex;flex-direction:column;gap:3px}.loc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:.75rem}.loc-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;box-shadow:0 1px 4px rgba(60,30,100,0.04);transition:border-color .18s}.loc-card:hover{border-color:rgba(93,26,150,0.2)}.loc-name{font-size:.88rem;font-weight:700;color:var(--emerald);font-family:'Cinzel',serif;margin-bottom:.55rem;cursor:pointer;display:flex;align-items:center;gap:.4rem}.loc-item{display:flex;gap:.5rem;font-size:.74rem;padding:.3rem 0;border-bottom:1px solid var(--border);align-items:flex-start}.loc-item:last-child{border-bottom:none}.loc-t{font-family:'JetBrains Mono',monospace;color:var(--text3);font-size:.66rem;min-width:78px;flex-shrink:0}.loc-ev{color:var(--text);flex:1}.modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(10,20,15,0.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:1rem;}.modal-overlay.open{display:flex}@keyframes modal-in{from{transform:scale(.88) translateY(18px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.5rem;max-width:min(500px,90vw);width:100%;box-shadow:0 12px 40px rgba(30,12,8,0.2);animation:modal-in .25s cubic-bezier(.34,1.56,.64,1);position:relative;max-height:85vh;overflow-y:auto;}.modal-close{position:absolute;top:.75rem;right:.9rem;font-size:1.1rem;color:var(--text3);cursor:pointer;width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:center;transition:all .15s;}.modal-close:hover{color:var(--text);background:var(--bg2)}.modal-title{font-family:'Cinzel Decorative',serif;font-size:.95rem;font-weight:700;color:var(--emerald);margin-bottom:.25rem}.modal-sub{font-size:.72rem;color:var(--text3);margin-bottom:1rem;font-family:'Cinzel',serif;letter-spacing:.06em}#mapModal .map-modal-inner{background:var(--surface);border-radius:16px;border:1px solid var(--border2);max-width:min(92vw,720px);width:100%;overflow:hidden;animation:modal-in .28s cubic-bezier(.34,1.56,.64,1);box-shadow:0 24px 72px rgba(10,20,15,0.4),0 0 0 1px rgba(26,110,53,0.12);}.map-header{padding:.75rem 1.1rem;display:flex;align-items:center;gap:.65rem;background:linear-gradient(90deg,var(--emerald-light) 0%,rgba(253,243,220,0.6) 60%,var(--rose-light) 100%);border-bottom:1px solid var(--border);}.map-header-dot{width:9px;height:9px;border-radius:50%;background:var(--emerald-mid);box-shadow:0 0 8px rgba(34,139,68,0.5);flex-shrink:0;}.map-header-label{font-family:'Cinzel',serif;font-size:.68rem;color:var(--emerald);letter-spacing:.14em;font-variant:small-caps;}.map-header-loc{font-size:.8rem;font-weight:600;color:var(--text);margin-left:2px;font-family:'Noto Sans TC',sans-serif;}.map-img-wrap{position:relative;overflow:hidden;background:var(--emerald-light);min-height:240px;display:flex;align-items:center;justify-content:center;}.map-img-wrap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(26,110,53,0.09) 1px,transparent 1px),linear-gradient(90deg,rgba(26,110,53,0.09) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;}.map-img-wrap img{width:100%;display:block;position:relative;z-index:1;max-height:55vh;object-fit:contain;}.map-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;position:relative;z-index:1;}.map-placeholder-icon{font-size:3rem;margin-bottom:.75rem;line-height:1}.map-placeholder-title{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;color:var(--emerald);letter-spacing:.06em;margin-bottom:.3rem;}.map-placeholder-sub{font-size:.72rem;color:var(--text3);line-height:1.6}.map-footer{padding:.7rem 1.1rem;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);background:var(--surface2);flex-wrap:wrap;gap:.5rem;}.map-footer-brand{font-size:.65rem;color:var(--text3);font-family:'Cinzel',serif;letter-spacing:.06em;}.map-footer-close{font-size:.74rem;padding:.3rem .9rem;border-radius:20px;border:1px solid var(--emerald);background:var(--emerald-light);color:var(--emerald);cursor:pointer;font-family:inherit;font-weight:600;transition:all .15s;}.map-footer-close:hover{background:var(--emerald);color:#fff}.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--text);color:#fff;padding:.6rem 1.1rem;border-radius:var(--radius-sm);font-size:.8rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:999;box-shadow:0 4px 16px rgba(30,12,8,0.2)}.toast.show{opacity:1}.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-top:1px solid var(--border);backdrop-filter:blur(16px);padding:0 0 env(safe-area-inset-bottom,0)}.mobile-nav-inner{display:flex;height:56px}.mb-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.56rem;color:var(--text3);cursor:pointer;transition:color .15s}.mb-btn .ico{font-size:1.15rem}.mb-btn.active{color:var(--emerald)}.fab{position:fixed;right:1.1rem;bottom:72px;z-index:210;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;font-size:1.55rem;background:radial-gradient(ellipse at 35% 30%,rgba(255,245,235,0.55) 0%,rgba(192,69,106,0.12) 45%,rgba(26,110,53,0.15) 100%),linear-gradient(145deg,#f4ede2 0%,#e8d8c8 50%,#d4bea8 100%);box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2);transition:transform .2s,box-shadow .2s}.fab:hover{transform:scale(1.1) translateY(-2px)}.fab:active{transform:scale(.95)}@keyframes fab-glow{0%,100%{box-shadow:0 0 0 1px rgba(192,69,106,0.25),0 0 16px rgba(192,69,106,0.18),0 0 8px rgba(26,110,53,0.12),0 4px 14px rgba(100,60,20,0.2)}50%{box-shadow:0 0 0 1px rgba(192,69,106,0.38),0 0 22px rgba(192,69,106,0.26),0 0 12px rgba(26,110,53,0.18),0 4px 14px rgba(100,60,20,0.2)}}.fab{animation:fab-glow 3s ease-in-out infinite}.fab-tip{position:fixed;right:72px;z-index:210;background:var(--text);color:#fff;font-size:.68rem;padding:.3rem .65rem;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .2s;display:none}.fab-tip::after{content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--text);border-right:0}.empty-state{text-align:center;padding:3rem 1rem;color:var(--text3);font-size:.85rem}.empty-state::before{content:'🎵';display:block;font-size:2rem;margin-bottom:.75rem;opacity:.4}@media(max-width:640px){header{padding:0 .85rem}.nav{display:none}.main{padding:.75rem .75rem 76px}.mobile-nav{display:block}.fab{display:flex}.fab-tip{display:block}}
 /* ── 多地點 pill 樣式 ── */
 .loc-pills{display:flex;flex-wrap:wrap;align-items:center;gap:0;margin-top:4px}
 .loc-pill{display:inline;font-size:.7rem;color:var(--emerald);cursor:pointer;background:none;border:none;padding:0;font-family:inherit;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:2px;text-decoration-color:rgba(26,110,53,0.45);transition:color .15s,text-decoration-color .15s;line-height:1.6}
@@ -89,9 +89,7 @@
     </div>
     <div class="map-footer">
       <span class="map-footer-brand">✦ 花東青少年合唱音樂營 2026</span>
-      <div class="map-footer-btns">
-        <button class="map-footer-close" onclick="closeMapModal()">關閉</button>
-      </div>
+      <button class="map-footer-close" onclick="closeMapModal()">關閉</button>
     </div>
   </div>
 </div>
@@ -179,68 +177,70 @@
 // ════════════════════════════════════════════════
 (function(){
   const QUOTES=[
-    {id:'pre',date:null,phase:'pre',dayLabel:'營期倒數中',
+    {id:'pre',date:null,dayLabel:'營期倒數中',
      text:'你即將成為某個孩子今年夏天最難忘的人。<br>先好好休息，我們都是最棒的！',
      author:'— 2026 花東青少年合唱音樂營，我們來了。✦'},
-    {id:'p1',date:'2026-06-27',phase:'prep',dayLabel:'營前訓 Day 1 · 6/27',
+    {id:'p1',date:'2026-06-27',dayLabel:'營前訓 Day 1 · 6/27',
      text:'場地還空著，但心裡已經充滿了那些即將到來的笑聲。<br>搭起舞台，魔法就快開始了。',
      author:'— 營前訓 · 第一天 ✦'},
-    {id:'p2',date:'2026-06-28',phase:'prep',dayLabel:'營前訓 Day 2 · 6/28',
+    {id:'p2',date:'2026-06-28',dayLabel:'營前訓 Day 2 · 6/28',
      text:'你貼的每一張海報、搬的每一張桌子，<br>都是給學員的一封無聲情書。',
      author:'— 營前訓 · 第二天 ✦'},
-    {id:'p3',date:'2026-06-29',phase:'prep',dayLabel:'營前訓 Day 3 · 6/29',
+    {id:'p3',date:'2026-06-29',dayLabel:'營前訓 Day 3 · 6/29',
      text:'明天他們就來了。深呼吸——<br>你已經準備好了，比你自己知道的還要好。',
      author:'— 營前訓 · 第三天 ✦'},
-    {id:'d1',date:'2026-06-30',phase:'camp',dayLabel:'Day 1 · 6/30',
+    {id:'d1',date:'2026-06-30',dayLabel:'Day 1 · 6/30',
      text:'每一段旅程，都從踏出去的那一步開始。<br>你已經在了，這就是最大的勇氣。',
      author:'— Day 1 開始了，一起出發 ✦'},
-    {id:'d2',date:'2026-07-01',phase:'camp',dayLabel:'Day 2 · 7/1',
+    {id:'d2',date:'2026-07-01',dayLabel:'Day 2 · 7/1',
      text:'音樂不只是聲音，<br>是你把心打開的方式。',
      author:'— 讓歌聲帶著你 ✦'},
-    {id:'d3',date:'2026-07-02',phase:'camp',dayLabel:'Day 3 · 7/2',
+    {id:'d3',date:'2026-07-02',dayLabel:'Day 3 · 7/2',
      text:'疲憊是努力過的證明。<br>今晚好好睡，明天繼續發光。',
      author:'— 辛苦了，夥伴 ✦'},
-    {id:'d4',date:'2026-07-03',phase:'camp',dayLabel:'Day 4 · 7/3',
+    {id:'d4',date:'2026-07-03',dayLabel:'Day 4 · 7/3',
      text:'你不必完美，你只需要在。<br>你的存在，對身邊的人來說已經很重要。',
      author:'— I am lovable and capable ✦'},
-    {id:'d5',date:'2026-07-04',phase:'camp',dayLabel:'Day 5 · 7/4',
+    {id:'d5',date:'2026-07-04',dayLabel:'Day 5 · 7/4',
      text:'有人哭過、有人笑過、有人偷偷紅了眼眶。<br>這就是營隊，這就是你選擇來這裡的原因。',
      author:'— 感受一切，都值得 ✦'},
-    {id:'d6',date:'2026-07-05',phase:'camp',dayLabel:'Day 6 · 7/5',
+    {id:'d6',date:'2026-07-05',dayLabel:'Day 6 · 7/5',
      text:'我們在幕後的所有努力與擔憂，<br>在看見學員站上台的笑容後，一切都值得了。',
      author:'— 台下的你，才是舞台真正的底氣 ✦'},
-    {id:'d7',date:'2026-07-06',phase:'camp',dayLabel:'Day 7 · 7/6',
+    {id:'d7',date:'2026-07-06',dayLabel:'Day 7 · 7/6',
      text:'營期過了一半了，你還在。<br>這份堅持，比你想像中更珍貴。',
      author:'— 繼續走，別停下 ✦'},
-    {id:'d8',date:'2026-07-07',phase:'camp',dayLabel:'Day 8 · 7/7',
+    {id:'d8',date:'2026-07-07',dayLabel:'Day 8 · 7/7',
      text:'有時候服務別人，<br>其實是在成全最好的自己。',
      author:'— 謝謝你的付出 ✦'},
-    {id:'d9',date:'2026-07-08',phase:'camp',dayLabel:'Day 9 · 7/8',
+    {id:'d9',date:'2026-07-08',dayLabel:'Day 9 · 7/8',
      text:'每個音符背後，都有一個認真的靈魂。<br>你也是其中之一。',
      author:'— 認真的人最迷人 ✦'},
-    {id:'d10',date:'2026-07-09',phase:'camp',dayLabel:'Day 10 · 7/9',
+    {id:'d10',date:'2026-07-09',dayLabel:'Day 10 · 7/9',
      text:'今天也很努力，這就夠了。<br>明天的事留給明天的你。',
      author:'— 好好休息 ✦'},
-    {id:'d11',date:'2026-07-10',phase:'camp',dayLabel:'Day 11 · 7/10',
+    {id:'d11',date:'2026-07-10',dayLabel:'Day 11 · 7/10',
      text:'倒數計時，但別急。<br>最後幾天的記憶，往往最深刻。',
      author:'— 珍惜此刻 ✦'},
-    {id:'d12',date:'2026-07-11',phase:'camp',dayLabel:'Day 12 · 7/11',
+    {id:'d12',date:'2026-07-11',dayLabel:'Day 12 · 7/11',
      text:'你和這群人一起創造的，<br>是一段任何人都拿不走的故事。',
      author:'— Defying Gravity ✦'},
-    {id:'d13',date:'2026-07-12',phase:'camp',dayLabel:'Day 13 · 7/12',
+    {id:'d13',date:'2026-07-12',dayLabel:'Day 13 · 7/12',
      text:'離別不是結束，是下一段故事的起點。<br>帶著這份光，繼續往前走。',
      author:'— 再見，也再見 ✦'},
   ];
+  function getTaipeiNow(){
+    return new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Taipei'}));
+  }
   function getTodayId(){
-    const now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Taipei'}));
+    const now=getTaipeiNow();
     const ymd=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
     for(const q of QUOTES){if(q.date===ymd)return q.id;}
     if(now<new Date('2026-06-27T00:00:00+08:00'))return 'pre';
     return 'd13';
   }
   function getDaysLeft(){
-    const now=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Taipei'}));
-    return Math.ceil((new Date('2026-06-27T00:00:00+08:00')-now)/86400000);
+    return Math.ceil((new Date('2026-06-27T00:00:00+08:00')-getTaipeiNow())/86400000);
   }
   function showQuote(id){
     const q=QUOTES.find(x=>x.id===id);if(!q)return;
@@ -296,6 +296,7 @@ const GROUPS = {
 // 所有資料完全來自 GAS，初始為空
 let PEOPLE          = [];   // [{no, name, group, slack}]
 let PERSON_SCHEDULE = {};   // {d1:{"1":[{time,event,task,loc,note,transit}]}}
+let KENTEN_NOS      = new Set(); // 活動組編號快取，applyData 後更新
 
 // 靜態個人資訊（小隊、Buddy、聲部班導）
 const PERSON_INFO = {"2": {"squad": "國3", "buddy": "205", "voice": "B"}, "3": {"squad": "國6", "buddy": "207", "voice": "T"}, "4": {"squad": "國8", "buddy": "302", "voice": "S"}, "5": {"squad": "高6", "buddy": "305", "voice": "S"}, "6": {"squad": "高5", "buddy": "204", "voice": "A"}, "7": {"squad": "國4", "buddy": "304", "voice": "A"}, "8": {"squad": "國5", "buddy": "203", "voice": "A"}, "9": {"squad": "國1", "buddy": "206", "voice": "S"}, "11": {"squad": "國3", "buddy": "202", "voice": "S"}, "12": {"squad": "國7", "buddy": "206", "voice": "T"}, "13": {"squad": "國7", "buddy": "204", "voice": "T"}, "14": {"squad": "國5", "buddy": "305", "voice": "A"}, "15": {"squad": "高3", "buddy": "208", "voice": "B"}, "16": {"squad": "高1", "buddy": "204", "voice": "T"}, "17": {"squad": "高4", "buddy": "207", "voice": "B"}, "18": {"squad": "國6", "buddy": "205", "voice": "T"}, "19": {"squad": "國1", "buddy": "307", "voice": "B"}, "20": {"squad": "國2", "buddy": "306", "voice": "B"}, "22": {"squad": "國4", "buddy": "306", "voice": "S"}, "23": {"squad": "國7", "buddy": "206", "voice": "S"}, "24": {"squad": "高4", "buddy": "204", "voice": "S"}, "25": {"squad": "國2", "buddy": "203", "voice": "A"}, "26": {"squad": "高1", "buddy": "205", "voice": "A"}, "27": {"squad": "國8", "buddy": "202", "voice": "A"}, "28": {"squad": "高3", "buddy": "207", "voice": "A"}, "29": {"squad": "高2", "buddy": "207", "voice": "T"}, "30": {"squad": "國8", "buddy": "204", "voice": "B"}, "31": {"squad": "國6", "buddy": "206", "voice": "T"}, "32": {"squad": "國5", "buddy": "206", "voice": "T"}, "33": {"squad": "國1", "buddy": "205", "voice": "B"}, "34": {"squad": "國2", "buddy": "205", "voice": "B"}, "37": {"squad": "高6", "buddy": "208", "voice": "B"}, "39": {"squad": "國3", "buddy": "207", "voice": "T"}, "40": {"squad": "國4", "buddy": "305", "voice": "S"}, "42": {"squad": "", "buddy": "306", "voice": ""}, "43": {"squad": "高2", "buddy": "207", "voice": ""}, "44": {"squad": "", "buddy": "203", "voice": ""}, "45": {"squad": "高5", "buddy": "205", "voice": ""}, "46": {"squad": "", "buddy": "206", "voice": ""}, "48": {"squad": "", "buddy": "202", "voice": ""}, "49": {"squad": "", "buddy": "304", "voice": ""}, "50": {"squad": "", "buddy": "302", "voice": ""}, "52": {"squad": "", "buddy": "206", "voice": ""}, "53": {"squad": "", "buddy": "204", "voice": ""}, "54": {"squad": "", "buddy": "205", "voice": ""}, "56": {"squad": "", "buddy": "208", "voice": ""}, "58": {"squad": "", "buddy": "305", "voice": ""}, "59": {"squad": "", "buddy": "307", "voice": ""}, "61": {"squad": "", "buddy": "307", "voice": ""}, "62": {"squad": "", "buddy": "204", "voice": ""}, "63": {"squad": "", "buddy": "306", "voice": ""}, "68": {"squad": "無", "buddy": "307", "voice": ""}, "69": {"squad": "無", "buddy": "", "voice": ""}};
@@ -306,11 +307,21 @@ let myFilterGroup = null;
 let selectedPerson= null;
 let searchQ       = '';
 
+// 行程總覽時段定義（test 接受時間字串，與 LOC_PERIODS 的整數版本不同）
+const SCHEDULE_PERIODS = [
+  {id:'morning',   label:'🌅 早上 MORNING',   test:t=>{ const h=parseInt(t); return h>=6&&h<12; }},
+  {id:'noon',      label:'☀️ 中午 NOON',      test:t=>{ const h=parseInt(t); return h>=12&&h<14; }},
+  {id:'afternoon', label:'🌤 下午 AFTERNOON',  test:t=>{ const h=parseInt(t); return h>=14&&h<18; }},
+  {id:'evening',   label:'🌙 晚間 EVENING',    test:t=>{ const h=parseInt(t); return h>=18||t==='全天'||h<=2; }},
+];
+
 // 營長固定成員（無論 GAS 是否回傳，都保證顯示）
 const FIXED_LEADERS = [
-  {no:68, name:'秋秋', group:'營長', slack:''},
-  {no:69, name:'里歐', group:'營長', slack:''},
+  {no:68, name:'秋秋', group:'營長'},
+  {no:69, name:'里歐', group:'營長'},
 ];
+// 固定營長編號 Set（用於 buildGroupChips 計算人數補差）
+const FIXED_LEADER_NOS = new Set([68, 69]);
 
 const ICONS = {
   '早餐':'🍳','午餐':'🥢','晚餐':'🍽️','午休':'😴','早操':'🏃','換場':'🚶',
@@ -380,11 +391,7 @@ function getAggregatedSchedule(dayId) {
   // 轉換 Set → Array，依時間排序
   const result = [...map.values()]
     .map(e => ({ ...e, locs: [...e.locs] }))
-    .sort((a, b) => {
-      const ta = (a.time || '99:99').split('-')[0];
-      const tb = (b.time || '99:99').split('-')[0];
-      return ta.localeCompare(tb);
-    });
+    .sort(cmpTime);
 
   // ── 固定場地覆寫（行程總覽專用，不影響個人行程）──
   // 規則1：時間含 08:20 的換場 → 風雨球場
@@ -392,16 +399,14 @@ function getAggregatedSchedule(dayId) {
   // 規則3：時間含 20:30 的換場 → 各寢室
   // 規則4：Buddy Time（event 含「Buddy」或「buddy」）→ 各寢室
   // 規則5：今晚活動（19:xx）→ 地點取活動組成員的 loc，若無則保留聚合結果
-  const KENTEN_NOS = new Set(
-    PEOPLE.filter(p => p.group === '活動組').map(p => String(p.no))
-  );
+  //        KENTEN_NOS 為模組層快取，於 applyData / loadCached 後更新
 
   result.forEach(entry => {
     const startTime = (entry.time || '').split('-')[0].trim(); // e.g. "08:20"
     const ev        = entry.event || '';
 
     // 規則1：08:20 換場
-    if (startTime === '08:20' && (entry.transit || ev.includes('換場'))) {
+    if (startTime === '08:20' && isTransitRow(entry)) {
       entry.locs = ['風雨球場']; return;
     }
     // 規則2：早操
@@ -409,7 +414,7 @@ function getAggregatedSchedule(dayId) {
       entry.locs = ['風雨球場']; return;
     }
     // 規則3：20:30 換場
-    if (startTime === '20:30' && (entry.transit || ev.includes('換場'))) {
+    if (startTime === '20:30' && isTransitRow(entry)) {
       entry.locs = ['各寢室']; return;
     }
     // 規則4：Buddy Time
@@ -442,11 +447,7 @@ function getAggregatedSchedule(dayId) {
  */
 function getPersonItems(dayId, personNo) {
   const psDay = PERSON_SCHEDULE[dayId] || {};
-  return (psDay[String(personNo)] || []).slice().sort((a, b) => {
-    const ta = (a.time || '99:99').split('-')[0];
-    const tb = (b.time || '99:99').split('-')[0];
-    return ta.localeCompare(tb);
-  });
+  return (psDay[String(personNo)] || []).slice().sort(cmpTime);
 }
 
 // ════════════════════════════════════════════════
@@ -460,6 +461,16 @@ function showToast(msg, t=2400){
   setTimeout(() => el.classList.remove('show'), t);
 }
 function escLoc(loc){ return (loc||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+// 判斷某行程是否為換場/移動
+function isTransitRow(pi){ return !!(pi.transit || pi.event === '換場'); }
+
+// 時間排序比較器（接受 {time} 物件）
+function cmpTime(a, b){
+  const ta = (a.time || '99:99').split('-')[0];
+  const tb = (b.time || '99:99').split('-')[0];
+  return ta.localeCompare(tb);
+}
 
 function hasData(){
   return PEOPLE.length > 0 || Object.keys(PERSON_SCHEDULE).length > 0;
@@ -489,18 +500,15 @@ function switchTab(tab){
   });
 }
 function buildGroupChips(elId, selected, onChange){
-  const FIXED_LEADER_NOS = new Set([68, 69]);
   $(elId).innerHTML = Object.entries(GROUPS).map(([g, cfg]) => {
     const on  = selected === g;
     // 營長：PEOPLE 裡有幾位 + 固定兩位中不在 PEOPLE 的數量
-    let cnt;
-    if (g === '營長') {
-      const inPeople = new Set(PEOPLE.filter(p => p.group === '營長').map(p => p.no));
-      const fixedExtra = [...FIXED_LEADER_NOS].filter(no => !inPeople.has(no)).length;
-      cnt = inPeople.size + fixedExtra;
-    } else {
-      cnt = PEOPLE.filter(p => p.group === g).length;
-    }
+    const cnt = g === '營長'
+      ? (() => {
+          const inPeople = new Set(PEOPLE.filter(p => p.group === '營長').map(p => p.no));
+          return inPeople.size + [...FIXED_LEADER_NOS].filter(no => !inPeople.has(no)).length;
+        })()
+      : PEOPLE.filter(p => p.group === g).length;
     const sty = on
       ? `color:${cfg.color};background:${cfg.bg};border-color:${cfg.mid}48`
       : `color:var(--text3);background:transparent;border-color:var(--border)`;
@@ -524,19 +532,12 @@ function renderSchedule(){
   let items = searchQ
     ? allItems.filter(i => ((i.event||'') + (i.task||'') + (i.locs||[]).join(' ')).toLowerCase().includes(searchQ))
     : allItems;
-  const periods = [
-    {label:'🌅 早上 MORNING',   test:t=>{ const h=parseInt(t); return h>=6&&h<12; }},
-    {label:'☀️ 中午 NOON',      test:t=>{ const h=parseInt(t); return h>=12&&h<14; }},
-    {label:'🌤 下午 AFTERNOON',  test:t=>{ const h=parseInt(t); return h>=14&&h<18; }},
-    {label:'🌙 晚間 EVENING',    test:t=>{ const h=parseInt(t); return h>=18||t==='全天'||h<=2; }},
-  ];
-
   let html = '', hasAny = false;
-  periods.forEach(period => {
+  SCHEDULE_PERIODS.forEach(period => {
     const pf = items.filter(s => {
       if (!s.time) return false;
       const t = s.time.split('-')[0];
-      if (period.label.includes('晚') && s.time === '全天') return true;
+      if (period.id === 'evening' && s.time === '全天') return true;
       return period.test(t);
     });
     if (!pf.length) return;
@@ -544,24 +545,20 @@ function renderSchedule(){
     html += `<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
     html += pf.map(s => {
       const evName    = s.event || '';
-      const isTransit = s.transit === true || evName === '換場';
+      const isTransit = isTransitRow(s);
       const icon      = getIcon(evName);
       const badge     = isTransit ? '<span class="tl-badge badge-transit">移動</span>' : '';
       const evDisplay = evName || '<span style="color:var(--text3);font-style:italic;font-weight:400">（未填寫）</span>';
 
       // ── 地點 pills（可能多個）──
-      let locHtml = '';
-      if (s.locs && s.locs.length) {
-        const multi = s.locs.length > 1;
-        // 底線文字：每個地點前都有📍，多地點用·分隔
-        locHtml = `<div class="loc-pills">` +
+      const locHtml = (s.locs && s.locs.length)
+        ? `<div class="loc-pills">` +
           s.locs.map((l, i) => {
             const le = escLoc(l);
-            const sep = (i > 0) ? `<span class="loc-sep">·</span>` : '';
-            return `${sep}<button class="loc-pill${multi?' multi-badge':''}" onclick="openLocModal('${le}')">📍 ${l}</button>`;
-          }).join('') +
-          `</div>`;
-      }
+            const sep = i > 0 ? `<span class="loc-sep">·</span>` : '';
+            return `${sep}<button class="loc-pill${s.locs.length > 1 ? ' multi-badge' : ''}" onclick="openLocModal('${le}')">📍 ${l}</button>`;
+          }).join('') + `</div>`
+        : '';
 
       return `<div class="tl-row${isTransit?' transit':''}">
         <div class="tl-time">${s.time||'—'}</div>
@@ -582,7 +579,7 @@ function renderSchedule(){
   const eveningLoc  = eveningMeta?.loc || (evening?.locs?.length ? evening.locs.join(' · ') : null);
   const eveningUrl  = eveningMeta?.url || '';
   const eveningNameHtml = evening
-    ? (eveningUrl && eveningUrl.length > 0
+    ? (eveningUrl
         ? `<a href="${eveningUrl}" target="_blank" rel="noopener" style="color:var(--emerald);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;text-decoration-color:rgba(26,110,53,0.25);transition:text-decoration-color .15s" onmouseover="this.style.textDecorationColor='rgba(26,110,53,0.6)'" onmouseout="this.style.textDecorationColor='rgba(26,110,53,0.25)'">${evening.event||'（未命名）'}</a>`
         : `<span style="color:var(--text2);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${evening.event||'（未命名）'}</span>`)
     : null;
@@ -614,10 +611,11 @@ function toggleMyGroup(g){ myFilterGroup = myFilterGroup===g ? null : g; buildGr
 function renderPersonGrid(){
   if(!hasData()){
     $('personGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem">請先同步取得志工名單</div>`;
+    $('myScheduleEl').innerHTML = '';
     return;
   }
   const q  = ($('mySearch')||{value:''}).value.trim().toLowerCase();
-  let pp = PEOPLE.filter(p => {
+  const pp = PEOPLE.filter(p => {
     const matchG = !myFilterGroup || p.group === myFilterGroup;
     const matchQ = !q || p.name.toLowerCase().includes(q) || String(p.no).includes(q);
     return matchG && matchQ;
@@ -699,7 +697,7 @@ function renderMySchedule(){
     </div>
     ${myItems.length
       ? `<div class="my-rows">${myItems.map(s => {
-          const isTransit = s.transit === true || s.event === '換場';
+          const isTransit = isTransitRow(s);
           return `<div class="tl-row${isTransit?' transit':''}" style="margin-bottom:0">
             <div class="tl-time">${s.time||'—'}</div>
             <div class="tl-icon-cell" style="${isTransit?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${getIcon(s.event||'')}</div>
@@ -724,7 +722,7 @@ function buildLocPeriodStrip(){
   LOC_PERIODS.forEach(p => periodHas[p.id] = false);
   Object.values(psDay).forEach(pItems => {
     (pItems||[]).forEach(pi => {
-      if (!pi.loc || !pi.loc.trim() || pi.transit || pi.event === '換場') return;
+      if (!pi.loc || !pi.loc.trim() || isTransitRow(pi)) return;
       const h = parseInt((pi.time||'').split(':')[0]);
       LOC_PERIODS.forEach(p => { if(p.test(h)) periodHas[p.id] = true; });
     });
@@ -737,17 +735,15 @@ function buildLocPeriodStrip(){
 
 function selectLocPeriod(id){
   currentLocPeriod = id;
-  buildLocPeriodStrip();
   renderLocGrid();
 }
 
 function renderLocGrid(){
+  buildLocPeriodStrip();
   if(!hasData()){
-    buildLocPeriodStrip();
     $('locGrid').innerHTML = `<div class="sync-hint" style="grid-column:1/-1"><span class="sync-hint-icon">☁️</span>尚未取得場地資料<br>請先同步</div>`;
     return;
   }
-  buildLocPeriodStrip();
 
   const psDay  = PERSON_SCHEDULE[currentDay] || {};
   const period = LOC_PERIODS.find(p => p.id === currentLocPeriod) || LOC_PERIODS[0];
@@ -757,7 +753,7 @@ function renderLocGrid(){
     const person = PEOPLE.find(p => String(p.no) === no);
     (pItems || []).forEach(pi => {
       if (!pi.loc || !pi.loc.trim()) return;
-      if (pi.transit || pi.event === '換場') return;
+      if (isTransitRow(pi)) return;
       const h = parseInt((pi.time||'').split(':')[0]);
       if (!period.test(h)) return;
       const loc     = pi.loc.trim();
@@ -770,8 +766,8 @@ function renderLocGrid(){
       const taskKey = task || '（未填任務）';
       if (!slot.taskGroups.has(taskKey)) slot.taskGroups.set(taskKey, { task: taskKey, people: [], note });
       const tg = slot.taskGroups.get(taskKey);
-      if (person && !tg.people.some(p => p.name === person.name)){
-        tg.people.push({ name: person.name, group: person.group });
+      if (person && !tg.people.some(p => p.no === person.no)){
+        tg.people.push({ no: person.no, name: person.name, group: person.group });
       }
     });
   });
@@ -781,9 +777,7 @@ function renderLocGrid(){
 
   $('locGrid').innerHTML = sortedLocs.map(loc => {
     const le    = escLoc(loc);
-    const slots = [...byLoc[loc].values()].sort((a, b) =>
-      (a.time||'99:99').split('-')[0].localeCompare((b.time||'99:99').split('-')[0])
-    );
+    const slots = [...byLoc[loc].values()].sort(cmpTime);
     return `<div class="loc-card" data-loc="${loc}">
       <div class="loc-name" onclick="openLocModal('${le}')">📍 ${loc}</div>
       ${slots.map(s => {
@@ -826,14 +820,12 @@ function openLocModal(loc){
   Object.values(psDay).forEach(pItems => {
     (pItems||[]).forEach(pi => {
       if ((pi.loc||'').trim() !== loc) return;
-      if (pi.transit || pi.event === '換場') return;
+      if (isTransitRow(pi)) return;
       const key = (pi.time||'') + '||' + (pi.event||'');
       if (!slotMap.has(key)) slotMap.set(key, { time: pi.time||'', event: pi.event||'' });
     });
   });
-  const slots = [...slotMap.values()].sort((a,b) =>
-    (a.time||'99:99').split('-')[0].localeCompare((b.time||'99:99').split('-')[0])
-  );
+  const slots = [...slotMap.values()].sort(cmpTime);
   $('modalLocBody').innerHTML = slots.map(s =>
     `<div style="padding:.45rem .6rem;border-radius:6px;border:1px solid var(--border);margin-bottom:4px;display:flex;gap:.6rem;align-items:center;font-size:.8rem">
       <span style="font-family:'JetBrains Mono',monospace;color:var(--emerald);font-size:.68rem;min-width:88px;flex-shrink:0">${s.time}</span>
@@ -844,19 +836,21 @@ function openLocModal(loc){
 }
 function closeModal(){ $('locModal').classList.remove('open'); }
 
+// 地圖樓層對照（場地名稱關鍵字 → 圖片檔名）
+const MAP_FLOORS = [
+  { keys: ['7A','7B','學務處','多功能教室1'], src: '1F.jpg' },
+  { keys: ['9A','9B','10A','10B','12A','12B'], src: '2F.jpg' },
+  { keys: ['11A','11B'], src: '3F.jpg' },
+];
+
 function openMapModal(locName){
   const label = $('mapModalLocLabel');
   if(label) label.textContent = locName ? '· ' + locName : '';
-  const MAP_1F = ['7A','7B','學務處','多功能教室1'];
-  const MAP_2F = ['9A','9B','10A','10B','12A','12B'];
-  const MAP_3F = ['11A','11B'];
   let mapSrc = '平面圖.png';
   if(locName){
-    if(MAP_1F.some(k => locName.includes(k)))      mapSrc = '1F.jpg';
-    else if(MAP_2F.some(k => locName.includes(k))) mapSrc = '2F.jpg';
-    else if(MAP_3F.some(k => locName.includes(k))) mapSrc = '3F.jpg';
-  }
-  const img = $('mapImg'), fallback = $('mapImgFallback');
+    const match = MAP_FLOORS.find(f => f.keys.some(k => locName.includes(k)));
+    if(match) mapSrc = match.src;
+  }  const img = $('mapImg'), fallback = $('mapImgFallback');
   if(img){ img.src = mapSrc; img.style.display = ''; if(fallback) fallback.style.display = 'none'; }
   $('mapModal').classList.add('open');
   $('locModal').classList.remove('open');
@@ -874,7 +868,7 @@ function jumpToNow(){
   const now = new Date();
   const tpe = new Date(now.toLocaleString('en-US',{timeZone:'Asia/Taipei'}));
   const hhmm = String(tpe.getHours()).padStart(2,'0')+':'+String(tpe.getMinutes()).padStart(2,'0');
-  const hhmm_mins = parseInt(hhmm.split(':')[0])*60 + parseInt(hhmm.split(':')[1]);
+  const hhmm_mins = tpe.getHours()*60 + tpe.getMinutes();
 
   const tpeDateStr = `${tpe.getFullYear()}/${tpe.getMonth()+1}/${tpe.getDate()}`;
   const todayDay = DAYS.find(d => { const m=d.full.match(/^(\d{4}\/\d+\/\d+)/); return m&&m[1]===tpeDateStr; });
@@ -914,7 +908,6 @@ function jumpToNow(){
     const doScrollLoc = () => {
       if(currentLocPeriod !== bestPeriod.id){
         currentLocPeriod = bestPeriod.id;
-        buildLocPeriodStrip();
         renderLocGrid();
       }
       // 在當前時段的卡片中找最近時段的 slot
@@ -1003,6 +996,9 @@ function applyData(data){
   if(data.people && data.people.length)          PEOPLE          = data.people;
   if(data.personSchedule && Object.keys(data.personSchedule).length) PERSON_SCHEDULE = data.personSchedule;
 
+  // 更新活動組編號快取
+  KENTEN_NOS = new Set(PEOPLE.filter(p => p.group === '活動組').map(p => String(p.no)));
+
   localStorage.setItem('xiuData', JSON.stringify({people:PEOPLE, personSchedule:PERSON_SCHEDULE}));
   localStorage.setItem('xiuAt', String(Date.now()));
 
@@ -1019,6 +1015,8 @@ function loadCached(){
       const d = JSON.parse(saved);
       if(d.people && d.people.length)                              PEOPLE          = d.people;
       if(d.personSchedule && Object.keys(d.personSchedule).length) PERSON_SCHEDULE = d.personSchedule;
+      // 更新活動組編號快取
+      KENTEN_NOS = new Set(PEOPLE.filter(p => p.group === '活動組').map(p => String(p.no)));
       // 無論 xiuAt 是否存在，先套用快取資料並渲染
       buildGroupChips('myGroupChips', myFilterGroup, 'toggleMyGroup');
       renderSchedule(); renderPersonGrid(); renderLocGrid();
