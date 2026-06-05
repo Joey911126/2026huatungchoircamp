@@ -266,6 +266,74 @@ const LOC_PERIODS = [
 ];
 let currentLocPeriod = 'morning';
 
+// ── 營前訓日期（靜態，不依賴 GAS）──
+const PRE_DAYS = [
+  {id:'p1', label:'6/27', full:'2026/6/27 (六) 營前訓 Day1', type:'weekend', pre:true},
+  {id:'p2', label:'6/28', full:'2026/6/28 (日) 營前訓 Day2', type:'weekend', pre:true},
+  {id:'p3', label:'6/29', full:'2026/6/29 (一) 營前訓 Day3', type:'weekday', pre:true},
+];
+
+// 營前訓靜態行程（志工 + CIT，依日期分開）
+// 格式：{time, event, sub:'志工'|'CIT'|'共同'}
+const PRE_CAMP_SCHEDULE = {
+  p1: [
+    {time:'12:30~13:00', event:'均一 Check In',           sub:'志工'},
+    {time:'13:00~13:30', event:'營前訓說明 & 環境介紹',    sub:'志工'},
+    {time:'14:00~14:30', event:'環境導覽',                 sub:'志工'},
+    {time:'14:30~15:00', event:'場地佈置',                 sub:'志工'},
+    {time:'15:30~16:00', event:'各組會議／道具製作／影片拍攝', sub:'志工'},
+    {time:'17:00~17:30', event:'各種活動試跑',             sub:'志工'},
+    {time:'18:00~18:30', event:'晚餐',                    sub:'志工'},
+    {time:'19:00~19:30', event:'各組會議／道具製作',        sub:'志工'},
+    {time:'21:00~21:30', event:'行政時間',                 sub:'志工'},
+    {time:'22:00~22:30', event:'盥洗',                    sub:'志工'},
+    {time:'23:00',       event:'關燈',                    sub:'志工'},
+  ],
+  p2: [
+    {time:'07:30~08:00', event:'起床',                    sub:'志工'},
+    {time:'08:00~08:30', event:'早餐',                    sub:'志工'},
+    {time:'08:30~09:00', event:'早操排練',                 sub:'志工'},
+    {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝', sub:'志工'},
+    {time:'12:00~12:30', event:'午餐／餐間活動',           sub:'志工'},
+    {time:'13:00~13:30', event:'午休',                    sub:'志工'},
+    {time:'13:30~14:00', event:'課程試教',                 sub:'志工'},
+    {time:'16:30~17:00', event:'各種活動試跑',             sub:'志工'},
+    {time:'19:00~19:30', event:'細流計畫',                sub:'志工'},
+    {time:'20:00~20:30', event:'各組會議／道具製作',        sub:'志工'},
+    {time:'21:00~21:30', event:'行政時間',                 sub:'志工'},
+  ],
+  p3: [
+    {time:'07:30~08:00', event:'起床',                    sub:'CIT'},
+    {time:'08:00~08:30', event:'早餐',                    sub:'CIT'},
+    {time:'08:30~09:00', event:'早操排練',                 sub:'共同'},
+    {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝', sub:'志工'},
+    {time:'09:00~09:30', event:'阿尼色弗參訪',             sub:'CIT'},
+    {time:'11:00~11:30', event:'第一批次人員報到',          sub:'CIT'},
+    {time:'11:00~12:00', event:'Welcome Party 練習',       sub:'CIT'},
+    {time:'12:00~12:30', event:'午餐暨午休／餐間活動',      sub:'CIT'},
+    {time:'13:30~14:00', event:'始業式試跑（選課、AS、環境、活動）', sub:'志工'},
+    {time:'13:30~14:00', event:'各種活動試跑',             sub:'CIT'},
+    {time:'14:00~14:30', event:'始業式試跑（選課、AS、環境、活動）', sub:'CIT'},
+    {time:'15:00~15:30', event:'Welcome Party（試跑）',    sub:'志工'},
+    {time:'15:00~15:30', event:'志工與 CIT 相見歡互動',    sub:'CIT'},
+    {time:'15:30~16:00', event:'各種活動試跑',             sub:'志工'},
+    {time:'15:30~16:00', event:'Welcome Party',           sub:'CIT'},
+    {time:'16:00~16:30', event:'破冰1 / 主題式課程1 / RP1', sub:'CIT'},
+    {time:'16:30~17:00', event:'志工與 CIT 相見歡互動',    sub:'志工'},
+    {time:'16:30~17:00', event:'大掃除分工',               sub:'CIT'},
+    {time:'17:00~17:30', event:'環境打掃',                 sub:'CIT'},
+    {time:'17:30~18:00', event:'各組會議',                 sub:'志工'},
+    {time:'17:30~18:00', event:'Welcome Party 練習',       sub:'CIT'},
+    {time:'18:00~18:30', event:'晚餐',                    sub:'CIT'},
+    {time:'19:00~19:30', event:'團體討論',                 sub:'志工'},
+    {time:'19:00~19:30', event:'全員逃走中',               sub:'CIT'},
+    {time:'20:00~20:30', event:'阿尼色弗計畫',             sub:'CIT'},
+    {time:'21:00~21:30', event:'行政時間',                 sub:'CIT'},
+    {time:'22:00~22:30', event:'Circle Time',             sub:'CIT'},
+    {time:'23:00',       event:'睡覺盥洗',                 sub:'CIT'},
+  ],
+};
+
 const DAYS = [
   {id:'d1', label:'6/30', full:'2026/6/30 (二) Day1',  type:'weekday'},
   {id:'d2', label:'7/1',  full:'2026/7/1 (三) Day2',   type:'weekday'},
@@ -480,8 +548,19 @@ function hasData(){
 //  UI：日期條、群組 chip
 // ════════════════════════════════════════════════
 function buildDayStrip(){
-  $('dayStrip').innerHTML = DAYS.map(d =>
+  const preHtml = PRE_DAYS.map(d => {
+    const isActive = d.id===currentDay;
+    const baseStyle = isActive
+      ? 'background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3);color:#fff'
+      : 'border-style:dashed;color:var(--violet-mid);border-color:rgba(93,26,150,0.35)';
+    return `<button class="day-chip" onclick="selectDay('${d.id}')" style="${baseStyle}">${d.label}<span style="font-size:.48rem;vertical-align:super;opacity:.8;margin-left:1px">訓</span></button>`;
+  }).join('');
+  const sepHtml = '<span style="display:flex;align-items:center;color:var(--border2);font-size:.7rem;padding:0 3px;flex-shrink:0;user-select:none">│</span>';
+  const campHtml = DAYS.map(d =>
     `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
+  ).join('');
+  $('dayStrip').innerHTML = preHtml + sepHtml + campHtml;
+}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
   ).join('');
 }
 function selectDay(id){
@@ -521,6 +600,56 @@ function buildGroupChips(elId, selected, onChange){
 // ════════════════════════════════════════════════
 function renderSchedule(){
   searchQ = ($('searchInput')||{value:''}).value.trim().toLowerCase();
+
+  // ── 營前訓：靜態資料路徑 ──
+  const preDay = PRE_DAYS.find(d => d.id === currentDay);
+  if (preDay) {
+    const dayMeta = PRE_DAYS.find(d => d.id === currentDay);
+    let allItems = (PRE_CAMP_SCHEDULE[currentDay] || []).slice().sort((a,b) => {
+      const ta = (a.time||'99:99').split('~')[0];
+      const tb = (b.time||'99:99').split('~')[0];
+      return ta.localeCompare(tb);
+    });
+    if (searchQ) allItems = allItems.filter(i => (i.event||'').toLowerCase().includes(searchQ));
+    let html = '', hasAny = false;
+    // 顯示營前訓標題列
+    const subColors = {'志工':'var(--emerald)','CIT':'var(--rose)','共同':'var(--gold-warm)'};
+    const subBgs    = {'志工':'var(--emerald-light)','CIT':'var(--rose-light)','共同':'rgba(200,134,10,0.1)'};
+    SCHEDULE_PERIODS.forEach(period => {
+      const pf = allItems.filter(s => {
+        if (!s.time) return false;
+        const t = s.time.split('~')[0];
+        return period.test(t);
+      });
+      if (!pf.length) return;
+      hasAny = true;
+      html += `<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
+      html += pf.map(s => {
+        const evName = s.event || '';
+        const icon   = getIcon(evName);
+        const col    = subColors[s.sub] || 'var(--text3)';
+        const bg     = subBgs[s.sub]    || 'rgba(200,200,200,0.15)';
+        const subBadge = s.sub ? `<span style="font-size:.55rem;font-weight:700;padding:1px 6px;border-radius:8px;background:${bg};color:${col};border:1px solid ${col}33;flex-shrink:0">${s.sub}</span>` : '';
+        return `<div class="tl-row" style="border-left-color:${col}">
+          <div class="tl-time" style="color:${col}">${s.time||'—'}</div>
+          <div class="tl-icon-cell" style="background:${bg};border-color:${col}33">${icon}</div>
+          <div class="tl-content">
+            <div class="tl-ev-name">${evName} ${subBadge}</div>
+          </div>
+        </div>`;
+      }).join('');
+      html += '</div></div>';
+    });
+    $('timelineEl').innerHTML = hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
+    const preEveningMap = {
+      p1:'各組會議 · 道具製作',
+      p2:'細流計畫',
+      p3:'團體討論 · 全員逃走中 · 阿尼色弗計畫'
+    };
+    const preEvText = preEveningMap[currentDay] || '—';
+    $('sb-evening').innerHTML = `<span style="color:var(--violet-mid);font-weight:600">${preEvText}</span>`;
+    return;
+  }
 
   if(!hasData()){
     $('timelineEl').innerHTML = `<div class="sync-hint"><span class="sync-hint-icon">☁️</span>尚未取得行程資料<br>請點右上角「同步」按鈕載入最新行程</div>`;
@@ -662,6 +791,12 @@ function selectPerson(no){
 }
 
 function renderMySchedule(){
+  // 營前訓：個人行程不顯示
+  if(PRE_DAYS.find(d => d.id === currentDay)){
+    const el2 = $('myScheduleEl');
+    if(el2) el2.innerHTML = '<div class="my-schedule-card" style="text-align:center;padding:1.5rem;color:var(--text3);font-size:.82rem"><div style="font-size:1.5rem;margin-bottom:.5rem">🏕</div>營前訓期間不顯示個人行程<br><span style="font-size:.72rem">請切換至「行程總覽」查看</span></div>';
+    return;
+  }
   const el = $('myScheduleEl');
   if(!selectedPerson){ el.innerHTML = ''; return; }
   const p   = selectedPerson;
@@ -740,6 +875,11 @@ function selectLocPeriod(id){
 
 function renderLocGrid(){
   buildLocPeriodStrip();
+  // 營前訓：場地 tab 不顯示（無 GAS 資料）
+  if(PRE_DAYS.find(d => d.id === currentDay)){
+    $('locGrid').innerHTML = '<div class="sync-hint" style="grid-column:1/-1"><span class="sync-hint-icon">🏕</span>營前訓期間<br>場地資訊請參閱行程總覽</div>';
+    return;
+  }
   if(!hasData()){
     $('locGrid').innerHTML = `<div class="sync-hint" style="grid-column:1/-1"><span class="sync-hint-icon">☁️</span>尚未取得場地資料<br>請先同步</div>`;
     return;
