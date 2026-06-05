@@ -139,7 +139,10 @@
   <div id="tab-schedule">
     <div class="search-row" style="align-items:flex-start;flex-wrap:nowrap;gap:.5rem">
       <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 0 140px;max-width:180px;margin-top:1px">
-
+      <div id="eveningCard" style="display:none;align-items:flex-start;gap:.4rem;padding:.38rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;flex-wrap:wrap;row-gap:.18rem;align-content:flex-start">
+        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2);white-space:nowrap;line-height:1.6">✦ 今晚活動</span>
+        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0;word-break:break-word;line-height:1.6">—</div>
+      </div>
     </div>
     <div id="timelineEl"></div>
   </div>
@@ -268,7 +271,6 @@ const PRE_DAYS = [
   {id:'p1', label:'6/27', full:'2026/6/27 (六) 營前訓 Day1', type:'weekend', pre:true},
   {id:'p2', label:'6/28', full:'2026/6/28 (日) 營前訓 Day2', type:'weekend', pre:true},
   {id:'p3', label:'6/29', full:'2026/6/29 (一) 營前訓 Day3', type:'weekday', pre:true},
-  {id:'p4', label:'6/30', full:'2026/6/30 (二) 營前訓 Day4', type:'weekday', pre:true},
 ];
 
 // 營前訓靜態行程（志工 + CIT，依日期分開）
@@ -313,18 +315,20 @@ const PRE_CAMP_SCHEDULE = {
     {time:'19:00~19:30', event:'團體討論'},
     {time:'21:00~21:30', event:'行政時間'},
   ],
-  p4: [
-    {time:'08:30~09:00', event:'報到離營排練'},
-    {time:'09:00~11:00', event:'各組會議／道具製作'},
-    {time:'11:00~11:30', event:'大掃除分工'},
-    {time:'11:30~12:00', event:'環境打掃'},
-    {time:'13:00~13:30', event:'誓師大會'},
-    {time:'13:30~14:00', event:'準備報到'},
-  ],
 };
 
+// 6/30 (d1) 14:00 前靜態覆寫行程（來自營前訓_志工 Excel）
+const D1_STATIC_SCHEDULE = [
+  {time:'08:30~09:00', event:'報到離營排練'},
+  {time:'09:00~11:00', event:'各組會議／道具製作'},
+  {time:'11:00~11:30', event:'大掃除分工'},
+  {time:'11:30~12:00', event:'環境打掃'},
+  {time:'13:00~13:30', event:'誓師大會'},
+  {time:'13:30~14:00', event:'準備報到'},
+];
+
 const DAYS = [
-  // 6/30 已移至 PRE_DAYS p4（靜態營前訓資料）
+  {id:'d1', label:'6/30', full:'2026/6/30 (二) Day1',  type:'weekday'},
   {id:'d2', label:'7/1',  full:'2026/7/1 (三) Day2',   type:'weekday'},
   {id:'d3', label:'7/2',  full:'2026/7/2 (四) Day3',   type:'weekday'},
   {id:'d4', label:'7/3',  full:'2026/7/3 (五) Day4',   type:'weekday'},
@@ -358,7 +362,7 @@ let KENTEN_NOS      = new Set(); // 活動組編號快取，applyData 後更新
 // 靜態個人資訊（小隊、Buddy、聲部班導）
 const PERSON_INFO = {"2": {"squad": "國3", "buddy": "205", "voice": "B"}, "3": {"squad": "國6", "buddy": "207", "voice": "T"}, "4": {"squad": "國8", "buddy": "302", "voice": "S"}, "5": {"squad": "高6", "buddy": "305", "voice": "S"}, "6": {"squad": "高5", "buddy": "204", "voice": "A"}, "7": {"squad": "國4", "buddy": "304", "voice": "A"}, "8": {"squad": "國5", "buddy": "203", "voice": "A"}, "9": {"squad": "國1", "buddy": "206", "voice": "S"}, "11": {"squad": "國3", "buddy": "202", "voice": "S"}, "12": {"squad": "國7", "buddy": "206", "voice": "T"}, "13": {"squad": "國7", "buddy": "204", "voice": "T"}, "14": {"squad": "國5", "buddy": "305", "voice": "A"}, "15": {"squad": "高3", "buddy": "208", "voice": "B"}, "16": {"squad": "高1", "buddy": "204", "voice": "T"}, "17": {"squad": "高4", "buddy": "207", "voice": "B"}, "18": {"squad": "國6", "buddy": "205", "voice": "T"}, "19": {"squad": "國1", "buddy": "307", "voice": "B"}, "20": {"squad": "國2", "buddy": "306", "voice": "B"}, "22": {"squad": "國4", "buddy": "306", "voice": "S"}, "23": {"squad": "國7", "buddy": "206", "voice": "S"}, "24": {"squad": "高4", "buddy": "204", "voice": "S"}, "25": {"squad": "國2", "buddy": "203", "voice": "A"}, "26": {"squad": "高1", "buddy": "205", "voice": "A"}, "27": {"squad": "國8", "buddy": "202", "voice": "A"}, "28": {"squad": "高3", "buddy": "207", "voice": "A"}, "29": {"squad": "高2", "buddy": "207", "voice": "T"}, "30": {"squad": "國8", "buddy": "204", "voice": "B"}, "31": {"squad": "國6", "buddy": "206", "voice": "T"}, "32": {"squad": "國5", "buddy": "206", "voice": "T"}, "33": {"squad": "國1", "buddy": "205", "voice": "B"}, "34": {"squad": "國2", "buddy": "205", "voice": "B"}, "37": {"squad": "高6", "buddy": "208", "voice": "B"}, "39": {"squad": "國3", "buddy": "207", "voice": "T"}, "40": {"squad": "國4", "buddy": "305", "voice": "S"}, "42": {"squad": "", "buddy": "306", "voice": ""}, "43": {"squad": "高2", "buddy": "207", "voice": ""}, "44": {"squad": "", "buddy": "203", "voice": ""}, "45": {"squad": "高5", "buddy": "205", "voice": ""}, "46": {"squad": "", "buddy": "206", "voice": ""}, "48": {"squad": "", "buddy": "202", "voice": ""}, "49": {"squad": "", "buddy": "304", "voice": ""}, "50": {"squad": "", "buddy": "302", "voice": ""}, "52": {"squad": "", "buddy": "206", "voice": ""}, "53": {"squad": "", "buddy": "204", "voice": ""}, "54": {"squad": "", "buddy": "205", "voice": ""}, "56": {"squad": "", "buddy": "208", "voice": ""}, "58": {"squad": "", "buddy": "305", "voice": ""}, "59": {"squad": "", "buddy": "307", "voice": ""}, "61": {"squad": "", "buddy": "307", "voice": ""}, "62": {"squad": "", "buddy": "204", "voice": ""}, "63": {"squad": "", "buddy": "306", "voice": ""}, "68": {"squad": "無", "buddy": "307", "voice": ""}, "69": {"squad": "無", "buddy": "", "voice": ""}};
 
-let currentDay    = 'd2';
+let currentDay    = 'd1';
 let currentTab    = 'schedule';
 let myFilterGroup = null;
 let selectedPerson= null;
@@ -588,15 +592,8 @@ function buildGroupChips(elId, selected, onChange){
 function renderSchedule(){
   searchQ = ($('searchInput')||{value:''}).value.trim().toLowerCase();
 
-  // ── 營前訓：靜態資料路徑 ──
-  const preDay = PRE_DAYS.find(d => d.id === currentDay);
-  if (preDay) {
-    const dayMeta = PRE_DAYS.find(d => d.id === currentDay);
-    let allItems = (PRE_CAMP_SCHEDULE[currentDay] || []).slice().sort((a,b) => {
-      const ta = (a.time||'99:99').split('~')[0];
-      const tb = (b.time||'99:99').split('~')[0];
-      return ta.localeCompare(tb);
-    });
+  // ── 輔助：渲染純靜態行程列表（營前訓 & d1 14:00前共用）──
+  function renderStaticItems(allItems){
     if (searchQ) allItems = allItems.filter(i => (i.event||'').toLowerCase().includes(searchQ));
     let html = '', hasAny = false;
     SCHEDULE_PERIODS.forEach(period => {
@@ -621,63 +618,131 @@ function renderSchedule(){
       }).join('');
       html += '</div></div>';
     });
-    $('timelineEl').innerHTML = hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
+    return hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
+  }
+
+  // ── 輔助：渲染 GAS 聚合行程列表 ──
+  function renderGasItems(items){
+    let html = '', hasAny = false;
+    SCHEDULE_PERIODS.forEach(period => {
+      const pf = items.filter(s => {
+        if (!s.time) return false;
+        const t = s.time.split('-')[0];
+        if (period.id === 'evening' && s.time === '全天') return true;
+        return period.test(t);
+      });
+      if (!pf.length) return;
+      hasAny = true;
+      html += `<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
+      html += pf.map(s => {
+        const evName    = s.event || '';
+        const isTransit = isTransitRow(s);
+        const icon      = getIcon(evName);
+        const badge     = isTransit ? '<span class="tl-badge badge-transit">移動</span>' : '';
+        const evDisplay = evName || '<span style="color:var(--text3);font-style:italic;font-weight:400">（未填寫）</span>';
+        const locHtml = (s.locs && s.locs.length)
+          ? `<div class="loc-pills">` +
+            s.locs.map((l, idx) => {
+              const le = escLoc(l);
+              const sep = idx > 0 ? `<span class="loc-sep">·</span>` : '';
+              return `${sep}<button class="loc-pill${s.locs.length > 1 ? ' multi-badge' : ''}" onclick="openLocModal('${le}')">📍 ${l}</button>`;
+            }).join('') + `</div>`
+          : '';
+        return `<div class="tl-row${isTransit?' transit':''}">
+          <div class="tl-time">${s.time||'—'}</div>
+          <div class="tl-icon-cell" style="${isTransit?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${icon}</div>
+          <div class="tl-content">
+            <div class="tl-ev-name">${evDisplay} ${badge}</div>
+            ${locHtml}
+          </div>
+        </div>`;
+      }).join('');
+      html += '</div></div>';
+    });
+    return hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
+  }
+
+  // ── 營前訓：純靜態路徑 ──
+  if (PRE_DAYS.find(d => d.id === currentDay)) {
+    const allItems = (PRE_CAMP_SCHEDULE[currentDay] || []).slice().sort((a,b) =>
+      (a.time||'99:99').split('~')[0].localeCompare((b.time||'99:99').split('~')[0])
+    );
+    $('timelineEl').innerHTML = renderStaticItems(allItems);
+    const ec = $('eveningCard'); if(ec) ec.style.display = 'none';
     return;
   }
 
+  // ── d1 (6/30)：14:00 前靜態覆寫，14:00 後連動 GAS ──
+  if (currentDay === 'd1') {
+    const CUTOFF = '14:00';
+
+    // 靜態部分（< 14:00）
+    const staticItems = D1_STATIC_SCHEDULE.filter(s => {
+      const t = (s.time || '99:99').split('~')[0];
+      return t < CUTOFF;
+    }).sort((a,b) =>
+      (a.time||'99:99').split('~')[0].localeCompare((b.time||'99:99').split('~')[0])
+    );
+
+    // GAS 部分（≥ 14:00）
+    const gasAll = hasData() ? getAggregatedSchedule('d1') : [];
+    const gasItems = gasAll.filter(s => {
+      const t = (s.time || '').split('-')[0].trim();
+      return t >= CUTOFF || s.time === '全天';
+    });
+    const gasFiltered = searchQ
+      ? gasItems.filter(i => ((i.event||'') + (i.task||'') + (i.locs||[]).join(' ')).toLowerCase().includes(searchQ))
+      : gasItems;
+
+    // 合併渲染：靜態區段 + 分隔線（若 GAS 有資料）+ GAS 區段
+    const staticHtml = renderStaticItems(staticItems);
+
+    let gasHtml = '';
+    if (!hasData()) {
+      gasHtml = `<div class="tl-period">
+        <div class="tl-period-head" style="color:var(--text3);border-color:rgba(100,60,20,0.15);background:var(--bg2)">🌇 下午 / 晚間 AFTERNOON · EVENING</div>
+        <div class="sync-hint" style="padding:1rem;font-size:.78rem">☁️ 請同步取得 14:00 後的行程</div>
+      </div>`;
+    } else {
+      gasHtml = renderGasItems(gasFiltered);
+    }
+
+    $('timelineEl').innerHTML = staticHtml + gasHtml;
+    const ecD1 = $('eveningCard'); if(ecD1) ecD1.style.display = 'none';
+    return;
+  }
+
+  // ── 其他營期天：純 GAS 路徑 ──
   if(!hasData()){
     $('timelineEl').innerHTML = `<div class="sync-hint"><span class="sync-hint-icon">☁️</span>尚未取得行程資料<br>請點右上角「同步」按鈕載入最新行程</div>`;
+    const ecNd = $('eveningCard'); if(ecNd) ecNd.style.display = 'none';
     return;
   }
 
   const allItems = getAggregatedSchedule(currentDay);
-  let items = searchQ
+  const items = searchQ
     ? allItems.filter(i => ((i.event||'') + (i.task||'') + (i.locs||[]).join(' ')).toLowerCase().includes(searchQ))
     : allItems;
-  let html = '', hasAny = false;
-  SCHEDULE_PERIODS.forEach(period => {
-    const pf = items.filter(s => {
-      if (!s.time) return false;
-      const t = s.time.split('-')[0];
-      if (period.id === 'evening' && s.time === '全天') return true;
-      return period.test(t);
-    });
-    if (!pf.length) return;
-    hasAny = true;
-    html += `<div class="tl-period"><div class="tl-period-head">${period.label}</div><div class="tl-list">`;
-    html += pf.map(s => {
-      const evName    = s.event || '';
-      const isTransit = isTransitRow(s);
-      const icon      = getIcon(evName);
-      const badge     = isTransit ? '<span class="tl-badge badge-transit">移動</span>' : '';
-      const evDisplay = evName || '<span style="color:var(--text3);font-style:italic;font-weight:400">（未填寫）</span>';
+  $('timelineEl').innerHTML = renderGasItems(items);
 
-      // ── 地點 pills（可能多個）──
-      const locHtml = (s.locs && s.locs.length)
-        ? `<div class="loc-pills">` +
-          s.locs.map((l, i) => {
-            const le = escLoc(l);
-            const sep = i > 0 ? `<span class="loc-sep">·</span>` : '';
-            return `${sep}<button class="loc-pill${s.locs.length > 1 ? ' multi-badge' : ''}" onclick="openLocModal('${le}')">📍 ${l}</button>`;
-          }).join('') + `</div>`
-        : '';
-
-      return `<div class="tl-row${isTransit?' transit':''}">
-        <div class="tl-time">${s.time||'—'}</div>
-        <div class="tl-icon-cell" style="${isTransit?'background:#f0f0f0;border-color:#ddd;font-size:.7rem':''}">${icon}</div>
-        <div class="tl-content">
-          <div class="tl-ev-name">${evDisplay} ${badge}</div>
-          ${locHtml}
-        </div>
-      </div>`;
-    }).join('');
-    html += '</div></div>';
-  });
-
-  $('timelineEl').innerHTML = hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
-
-
-
+  // ── 今晚活動欄（僅正式營期 d2 以後）──
+  const allForEvening = getAggregatedSchedule(currentDay);
+  const evening = allForEvening.find(s => s.time && parseInt(s.time.split('-')[0]) === 19 && !s.transit);
+  const eveningMeta = evening ? getEveningMeta(evening.event) : null;
+  const eveningLoc  = eveningMeta?.loc || (evening?.locs?.length ? evening.locs.join(' · ') : null);
+  const eveningUrl  = eveningMeta?.url || '';
+  const eveningNameHtml = evening
+    ? (eveningUrl
+        ? `<a href="${eveningUrl}" target="_blank" rel="noopener" style="color:var(--emerald);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;text-decoration-color:rgba(26,110,53,0.25);transition:text-decoration-color .15s" onmouseover="this.style.textDecorationColor='rgba(26,110,53,0.6)'" onmouseout="this.style.textDecorationColor='rgba(26,110,53,0.25)'">${evening.event||'（未命名）'}</a>`
+        : `<span style="color:var(--text2);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${evening.event||'（未命名）'}</span>`)
+    : null;
+  const ecGas = $('eveningCard');
+  if (ecGas) {
+    ecGas.style.display = 'flex';
+    $('sb-evening').innerHTML = evening
+      ? `<span style="display:flex;align-items:baseline;gap:.35rem;min-width:0;flex-wrap:wrap">${eveningNameHtml}${eveningLoc ? `<span style="color:var(--text3);font-size:.7rem;white-space:nowrap">📍 ${eveningLoc}</span>` : ''}</span>`
+      : '<span style="color:var(--text3)">（未設定）</span>';
+  }
 }
 
 // ════════════════════════════════════════════════
