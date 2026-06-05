@@ -139,10 +139,7 @@
   <div id="tab-schedule">
     <div class="search-row" style="align-items:flex-start;flex-wrap:nowrap;gap:.5rem">
       <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 0 140px;max-width:180px;margin-top:1px">
-      <div id="eveningCard" style="display:flex;align-items:flex-start;gap:.4rem;padding:.38rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;flex-wrap:wrap;row-gap:.18rem;align-content:flex-start">
-        <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2);white-space:nowrap;line-height:1.6">✦ 今晚活動</span>
-        <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0;word-break:break-word;line-height:1.6">—</div>
-      </div>
+
     </div>
     <div id="timelineEl"></div>
   </div>
@@ -271,71 +268,63 @@ const PRE_DAYS = [
   {id:'p1', label:'6/27', full:'2026/6/27 (六) 營前訓 Day1', type:'weekend', pre:true},
   {id:'p2', label:'6/28', full:'2026/6/28 (日) 營前訓 Day2', type:'weekend', pre:true},
   {id:'p3', label:'6/29', full:'2026/6/29 (一) 營前訓 Day3', type:'weekday', pre:true},
+  {id:'p4', label:'6/30', full:'2026/6/30 (二) 營前訓 Day4', type:'weekday', pre:true},
 ];
 
 // 營前訓靜態行程（志工 + CIT，依日期分開）
 // 格式：{time, event, sub:'志工'|'CIT'|'共同'}
 const PRE_CAMP_SCHEDULE = {
   p1: [
-    {time:'12:30~13:00', event:'均一 Check In',           sub:'志工'},
-    {time:'13:00~13:30', event:'營前訓說明 & 環境介紹',    sub:'志工'},
-    {time:'14:00~14:30', event:'環境導覽',                 sub:'志工'},
-    {time:'14:30~15:00', event:'場地佈置',                 sub:'志工'},
-    {time:'15:30~16:00', event:'各組會議／道具製作／影片拍攝', sub:'志工'},
-    {time:'17:00~17:30', event:'各種活動試跑',             sub:'志工'},
-    {time:'18:00~18:30', event:'晚餐',                    sub:'志工'},
-    {time:'19:00~19:30', event:'各組會議／道具製作',        sub:'志工'},
-    {time:'21:00~21:30', event:'行政時間',                 sub:'志工'},
-    {time:'22:00~22:30', event:'盥洗',                    sub:'志工'},
-    {time:'23:00',       event:'關燈',                    sub:'志工'},
+    {time:'12:30~13:00', event:'均一 Check In'},
+    {time:'13:00~13:30', event:'營前訓說明 & 環境介紹'},
+    {time:'14:00~14:30', event:'環境導覽'},
+    {time:'14:30~15:00', event:'場地佈置'},
+    {time:'15:30~16:00', event:'各組會議／道具製作／影片拍攝'},
+    {time:'17:00~17:30', event:'各種活動試跑'},
+    {time:'18:00~18:30', event:'晚餐'},
+    {time:'19:00~19:30', event:'各組會議／道具製作'},
+    {time:'21:00~21:30', event:'行政時間'},
+    {time:'22:00~22:30', event:'盥洗'},
+    {time:'23:00',       event:'關燈'},
   ],
   p2: [
-    {time:'07:30~08:00', event:'起床',                    sub:'志工'},
-    {time:'08:00~08:30', event:'早餐',                    sub:'志工'},
-    {time:'08:30~09:00', event:'早操排練',                 sub:'志工'},
-    {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝', sub:'志工'},
-    {time:'12:00~12:30', event:'午餐／餐間活動',           sub:'志工'},
-    {time:'13:00~13:30', event:'午休',                    sub:'志工'},
-    {time:'13:30~14:00', event:'課程試教',                 sub:'志工'},
-    {time:'16:30~17:00', event:'各種活動試跑',             sub:'志工'},
-    {time:'19:00~19:30', event:'細流計畫',                sub:'志工'},
-    {time:'20:00~20:30', event:'各組會議／道具製作',        sub:'志工'},
-    {time:'21:00~21:30', event:'行政時間',                 sub:'志工'},
+    {time:'07:30~08:00', event:'起床'},
+    {time:'08:00~08:30', event:'早餐'},
+    {time:'08:30~09:00', event:'早操排練'},
+    {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝'},
+    {time:'12:00~12:30', event:'午餐／餐間活動'},
+    {time:'13:00~13:30', event:'午休'},
+    {time:'13:30~14:00', event:'課程試教'},
+    {time:'16:30~17:00', event:'各種活動試跑'},
+    {time:'19:00~19:30', event:'細流計畫'},
+    {time:'20:00~20:30', event:'各組會議／道具製作'},
+    {time:'21:00~21:30', event:'行政時間'},
   ],
   p3: [
-    {time:'07:30~08:00', event:'起床',                    sub:'CIT'},
-    {time:'08:00~08:30', event:'早餐',                    sub:'CIT'},
-    {time:'08:30~09:00', event:'早操排練',                 sub:'共同'},
-    {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝', sub:'志工'},
-    {time:'09:00~09:30', event:'阿尼色弗參訪',             sub:'CIT'},
-    {time:'11:00~11:30', event:'第一批次人員報到',          sub:'CIT'},
-    {time:'11:00~12:00', event:'Welcome Party 練習',       sub:'CIT'},
-    {time:'12:00~12:30', event:'午餐暨午休／餐間活動',      sub:'CIT'},
-    {time:'13:30~14:00', event:'始業式試跑（選課、AS、環境、活動）', sub:'志工'},
-    {time:'13:30~14:00', event:'各種活動試跑',             sub:'CIT'},
-    {time:'14:00~14:30', event:'始業式試跑（選課、AS、環境、活動）', sub:'CIT'},
-    {time:'15:00~15:30', event:'Welcome Party（試跑）',    sub:'志工'},
-    {time:'15:00~15:30', event:'志工與 CIT 相見歡互動',    sub:'CIT'},
-    {time:'15:30~16:00', event:'各種活動試跑',             sub:'志工'},
-    {time:'15:30~16:00', event:'Welcome Party',           sub:'CIT'},
-    {time:'16:00~16:30', event:'破冰1 / 主題式課程1 / RP1', sub:'CIT'},
-    {time:'16:30~17:00', event:'志工與 CIT 相見歡互動',    sub:'志工'},
-    {time:'16:30~17:00', event:'大掃除分工',               sub:'CIT'},
-    {time:'17:00~17:30', event:'環境打掃',                 sub:'CIT'},
-    {time:'17:30~18:00', event:'各組會議',                 sub:'志工'},
-    {time:'17:30~18:00', event:'Welcome Party 練習',       sub:'CIT'},
-    {time:'18:00~18:30', event:'晚餐',                    sub:'CIT'},
-    {time:'19:00~19:30', event:'團體討論',                 sub:'志工'},
-    {time:'19:00~19:30', event:'全員逃走中',               sub:'CIT'},
-    {time:'20:00~20:30', event:'阿尼色弗計畫',             sub:'CIT'},
-    {time:'21:00~21:30', event:'行政時間',                 sub:'CIT'},
-    {time:'22:00~22:30', event:'Circle Time',             sub:'CIT'},
-    {time:'23:00',       event:'睡覺盥洗',                 sub:'CIT'},
+    {time:'07:30~08:00', event:'起床'},
+    {time:'08:00~08:30', event:'早餐'},
+    {time:'08:30~09:00', event:'早操排練'},
+    {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝'},
+    {time:'13:30~14:00', event:'始業式試跑（選課、AS、環境、活動）'},
+    {time:'15:00~15:30', event:'Welcome Party（試跑）'},
+    {time:'15:30~16:00', event:'各種活動試跑'},
+    {time:'16:30~17:00', event:'志工與 CIT 相見歡互動'},
+    {time:'17:30~18:00', event:'各組會議'},
+    {time:'19:00~19:30', event:'團體討論'},
+    {time:'21:00~21:30', event:'行政時間'},
+  ],
+  p4: [
+    {time:'08:30~09:00', event:'報到離營排練'},
+    {time:'09:00~11:00', event:'各組會議／道具製作'},
+    {time:'11:00~11:30', event:'大掃除分工'},
+    {time:'11:30~12:00', event:'環境打掃'},
+    {time:'13:00~13:30', event:'誓師大會'},
+    {time:'13:30~14:00', event:'準備報到'},
   ],
 };
 
 const DAYS = [
-  {id:'d1', label:'6/30', full:'2026/6/30 (二) Day1',  type:'weekday'},
+  // 6/30 已移至 PRE_DAYS p4（靜態營前訓資料）
   {id:'d2', label:'7/1',  full:'2026/7/1 (三) Day2',   type:'weekday'},
   {id:'d3', label:'7/2',  full:'2026/7/2 (四) Day3',   type:'weekday'},
   {id:'d4', label:'7/3',  full:'2026/7/3 (五) Day4',   type:'weekday'},
@@ -369,7 +358,7 @@ let KENTEN_NOS      = new Set(); // 活動組編號快取，applyData 後更新
 // 靜態個人資訊（小隊、Buddy、聲部班導）
 const PERSON_INFO = {"2": {"squad": "國3", "buddy": "205", "voice": "B"}, "3": {"squad": "國6", "buddy": "207", "voice": "T"}, "4": {"squad": "國8", "buddy": "302", "voice": "S"}, "5": {"squad": "高6", "buddy": "305", "voice": "S"}, "6": {"squad": "高5", "buddy": "204", "voice": "A"}, "7": {"squad": "國4", "buddy": "304", "voice": "A"}, "8": {"squad": "國5", "buddy": "203", "voice": "A"}, "9": {"squad": "國1", "buddy": "206", "voice": "S"}, "11": {"squad": "國3", "buddy": "202", "voice": "S"}, "12": {"squad": "國7", "buddy": "206", "voice": "T"}, "13": {"squad": "國7", "buddy": "204", "voice": "T"}, "14": {"squad": "國5", "buddy": "305", "voice": "A"}, "15": {"squad": "高3", "buddy": "208", "voice": "B"}, "16": {"squad": "高1", "buddy": "204", "voice": "T"}, "17": {"squad": "高4", "buddy": "207", "voice": "B"}, "18": {"squad": "國6", "buddy": "205", "voice": "T"}, "19": {"squad": "國1", "buddy": "307", "voice": "B"}, "20": {"squad": "國2", "buddy": "306", "voice": "B"}, "22": {"squad": "國4", "buddy": "306", "voice": "S"}, "23": {"squad": "國7", "buddy": "206", "voice": "S"}, "24": {"squad": "高4", "buddy": "204", "voice": "S"}, "25": {"squad": "國2", "buddy": "203", "voice": "A"}, "26": {"squad": "高1", "buddy": "205", "voice": "A"}, "27": {"squad": "國8", "buddy": "202", "voice": "A"}, "28": {"squad": "高3", "buddy": "207", "voice": "A"}, "29": {"squad": "高2", "buddy": "207", "voice": "T"}, "30": {"squad": "國8", "buddy": "204", "voice": "B"}, "31": {"squad": "國6", "buddy": "206", "voice": "T"}, "32": {"squad": "國5", "buddy": "206", "voice": "T"}, "33": {"squad": "國1", "buddy": "205", "voice": "B"}, "34": {"squad": "國2", "buddy": "205", "voice": "B"}, "37": {"squad": "高6", "buddy": "208", "voice": "B"}, "39": {"squad": "國3", "buddy": "207", "voice": "T"}, "40": {"squad": "國4", "buddy": "305", "voice": "S"}, "42": {"squad": "", "buddy": "306", "voice": ""}, "43": {"squad": "高2", "buddy": "207", "voice": ""}, "44": {"squad": "", "buddy": "203", "voice": ""}, "45": {"squad": "高5", "buddy": "205", "voice": ""}, "46": {"squad": "", "buddy": "206", "voice": ""}, "48": {"squad": "", "buddy": "202", "voice": ""}, "49": {"squad": "", "buddy": "304", "voice": ""}, "50": {"squad": "", "buddy": "302", "voice": ""}, "52": {"squad": "", "buddy": "206", "voice": ""}, "53": {"squad": "", "buddy": "204", "voice": ""}, "54": {"squad": "", "buddy": "205", "voice": ""}, "56": {"squad": "", "buddy": "208", "voice": ""}, "58": {"squad": "", "buddy": "305", "voice": ""}, "59": {"squad": "", "buddy": "307", "voice": ""}, "61": {"squad": "", "buddy": "307", "voice": ""}, "62": {"squad": "", "buddy": "204", "voice": ""}, "63": {"squad": "", "buddy": "306", "voice": ""}, "68": {"squad": "無", "buddy": "307", "voice": ""}, "69": {"squad": "無", "buddy": "", "voice": ""}};
 
-let currentDay    = 'd1';
+let currentDay    = 'd2';
 let currentTab    = 'schedule';
 let myFilterGroup = null;
 let selectedPerson= null;
@@ -610,9 +599,6 @@ function renderSchedule(){
     });
     if (searchQ) allItems = allItems.filter(i => (i.event||'').toLowerCase().includes(searchQ));
     let html = '', hasAny = false;
-    // 顯示營前訓標題列
-    const subColors = {'志工':'var(--emerald)','CIT':'var(--rose)','共同':'var(--gold-warm)'};
-    const subBgs    = {'志工':'var(--emerald-light)','CIT':'var(--rose-light)','共同':'rgba(200,134,10,0.1)'};
     SCHEDULE_PERIODS.forEach(period => {
       const pf = allItems.filter(s => {
         if (!s.time) return false;
@@ -625,33 +611,22 @@ function renderSchedule(){
       html += pf.map(s => {
         const evName = s.event || '';
         const icon   = getIcon(evName);
-        const col    = subColors[s.sub] || 'var(--text3)';
-        const bg     = subBgs[s.sub]    || 'rgba(200,200,200,0.15)';
-        const subBadge = s.sub ? `<span style="font-size:.55rem;font-weight:700;padding:1px 6px;border-radius:8px;background:${bg};color:${col};border:1px solid ${col}33;flex-shrink:0">${s.sub}</span>` : '';
-        return `<div class="tl-row" style="border-left-color:${col}">
-          <div class="tl-time" style="color:${col}">${s.time||'—'}</div>
-          <div class="tl-icon-cell" style="background:${bg};border-color:${col}33">${icon}</div>
+        return `<div class="tl-row">
+          <div class="tl-time">${s.time||'—'}</div>
+          <div class="tl-icon-cell">${icon}</div>
           <div class="tl-content">
-            <div class="tl-ev-name">${evName} ${subBadge}</div>
+            <div class="tl-ev-name">${evName}</div>
           </div>
         </div>`;
       }).join('');
       html += '</div></div>';
     });
     $('timelineEl').innerHTML = hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
-    const preEveningMap = {
-      p1:'各組會議 · 道具製作',
-      p2:'細流計畫',
-      p3:'團體討論 · 全員逃走中 · 阿尼色弗計畫'
-    };
-    const preEvText = preEveningMap[currentDay] || '—';
-    $('sb-evening').innerHTML = `<span style="color:var(--violet-mid);font-weight:600">${preEvText}</span>`;
     return;
   }
 
   if(!hasData()){
     $('timelineEl').innerHTML = `<div class="sync-hint"><span class="sync-hint-icon">☁️</span>尚未取得行程資料<br>請點右上角「同步」按鈕載入最新行程</div>`;
-    $('sb-evening').innerHTML = '<span style="color:var(--text3)">—</span>';
     return;
   }
 
@@ -701,18 +676,7 @@ function renderSchedule(){
 
   $('timelineEl').innerHTML = hasAny ? html : '<div class="empty-state">此日無符合行程</div>';
 
-  const evening  = allItems.find(s => s.time && parseInt(s.time.split('-')[0]) === 19 && !s.transit);
-  const eveningMeta = evening ? getEveningMeta(evening.event) : null;
-  const eveningLoc  = eveningMeta?.loc || (evening?.locs?.length ? evening.locs.join(' · ') : null);
-  const eveningUrl  = eveningMeta?.url || '';
-  const eveningNameHtml = evening
-    ? (eveningUrl
-        ? `<a href="${eveningUrl}" target="_blank" rel="noopener" style="color:var(--emerald);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;text-decoration-color:rgba(26,110,53,0.25);transition:text-decoration-color .15s" onmouseover="this.style.textDecorationColor='rgba(26,110,53,0.6)'" onmouseout="this.style.textDecorationColor='rgba(26,110,53,0.25)'">${evening.event||'（未命名）'}</a>`
-        : `<span style="color:var(--text2);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${evening.event||'（未命名）'}</span>`)
-    : null;
-  $('sb-evening').innerHTML = evening
-    ? `<span style="display:flex;align-items:baseline;gap:.35rem;min-width:0;flex-wrap:wrap">${eveningNameHtml}${eveningLoc ? `<span style="color:var(--text3);font-size:.7rem;white-space:nowrap">📍 ${eveningLoc}</span>` : ''}</span>`
-    : '<span style="color:var(--text3)">（未設定）</span>';
+
 
 }
 
