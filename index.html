@@ -560,8 +560,6 @@ function buildDayStrip(){
     `<button class="day-chip${d.id===currentDay?' active':''}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
   ).join('');
   $('dayStrip').innerHTML = preHtml + sepHtml + campHtml;
-}${d.type==='weekend'?' weekend':''}" onclick="selectDay('${d.id}')">${d.label}</button>`
-  ).join('');
 }
 function selectDay(id){
   currentDay = id;
