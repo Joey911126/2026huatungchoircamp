@@ -278,42 +278,42 @@ const PRE_DAYS = [
 const PRE_CAMP_SCHEDULE = {
   p1: [
     {time:'12:30~13:00', event:'均一 Check In'},
-    {time:'13:00~13:30', event:'營前訓說明 & 環境介紹'},
+    {time:'13:00~14:00', event:'營前訓說明 & 環境介紹'},
     {time:'14:00~14:30', event:'環境導覽'},
-    {time:'14:30~15:00', event:'場地佈置'},
-    {time:'15:30~16:00', event:'各組會議／道具製作／影片拍攝'},
-    {time:'17:00~17:30', event:'各種活動試跑'},
-    {time:'18:00~18:30', event:'晚餐'},
-    {time:'19:00~19:30', event:'各組會議／道具製作'},
-    {time:'21:00~21:30', event:'行政時間'},
-    {time:'22:00~22:30', event:'盥洗'},
-    {time:'23:00',       event:'關燈'},
+    {time:'14:30~15:30', event:'場地佈置'},
+    {time:'15:30~17:00', event:'各組會議／道具製作／影片拍攝'},
+    {time:'17:00~18:00', event:'各種活動試跑'},
+    {time:'18:00~19:00', event:'晚餐'},
+    {time:'19:00~21:00', event:'各組會議／道具製作'},
+    {time:'21:00~22:00', event:'行政時間'},
   ],
   p2: [
     {time:'07:30~08:00', event:'起床'},
     {time:'08:00~08:30', event:'早餐'},
     {time:'08:30~09:00', event:'早操排練'},
     {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝'},
-    {time:'12:00~12:30', event:'午餐／餐間活動'},
+    {time:'12:00~13:00', event:'午餐／餐間活動'},
     {time:'13:00~13:30', event:'午休'},
-    {time:'13:30~14:00', event:'課程試教'},
-    {time:'16:30~17:00', event:'各種活動試跑'},
-    {time:'19:00~19:30', event:'細流計畫'},
-    {time:'20:00~20:30', event:'各組會議／道具製作'},
-    {time:'21:00~21:30', event:'行政時間'},
+    {time:'13:30~16:30', event:'課程試教'},
+    {time:'16:30~18:00', event:'各種活動試跑'},
+    {time:'18:00~19:00', event:'晚餐'},
+    {time:'19:00~20:00', event:'細流計畫'},
+    {time:'20:00~21:00', event:'各組會議／道具製作'},
+    {time:'21:00~22:00', event:'行政時間'},
   ],
   p3: [
     {time:'07:30~08:00', event:'起床'},
     {time:'08:00~08:30', event:'早餐'},
     {time:'08:30~09:00', event:'早操排練'},
     {time:'09:00~12:00', event:'各組會議／道具製作／影片拍攝'},
-    {time:'13:30~14:00', event:'始業式試跑（選課、AS、環境、活動）'},
+    {time:'12:00~13:00', event:'午餐／餐間活動'},
+    {time:'13:30~15:00', event:'始業式試跑（選課、AS、環境、活動）'},
     {time:'15:00~15:30', event:'Welcome Party（試跑）'},
-    {time:'15:30~16:00', event:'各種活動試跑'},
-    {time:'16:30~17:00', event:'志工與 CIT 相見歡互動'},
+    {time:'15:30~16:30', event:'各種活動試跑'},
+    {time:'16:30~17:30', event:'志工與 CIT 相見歡互動'},
     {time:'17:30~18:00', event:'各組會議'},
-    {time:'19:00~19:30', event:'團體討論'},
-    {time:'21:00~21:30', event:'行政時間'},
+    {time:'18:00~19:00', event:'晚餐'},
+    {time:'19:00~22:00', event:'團體討論'},
   ],
 };
 
@@ -323,6 +323,7 @@ const D1_STATIC_SCHEDULE = [
   {time:'09:00~11:00', event:'各組會議／道具製作'},
   {time:'11:00~11:30', event:'大掃除分工'},
   {time:'11:30~12:00', event:'環境打掃'},
+  {time:'12:00~13:00', event:'午餐／餐間活動'},
   {time:'13:00~13:30', event:'誓師大會'},
   {time:'13:30~14:00', event:'準備報到'},
 ];
@@ -543,10 +544,12 @@ function hasData(){
 function buildDayStrip(){
   const preHtml = PRE_DAYS.map(d => {
     const isActive = d.id===currentDay;
-    const baseStyle = isActive
-      ? 'background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3);color:#fff'
-      : 'border-style:dashed;color:var(--violet-mid);border-color:rgba(93,26,150,0.35)';
-    return `<button class="day-chip" onclick="selectDay('${d.id}')" style="${baseStyle}">${d.label}<span style="font-size:.48rem;vertical-align:super;opacity:.8;margin-left:1px">訓</span></button>`;
+    const isWeekend = d.type==='weekend';
+    const activeStyle = isWeekend
+      ? 'background:var(--violet);border-color:var(--violet);box-shadow:0 2px 8px rgba(93,26,150,0.3);color:#fff;font-weight:600'
+      : 'background:var(--emerald);border-color:var(--emerald);box-shadow:0 2px 8px rgba(26,110,53,0.3);color:#fff;font-weight:600';
+    const baseStyle = isActive ? activeStyle : 'border-style:dashed;color:var(--text3);border-color:var(--border2)';
+    return `<button class="day-chip${isWeekend?' weekend':''}" onclick="selectDay('${d.id}')" style="${baseStyle}">${d.label}</button>`;
   }).join('');
   const sepHtml = '<span style="display:flex;align-items:center;color:var(--border2);font-size:.7rem;padding:0 3px;flex-shrink:0;user-select:none">│</span>';
   const campHtml = DAYS.map(d =>
