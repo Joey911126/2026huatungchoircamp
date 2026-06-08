@@ -138,7 +138,7 @@
   <!-- 行程總覽 Tab -->
   <div id="tab-schedule">
     <div class="search-row" style="align-items:flex-start;flex-wrap:nowrap;gap:.5rem">
-      <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 0 140px;max-width:180px;margin-top:1px">
+      <input class="search-input" id="searchInput" placeholder="🔍 搜尋活動…" oninput="renderSchedule()" style="min-width:0;width:140px;flex:0 0 140px;max-width:180px;margin-top:1px;transition:max-width .2s,flex-basis .2s">
       <div id="eveningCard" style="display:none;align-items:flex-start;gap:.4rem;padding:.38rem .85rem;border-radius:var(--radius-sm);background:linear-gradient(105deg,rgba(26,110,53,0.06) 0%,rgba(255,250,245,0.95) 40%,rgba(192,69,106,0.06) 100%);border:1px solid rgba(200,134,10,0.28);box-shadow:0 1px 6px rgba(192,69,106,0.08),0 0 0 1px rgba(26,110,53,0.05);flex:1;min-width:0;flex-wrap:wrap;row-gap:.18rem;align-content:flex-start">
         <span style="font-family:'Cinzel',serif;font-size:.65rem;color:var(--gold-warm);letter-spacing:.08em;flex-shrink:0;text-shadow:0 0 12px rgba(200,134,10,0.2);white-space:nowrap;line-height:1.6">✦ 今晚活動</span>
         <div id="sb-evening" style="font-size:.76rem;color:var(--text2);min-width:0;word-break:break-word;line-height:1.6">—</div>
@@ -671,7 +671,7 @@ function renderSchedule(){
       (a.time||'99:99').split('~')[0].localeCompare((b.time||'99:99').split('~')[0])
     );
     $('timelineEl').innerHTML = renderStaticItems(allItems);
-    const ec = $('eveningCard'); if(ec) ec.style.display = 'none';
+    const ec = $('eveningCard'); if(ec) ec.style.display = 'none'; const si=document.getElementById('searchInput'); if(si){si.style.flex='0 0 280px';si.style.maxWidth='280px';si.style.flexBasis='280px';}
     return;
   }
 
@@ -711,14 +711,14 @@ function renderSchedule(){
     }
 
     $('timelineEl').innerHTML = staticHtml + gasHtml;
-    const ecD1 = $('eveningCard'); if(ecD1) ecD1.style.display = 'none';
+    const ecD1 = $('eveningCard'); if(ecD1) ecD1.style.display = 'none'; const siD1=document.getElementById('searchInput'); if(siD1){siD1.style.flex='0 0 280px';siD1.style.maxWidth='280px';siD1.style.flexBasis='280px';}
     return;
   }
 
   // ── 其他營期天：純 GAS 路徑 ──
   if(!hasData()){
     $('timelineEl').innerHTML = `<div class="sync-hint"><span class="sync-hint-icon">☁️</span>尚未取得行程資料<br>請點右上角「同步」按鈕載入最新行程</div>`;
-    const ecNd = $('eveningCard'); if(ecNd) ecNd.style.display = 'none';
+    const ecNd = $('eveningCard'); if(ecNd) ecNd.style.display = 'none'; const siNd=document.getElementById('searchInput'); if(siNd){siNd.style.flex='0 0 280px';siNd.style.maxWidth='280px';siNd.style.flexBasis='280px';}
     return;
   }
 
@@ -741,7 +741,7 @@ function renderSchedule(){
     : null;
   const ecGas = $('eveningCard');
   if (ecGas) {
-    ecGas.style.display = 'flex';
+    ecGas.style.display = 'flex'; const siGas=document.getElementById('searchInput'); if(siGas){siGas.style.flex='0 0 140px';siGas.style.maxWidth='180px';siGas.style.flexBasis='140px';}
     $('sb-evening').innerHTML = evening
       ? `<span style="display:flex;align-items:baseline;gap:.35rem;min-width:0;flex-wrap:wrap">${eveningNameHtml}${eveningLoc ? `<span style="color:var(--text3);font-size:.7rem;white-space:nowrap">📍 ${eveningLoc}</span>` : ''}</span>`
       : '<span style="color:var(--text3)">（未設定）</span>';
